@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<style>
+    .yorumlar-alani-sayfa {
+        top: 100px;
+        position: relative;
+        margin-bottom: 100px;
+    }
+</style>
+<section class="yorumlar-alani-sayfa wow fadeInUp" data-wow-delay="0.3s">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="h-yazi-ortalama h-yazi-margin-orta-3 wow fadeInUp" data-wow-delay="0.4s">
+                    <h2 class="h2-baslik-hizmetler-yorum">Recent Blog Posts</h2>
+                </div>
+                <p class="h2-baslik-hizmetler-yorum__yorum wow fadeInUp" data-wow-delay="0.5s">
+                    Be aware of developments in the digital world.
+                </p>
+                <div class="bosluk3a"></div>
+            </div>
+            <div class="col-12">
+                <div class="carousel-classes">
+                    <div class="swiper-wrapper">
+                        {% for post in posts %}
+                            <div class="swiper-slide wow fadeInLeft" data-wow-delay="0.5s" data-tilt>
+                                <div class="post-kutu" style="cursor:pointer;">
+                                    <img src="{% static 'frontend/img/news1.png' %}" alt="{{ post.title }}" class="haber-gorsel">
+                                    <div class="datesection">
+                                        <span class="date">{{ post.created_at|date:"Y.m.d" }}</span>&nbsp;<span class="tt">-</span>&nbsp;<span class="category">{{ post.category.first.name }}</span>
+                                    </div>
+                                    <h3 class="baslik-3 h-yazi-margin-kucuk">{{ post.title }}</h3>
+                                    <p class="post-kutu--yazi">
+                                        {{ post.content|truncatewords:20 }}
+                                    </p>
+                                    <div class="h-yazi-ortalama h-yazi-margin-4">
+                                        <a href="{% url 'blog_post' post.slug %}" class="custom-button">More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- end swiper-wrapper -->
+                    <div class="swiper-pagination"></div>
+                    <!-- end swiper-pagination -->
+                </div>
+            </div>
+            <!-- end col-12 -->
+        </div>
+    </div>
+    <img src="{% static 'frontend/img/about-bg.png' %}" class="absoluteimg2" alt="">
+</section>
+{% endblock body %}

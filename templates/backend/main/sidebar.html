@@ -1,0 +1,116 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Core</div>
+                <a class="nav-link" href="{% url 'dashboard' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+                <a class="nav-link" href="">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Reviews
+                </a>
+                <div class="sb-sidenav-menu-heading">Interface</div>
+
+                
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#collapseAa" aria-expanded="false" aria-controls="collapseAa">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Bookings
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseAa" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="">Add Bookings</a>
+                        <a class="nav-link" href="">View Bookings</a>
+                    </nav>
+                </div>
+
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#collapseAd" aria-expanded="false" aria-controls="collapseAd">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Rooms
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseAd" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" >Add Rooms</a>
+                        <a class="nav-link">View Rooms</a>
+                    </nav>
+                </div>
+
+
+                <!-- Category -->
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Leads
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseCategory" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="">View Bookings</a>
+                        <a class="nav-link" >View Enquiry</a>
+                    </nav>
+                </div>
+
+                
+                <!-- Product -->
+                <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Products
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseProducts" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+               
+                    </nav>
+                </div> -->
+
+
+                <!-- LOcation -->
+                <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#collapseLocation" aria-expanded="false" aria-controls="collapseLocation">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    State & District
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseLocation" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+        
+                    </nav>
+                </div> -->
+
+
+                <!-- Leads Closed -->
+                <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                    data-bs-target="#collapseLeads" aria-expanded="false" aria-controls="collapseLeads">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Closed Leads
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseLeads" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                   
+                    </nav>
+                </div> -->
+               
+               
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            {{ user.username }}
+        </div>
+    </nav>
+</div>

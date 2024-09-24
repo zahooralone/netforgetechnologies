@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Home</title>
+</head>
+
+<body>
+    <h1>All Blog Posts</h1>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <h2><a href="{% url 'blog_post_detail' slug=post.slug %}">{{ post.title }}</a></h2>
+            <p>By <strong>{{ post.author.username }}</strong> on {{ post.created_at }}</p>
+            <p>{{ post.content|truncatewords:30 }} <a href="{% url 'blog_post_detail' slug=post.slug %}">Read more</a>
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
+
+{% endblock body %}

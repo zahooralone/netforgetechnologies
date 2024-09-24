@@ -1,0 +1,1392 @@
+.paketler {
+
+    //işlevseller
+
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    z-index: 4;
+
+    &__on {
+        background-color: $anarenk-koyu-kirmizi;       
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;   
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+        
+
+        &--onyazi {
+            
+            background-color: $beyaz-renk;
+            padding: 26px 15px 25px 15px;
+            height: 23rem;
+            border-radius: 0.3rem;  
+        }
+
+        
+
+    }
+    
+
+
+    &:hover &__on--onyazi {
+
+    }
+
+    &:hover &__on--arkayazi {
+        transform: rotateY(1deg);
+    }
+
+    //ön taraf şekillendirme
+
+    &__gorsel {
+        background-size: cover;
+        height: 23rem;
+        background-blend-mode: color;
+
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        border-top-left-radius: .3rem;
+        border-top-right-radius: .3rem;
+
+        @include responsive(tablet-kucuk) {
+            height: 44rem;
+        }
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, #0e0e0e, #1c1a1a), url(../img/pack1.jpg);
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom, #0e0e0e, #1c1a1a),url(../img/pack2.jpg);
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom, #0e0e0e, #1c1a1a),url(../img/pack3.jpg);
+        }
+    }
+
+    &__baslik {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: $beyaz-renk;
+        text-align: right;
+        /*text-transform: uppercase;*/
+        position: absolute;
+        top: 15rem;
+        margin-left: 8rem;
+        width: 75%;
+
+    }
+
+    &__baslik-span {
+            padding: 1rem 1.5rem;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, 
+            rgba(rgb(36, 36, 36), .85),
+            rgba(rgb(22, 22, 22), .85));
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+    }
+
+    &__icerik {
+           padding: 3rem;
+
+        ul {
+           list-style: none;
+           width: 80%;
+           margin: 0 auto;
+
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: .1rem solid $gri-renk-2;
+                }
+
+                @include responsive(tablet-kucuk) {
+                    font-size: 3.5rem;
+                }
+
+            }
+        }
+    }
+
+    //arka taraf şekillendirme
+
+    &__pr {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        text-align: center;
+    }
+
+    &__pr-kutu {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: $beyaz-renk;
+    }
+
+    &__pr-yazi {
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 600;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 4.4rem;
+        }
+    }
+
+    &__pr-degeri {
+        font-size: 6rem;
+        font-weight: 100;
+        text-align: center;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 11rem;
+        }
+    }
+
+    @media only screen and (max-width: 56.25em),
+           only screen and (hover: none) {
+        height: auto;
+        background-color: $beyaz-renk;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+
+        &__on {
+            height: auto;
+            position: relative; 
+            box-shadow: none;
+
+            &--arkayazi {
+
+                transform: rotateY(0);
+
+            }
+            
+
+        }
+        
+        &:hover &__on--onyazi {
+            transform: rotateY(0);
+        }
+
+        //arka taraf şekillendirme
+
+        &__icerik {
+                padding: 1rem 3rem;
+            }
+
+        &__pr {
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__pr-kutu {
+            margin-bottom: 3rem;
+        }
+
+        &__pr-degeri {
+            font-size: 4rem;
+
+            @include responsive(tablet-kucuk) {
+                font-size: 11rem;
+            }
+        }
+    }
+
+   
+}
+.referans {
+    height: 12.5rem;
+    margin-left: 4rem;
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+    transition: all .2s ease-out;
+
+    @include responsive(tablet-kucuk) {
+        height: 23.5rem;
+    }
+
+    &:hover {
+        height: 12.5rem;
+        margin-left: 4rem;
+        opacity: 1;
+
+        transform: translateY(-.3rem);
+
+        @include responsive(tablet-kucuk) {
+            height: 23.5rem;
+        }
+
+    }
+}
+
+// Paketler 2
+
+.paketler2 {
+
+    //işlevseller
+
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 29rem;
+    z-index: 4;
+
+    &__on {
+        height: 29rem;
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.13);
+        
+
+        &--onyazi {
+            border-radius: 0.3rem;
+            
+        }
+
+        &--arkayazi {
+
+            transform: rotateY(180deg);
+            border-radius: 0.3rem;
+
+            &-1 {
+                background: linear-gradient(to right bottom, #0c5adb, #042e72), transparent url(../img/service1.jpg) center center/cover no-repeat scroll;
+            }
+            &-2 {
+                background: linear-gradient(to right bottom, #0c5adb, #042e72), transparent url(../img/service2.jpg) center center/cover no-repeat scroll;
+            }
+            &-3 {
+                background: linear-gradient(to right bottom, #0c5adb, #042e72), transparent url(../img/service3.jpg) center center/cover no-repeat scroll;
+            }
+            &-4 {
+                background: linear-gradient(to right bottom, #0c5adb, #042e72), transparent url(../img/service4.jpg) center center/cover no-repeat scroll;
+            }
+            &-5 {
+                background: linear-gradient(to right bottom, #0c5adb, #042e72), transparent url(../img/service5.jpg) center center/cover no-repeat scroll;
+            }
+            &-6 {
+                background: linear-gradient(to right bottom, #0c5adb, #042e72), transparent url(../img/service6.jpg) center center/cover no-repeat scroll;
+            }
+
+        }
+        
+
+    }
+    
+
+
+    &:hover &__on--onyazi {
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__on--arkayazi {
+        transform: rotateY(0);
+    }
+
+    //ön taraf şekillendirme
+
+    &__gorsel {
+        background-size: cover;
+        height: 23rem;
+
+        @include responsive(tablet-kucuk) {
+            height: 44rem;
+        }
+
+        &--1 {
+            height: 29rem;
+            border: 1px solid #0c5adb;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--2 {
+            height: 29rem;
+            border: 1px solid #0c5adb;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--3 {
+            height: 29rem;
+            border: 1px solid #0c5adb;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--4 {
+            height: 29rem;
+            border: 1px solid #0c5adb;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--5 {
+            height: 29rem;
+            border: 1px solid #0c5adb;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--6 {
+            height: 29rem;
+            border: 1px solid #0c5adb;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+    }
+
+    &__baslik {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: $beyaz-renk;
+        text-align: right;
+        /*text-transform: uppercase;*/
+        position: absolute;
+        top: 15rem;
+        margin-left: 8rem;
+        width: 75%;
+
+    }
+
+    &__baslik-span {
+            padding: 1rem 1.5rem;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, 
+            rgba(rgb(36, 36, 36), .85),
+            rgba(rgb(22, 22, 22), .85));
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+    }
+
+    &__icerik {
+           padding: 3rem;
+
+        ul {
+           list-style: none;
+           width: 80%;
+           margin: 0 auto;
+
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: .1rem solid $gri-renk-2;
+                }
+
+                @include responsive(tablet-kucuk) {
+                    font-size: 3.5rem;
+                }
+
+            }
+        }
+    }
+
+    //arka taraf şekillendirme
+
+    &__pr {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        text-align: center;
+    }
+
+    &__pr-kutu {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: $beyaz-renk;
+    }
+
+    &__pr-yazi {
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 600;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 4.4rem;
+        }
+    }
+
+    &__pr-degeri {
+        font-size: 6rem;
+        font-weight: 100;
+        text-align: center;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 11rem;
+        }
+    }
+
+    @media only screen and (max-width: 56.25em),
+           only screen and (hover: none) {
+        height: auto;
+        border-radius: .3rem;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+
+        &__on {
+            height: auto;
+            position: relative; 
+            box-shadow: none;
+
+            &--arkayazi {
+
+                transform: rotateY(0);
+
+            }
+            
+
+        }
+        
+        &:hover &__on--onyazi {
+            transform: rotateY(0);
+        }
+
+        //arka taraf şekillendirme
+
+        &__icerik {
+                padding: 1rem 3rem;
+            }
+
+        &__pr {
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__pr-kutu {
+            margin-bottom: 3rem;
+        }
+
+        &__pr-degeri {
+            font-size: 4rem;
+
+            @include responsive(tablet-kucuk) {
+                font-size: 11rem;
+            }
+        }
+    }
+
+   
+}
+.referans {
+    height: 12.5rem;
+    margin-left: 4rem;
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+    transition: all .2s ease-out;
+
+    @include responsive(tablet-kucuk) {
+        height: 23.5rem;
+    }
+
+    &:hover {
+        height: 12.5rem;
+        margin-left: 4rem;
+        opacity: 1;
+
+        transform: translateY(-.3rem);
+
+        @include responsive(tablet-kucuk) {
+            height: 23.5rem;
+        }
+
+    }
+}
+
+
+// paketler 3
+.paketler3 {
+
+    //işlevseller
+
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 52rem;
+
+    &__on {
+        background-color: $anarenk-koyu-kirmizi;
+        height: 52rem;
+        
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;   
+        border-radius: .3rem;
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+        
+
+        &--onyazi {
+            
+            background-color: $beyaz-renk;  
+        }
+
+        &--arkayazi {
+
+            transform: rotateY(180deg);
+
+            &-1 {
+                background-image: linear-gradient(to right bottom, #1c437f, #122a4e);
+            }
+            &-2 {
+                background-image: linear-gradient(to right bottom, #1c437f, #122a4e);
+            }
+            &-3 {
+                background-image: linear-gradient(to right bottom, #1c437f, #122a4e);
+            }
+
+        }
+        
+
+    }
+    
+
+
+    &:hover &__on--onyazi {
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__on--arkayazi {
+        transform: rotateY(0);
+    }
+
+    //ön taraf şekillendirme
+
+    &__gorsel {
+        background-size: cover;
+        height: 25rem;
+        background-blend-mode: color;
+        border-top-left-radius: .3rem;
+        border-top-right-radius: .3rem;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+        @include responsive(tablet-kucuk) {
+            height: 44rem;
+        }
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, #1c437f, #122a4e), url(../img/pack1.jpg);
+            padding: 5px;
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom, #1c437f, #122a4e),url(../img/pack2.jpg);
+            padding: 5px;
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom, #1c437f, #122a4e),url(../img/pack3.jpg);
+            padding: 5px;
+        }
+    }
+
+    &__baslik {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: $beyaz-renk;
+        text-align: right;
+        /*text-transform: uppercase;*/
+        position: absolute;
+        top: 15rem;
+        margin-left: 8rem;
+        width: 75%;
+
+    }
+
+    &__baslik-span {
+            padding: 1rem 1.5rem;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, 
+            rgba(rgb(36, 36, 36), .85),
+            rgba(rgb(22, 22, 22), .85));
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+    }
+
+    &__icerik {
+           padding: 3rem;
+
+        ul {
+           list-style: none;
+           width: 80%;
+           margin: 0 auto;
+
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: .1rem solid $gri-renk-2;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                }
+
+                @include responsive(tablet-kucuk) {
+                    font-size: 3.5rem;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                }
+
+            }
+        }
+    }
+
+    //arka taraf şekillendirme
+
+    &__pr {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        text-align: center;
+    }
+
+    &__pr-kutu {
+        text-align: center;
+        margin-bottom: 8rem;
+        color: $beyaz-renk;
+    }
+
+    &__pr-yazi {
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 600;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 4.4rem;
+        }
+    }
+
+    &__pr-degeri {
+        font-size: 6rem;
+        font-weight: 100;
+        text-align: center;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 11rem;
+        }
+    }
+
+    @media only screen and (max-width: 56.25em),
+           only screen and (hover: none) {
+        height: auto;
+        border-radius: .3rem;
+        background-color: $beyaz-renk;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+
+        &__on {
+            height: auto;
+            position: relative; 
+            box-shadow: none;
+
+            &--arkayazi {
+
+                transform: rotateY(0);
+                clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+
+            }
+            
+
+        }
+        
+        &:hover &__on--onyazi {
+            transform: rotateY(0);
+        }
+
+        //arka taraf şekillendirme
+
+        &__icerik {
+                padding: 1rem 3rem;
+            }
+
+        &__pr {
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__pr-kutu {
+            margin-bottom: 3rem;
+        }
+
+        &__pr-degeri {
+            font-size: 4rem;
+
+            @include responsive(tablet-kucuk) {
+                font-size: 11rem;
+            }
+        }
+    }
+
+   
+}
+.referans {
+    height: 12.5rem;
+    margin-left: 4rem;
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+    transition: all .2s ease-out;
+
+    @include responsive(tablet-kucuk) {
+        height: 23.5rem;
+    }
+
+    &:hover {
+        height: 12.5rem;
+        margin-left: 4rem;
+        opacity: 1;
+
+        transform: translateY(-.3rem);
+
+        @include responsive(tablet-kucuk) {
+            height: 23.5rem;
+        }
+
+    }
+}
+
+// paketler 4
+.paketler4 {
+
+    //işlevseller
+
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 23rem;
+    z-index: 4;
+
+    &__on {
+        background-color: $anarenk-koyu-kirmizi;       
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;   
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+        
+
+        &--onyazi {
+            
+            background-color: $beyaz-renk;
+            padding: 26px 15px 25px 15px;
+            height: 23rem;
+            border-radius: 0.3rem;  
+        }
+
+        &--arkayazi {
+
+            transform: rotateY(180deg);
+            height: 23rem;
+            border-radius: 0.3rem;
+
+            &-1 {
+                background-color: #ffffff;
+                transform: rotateX(180deg) rotateY(0);
+                -webkit-transform: rotateX(180deg) rotateY(0);
+            }
+            &-2 {
+                background-color: #ffffff;
+                transform: rotateX(180deg) rotateY(0);
+                -webkit-transform: rotateX(180deg) rotateY(0);
+            }
+            &-3 {
+                background-color: #ffffff;
+                transform: rotateX(180deg) rotateY(0);
+                -webkit-transform: rotateX(180deg) rotateY(0);
+            }
+
+        }
+        
+
+    }
+    
+
+
+    &:hover &__on--onyazi {
+        transform: rotateX(180deg) rotateY(0);
+        -webkit-transform: rotateX(180deg) rotateY(0);
+    }
+
+    &:hover &__on--arkayazi {
+        transform: rotateY(1deg);
+    }
+
+    //ön taraf şekillendirme
+
+    &__gorsel {
+        background-size: cover;
+        height: 23rem;
+        background-blend-mode: color;
+
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        border-top-left-radius: .3rem;
+        border-top-right-radius: .3rem;
+
+        @include responsive(tablet-kucuk) {
+            height: 44rem;
+        }
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, #0e0e0e, #1c1a1a), url(../img/pack1.jpg);
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom, #0e0e0e, #1c1a1a),url(../img/pack2.jpg);
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom, #0e0e0e, #1c1a1a),url(../img/pack3.jpg);
+        }
+    }
+
+    &__baslik {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: $beyaz-renk;
+        text-align: right;
+        /*text-transform: uppercase;*/
+        position: absolute;
+        top: 15rem;
+        margin-left: 8rem;
+        width: 75%;
+
+    }
+
+    &__baslik-span {
+            padding: 1rem 1.5rem;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, 
+            rgba(rgb(36, 36, 36), .85),
+            rgba(rgb(22, 22, 22), .85));
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+    }
+
+    &__icerik {
+           padding: 3rem;
+
+        ul {
+           list-style: none;
+           width: 80%;
+           margin: 0 auto;
+
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: .1rem solid $gri-renk-2;
+                }
+
+                @include responsive(tablet-kucuk) {
+                    font-size: 3.5rem;
+                }
+
+            }
+        }
+    }
+
+    //arka taraf şekillendirme
+
+    &__pr {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        text-align: center;
+    }
+
+    &__pr-kutu {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: $beyaz-renk;
+    }
+
+    &__pr-yazi {
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 600;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 4.4rem;
+        }
+    }
+
+    &__pr-degeri {
+        font-size: 6rem;
+        font-weight: 100;
+        text-align: center;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 11rem;
+        }
+    }
+
+    @media only screen and (max-width: 56.25em),
+           only screen and (hover: none) {
+        height: auto;
+        background-color: $beyaz-renk;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+
+        &__on {
+            height: auto;
+            position: relative; 
+            box-shadow: none;
+
+            &--arkayazi {
+
+                transform: rotateY(0);
+
+            }
+            
+
+        }
+        
+        &:hover &__on--onyazi {
+            transform: rotateY(0);
+        }
+
+        //arka taraf şekillendirme
+
+        &__icerik {
+                padding: 1rem 3rem;
+            }
+
+        &__pr {
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__pr-kutu {
+            margin-bottom: 3rem;
+        }
+
+        &__pr-degeri {
+            font-size: 4rem;
+
+            @include responsive(tablet-kucuk) {
+                font-size: 11rem;
+            }
+        }
+    }
+
+   
+}
+.referans {
+    height: 12.5rem;
+    margin-left: 4rem;
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+    transition: all .2s ease-out;
+
+    @include responsive(tablet-kucuk) {
+        height: 23.5rem;
+    }
+
+    &:hover {
+        height: 12.5rem;
+        margin-left: 4rem;
+        opacity: 1;
+
+        transform: translateY(-.3rem);
+
+        @include responsive(tablet-kucuk) {
+            height: 23.5rem;
+        }
+
+    }
+}
+
+// paket 5
+
+.paketler5 {
+
+    //işlevseller
+
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 29rem;
+    z-index: 4;
+
+    &__on {
+        height: 29rem;
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.13);
+        
+
+        &--onyazi {
+            border-radius: 0.3rem;
+            
+        }
+
+        &--arkayazi {
+
+            transform: rotateY(180deg);
+            border-radius: 0.3rem;
+
+            &-1 {
+                background-color: $beyaz-renk;
+            }
+            &-2 {
+                background-color: $beyaz-renk;
+            }
+            &-3 {
+                background-color: $beyaz-renk;
+            }
+            &-4 {
+                background-color: $beyaz-renk;
+            }
+            &-5 {
+                background-color: $beyaz-renk;
+            }
+            &-6 {
+                background-color: $beyaz-renk;
+            }
+
+        }
+        
+
+    }
+    
+
+
+    &:hover &__on--onyazi {
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__on--arkayazi {
+        transform: rotateY(0);
+    }
+
+    //ön taraf şekillendirme
+
+    &__gorsel {
+        background-size: cover;
+        height: 23rem;
+
+        @include responsive(tablet-kucuk) {
+            height: 44rem;
+        }
+
+        &--1 {
+            height: 29rem;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--2 {
+            height: 29rem;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--3 {
+            height: 29rem;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--4 {
+            height: 29rem;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--5 {
+            height: 29rem;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+
+        &--6 {
+            height: 29rem;
+            border-radius: 8px;
+            box-shadow: 0px 1px 51.3px 5.7px rgba(137, 143, 156, 0.151);
+        }
+    }
+
+    &__baslik {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: $beyaz-renk;
+        text-align: right;
+        /*text-transform: uppercase;*/
+        position: absolute;
+        top: 15rem;
+        margin-left: 8rem;
+        width: 75%;
+
+    }
+
+    &__baslik-span {
+            padding: 1rem 1.5rem;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, 
+            rgba(rgb(36, 36, 36), .85),
+            rgba(rgb(22, 22, 22), .85));
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, 
+            rgba($anarenk-koyu-kirmizi, .85),
+            rgba($anarenk-koyu-kirmizi, .85));
+        }
+    }
+
+    &__icerik {
+           padding: 3rem;
+
+        ul {
+           list-style: none;
+           width: 80%;
+           margin: 0 auto;
+
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: .1rem solid $gri-renk-2;
+                }
+
+                @include responsive(tablet-kucuk) {
+                    font-size: 3.5rem;
+                }
+
+            }
+        }
+    }
+
+    //arka taraf şekillendirme
+
+    &__pr {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        text-align: center;
+    }
+
+    &__pr-kutu {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: $beyaz-renk;
+    }
+
+    &__pr-yazi {
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 600;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 4.4rem;
+        }
+    }
+
+    &__pr-degeri {
+        font-size: 6rem;
+        font-weight: 100;
+        text-align: center;
+
+        @include responsive(tablet-kucuk) {
+            font-size: 11rem;
+        }
+    }
+
+    @media only screen and (max-width: 56.25em),
+           only screen and (hover: none) {
+        height: auto;
+        border-radius: .3rem;
+        box-shadow: 0 1.5rem 4rem rgba($siyah-renk, .15);
+
+        &__on {
+            height: auto;
+            position: relative; 
+            box-shadow: none;
+
+            &--arkayazi {
+
+                transform: rotateY(0);
+
+            }
+            
+
+        }
+        
+        &:hover &__on--onyazi {
+            transform: rotateY(0);
+        }
+
+        //arka taraf şekillendirme
+
+        &__icerik {
+                padding: 1rem 3rem;
+            }
+
+        &__pr {
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__pr-kutu {
+            margin-bottom: 3rem;
+        }
+
+        &__pr-degeri {
+            font-size: 4rem;
+
+            @include responsive(tablet-kucuk) {
+                font-size: 11rem;
+            }
+        }
+    }
+
+   
+}
+.referans {
+    height: 12.5rem;
+    margin-left: 4rem;
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+    transition: all .2s ease-out;
+
+    @include responsive(tablet-kucuk) {
+        height: 23.5rem;
+    }
+
+    &:hover {
+        height: 12.5rem;
+        margin-left: 4rem;
+        opacity: 1;
+
+        transform: translateY(-.3rem);
+
+        @include responsive(tablet-kucuk) {
+            height: 23.5rem;
+        }
+
+    }
+}
+
