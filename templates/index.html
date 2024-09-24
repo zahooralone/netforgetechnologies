@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,700,900" rel="stylesheet">
+    
+   
+    <link rel="stylesheet" href="{% static 'frontend/css/fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/odometer.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'frontend/css/mycss3.css' %}">
+
+    <link rel="stylesheet" href="{% static 'frontend/css/style5.css' %}">
+    <script src="https://kit.fontawesome.com/8a93534ba6.js" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    
+    <title>{% block title %}Expert Software Development Services by NetForge Technologies{% endblock title %}</title>
+    <link rel="shortcut icon" type="image/png" href="frontend/img/favicon.png">
+    <meta name="description" content="Discover top-notch software development services tailored to your business needs. Let's transform your ideas into reality and drive success together.">
+    {% block link %}{% endblock link %}
+</head>
+<!--sticky phone no.css-->
+<style>
+    
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        
+      }
+    .analysi-sec-2{
+        padding-top:2%;
+    } 
+    .rotat{
+        transform: rotate(180deg);
+    }
+     
+</style>
+<body>
+    <div class="preloader">
+        <figure> <img src="{% static 'frontend/img/loader.png' %} " alt="Image"> </figure>
+    </div>
+    <div class="page-transition"></div>
+    
+    {% include 'main/nav.html' %}
+
+    {% block body %}
+
+    {% endblock body %}
+    <!--Footer Alanı-->
+    {% include 'main/footer.html' %}
+    
+</body>
+
+</html>

@@ -1,0 +1,1542 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Blog Details - HeroBiz Bootstrap Template</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <link href="frontend/img/favicon.png" rel="icon">
+    <link href="frontend/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <style>
+        /*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+        @media screen and (max-width: 768px) {
+            [data-aos-delay] {
+                transition-delay: 0 !important;
+            }
+        }
+
+
+
+        .recent-posts article {
+            background: var(--surface-color);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .recent-posts .post-img {
+            max-height: 240px;
+            margin: -30px -30px 15px -30px;
+            overflow: hidden;
+        }
+
+        .recent-posts .post-category {
+            font-size: 16px;
+            color: color-mix(in srgb, var(--default-color), transparent 50%);
+            margin-bottom: 10px;
+        }
+
+        .recent-posts .title {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .recent-posts .title a {
+            color: var(--heading-color);
+            transition: 0.3s;
+        }
+
+        .recent-posts .title a:hover {
+            color: var(--accent-color);
+        }
+
+        .recent-posts .post-author-img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .recent-posts .post-author {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .recent-posts .post-date {
+            font-size: 14px;
+            color: color-mix(in srgb, var(--default-color), transparent 50%);
+            margin-bottom: 0;
+        }
+
+        /*--------------------------------------------------------------
+# Contact Section
+--------------------------------------------------------------*/
+        .contact .info {
+            background-color: var(--surface-color);
+            padding: 40px;
+            box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .contact .info h3 {
+            font-weight: 600;
+            font-size: 24px;
+        }
+
+        .contact .info p {
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .contact .info-item+.info-item {
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+        }
+
+        .contact .info-item i {
+            font-size: 24px;
+            color: var(--accent-color);
+            transition: all 0.3s ease-in-out;
+            margin-right: 20px;
+        }
+
+        .contact .info-item h4 {
+            padding: 0;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .contact .info-item p {
+            padding: 0;
+            margin-bottom: 0;
+            font-size: 14px;
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+        }
+
+        .contact .php-email-form {
+            width: 100%;
+        }
+
+        .contact .php-email-form .form-group {
+            padding-bottom: 8px;
+        }
+
+        .contact .php-email-form input[type=text],
+        .contact .php-email-form input[type=email],
+        .contact .php-email-form textarea {
+            border-radius: 0px;
+            box-shadow: none;
+            font-size: 14px;
+            background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+            border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+        }
+
+        .contact .php-email-form input[type=text]:focus,
+        .contact .php-email-form input[type=email]:focus,
+        .contact .php-email-form textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .contact .php-email-form input[type=text],
+        .contact .php-email-form input[type=email] {
+            height: 48px;
+            padding: 10px 15px;
+        }
+
+        .contact .php-email-form textarea {
+            padding: 10px 12px;
+            height: 290px;
+        }
+
+        .contact .php-email-form button[type=submit] {
+            background: var(--accent-color);
+            color: var(--contrast-color);
+            border: 0;
+            padding: 13px 50px;
+            transition: 0.4s;
+            border-radius: 4px;
+        }
+
+        .contact .php-email-form button[type=submit]:hover {
+            background: color-mix(in srgb, var(--accent-color) 90%, black 15%);
+        }
+
+
+
+
+        /*--------------------------------------------------------------
+# Blog Posts Section
+--------------------------------------------------------------*/
+        .blog-posts article {
+            background-color: var(--surface-color);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .blog-posts .post-img {
+            max-height: 240px;
+            margin: -30px -30px 15px -30px;
+            overflow: hidden;
+        }
+
+        .blog-posts .post-category {
+            font-size: 16px;
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            margin-bottom: 10px;
+        }
+
+        .blog-posts .title {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .blog-posts .title a {
+            color: var(--heading-color);
+            transition: 0.3s;
+        }
+
+        .blog-posts .title a:hover {
+            color: var(--accent-color);
+        }
+
+        .blog-posts .post-author-img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .blog-posts .post-author {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .blog-posts .post-date {
+            font-size: 14px;
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            margin-bottom: 0;
+        }
+
+        /*--------------------------------------------------------------
+# Blog Pagination Section
+--------------------------------------------------------------*/
+        .blog-pagination {
+            padding-top: 0;
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+        }
+
+        .blog-pagination ul {
+            display: flex;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .blog-pagination li {
+            margin: 0 5px;
+            transition: 0.3s;
+        }
+
+        .blog-pagination li a {
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            padding: 7px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-pagination li a.active,
+        .blog-pagination li a:hover {
+            background: var(--accent-color);
+            color: var(--contrast-color);
+        }
+
+        .blog-pagination li a.active a,
+        .blog-pagination li a:hover a {
+            color: var(--contrast-color);
+        }
+
+        /*--------------------------------------------------------------
+# Blog Details Section
+--------------------------------------------------------------*/
+        .blog-details {
+            padding-bottom: 30px;
+        }
+
+        .blog-details .article {
+            background-color: var(--surface-color);
+            padding: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-details .post-img {
+            margin: -30px -30px 20px -30px;
+            overflow: hidden;
+        }
+
+        .blog-details .title {
+            color: var(--heading-color);
+            font-size: 28px;
+            font-weight: 700;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        .blog-details .content {
+            margin-top: 20px;
+        }
+
+        .blog-details .content h3 {
+            font-size: 22px;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .blog-details .content blockquote {
+            overflow: hidden;
+            background-color: color-mix(in srgb, var(--default-color), transparent 95%);
+            padding: 60px;
+            position: relative;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .blog-details .content blockquote p {
+            color: var(--default-color);
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-style: italic;
+            font-weight: 400;
+            font-size: x-large;
+        }
+
+        .blog-details .content blockquote:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--accent-color);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .blog-details .meta-top {
+            margin-top: 20px;
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+        }
+
+        .blog-details .meta-top ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .blog-details .meta-top ul li+li {
+            padding-left: 20px;
+        }
+
+        .blog-details .meta-top i {
+            font-size: 16px;
+            margin-right: 8px;
+            line-height: 0;
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+        }
+
+        .blog-details .meta-top a {
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            font-size: 14px;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        .blog-details .meta-bottom {
+            padding-top: 10px;
+            border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+        }
+
+        .blog-details .meta-bottom i {
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            display: inline;
+        }
+
+        .blog-details .meta-bottom a {
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            transition: 0.3s;
+        }
+
+        .blog-details .meta-bottom a:hover {
+            color: var(--accent-color);
+        }
+
+        .blog-details .meta-bottom .cats {
+            list-style: none;
+            display: inline;
+            padding: 0 20px 0 0;
+            font-size: 14px;
+        }
+
+        .blog-details .meta-bottom .cats li {
+            display: inline-block;
+        }
+
+        .blog-details .meta-bottom .tags {
+            list-style: none;
+            display: inline;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .blog-details .meta-bottom .tags li {
+            display: inline-block;
+        }
+
+        .blog-details .meta-bottom .tags li+li::before {
+            padding-right: 6px;
+            color: var(--default-color);
+            content: ",";
+        }
+
+        .blog-details .meta-bottom .share {
+            font-size: 16px;
+        }
+
+        .blog-details .meta-bottom .share i {
+            padding-left: 5px;
+        }
+
+        /*--------------------------------------------------------------
+# Blog Author Section
+--------------------------------------------------------------*/
+        .blog-author {
+            padding: 10px 0 40px 0;
+        }
+
+        .blog-author .author-container {
+            background-color: var(--surface-color);
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-author img {
+            max-width: 120px;
+            margin-right: 20px;
+        }
+
+        .blog-author h4 {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 0px;
+            padding: 0;
+            color: color-mix(in srgb, var(--default-color), transparent 20%);
+        }
+
+        .blog-author .social-links {
+            margin: 0 10px 10px 0;
+        }
+
+        .blog-author .social-links a {
+            color: color-mix(in srgb, var(--default-color), transparent 60%);
+            margin-right: 5px;
+        }
+
+        .blog-author p {
+            font-style: italic;
+            color: color-mix(in srgb, var(--default-color), transparent 30%);
+            margin-bottom: 0;
+        }
+
+        /*--------------------------------------------------------------
+# Blog Comments Section
+--------------------------------------------------------------*/
+        .blog-comments {
+            padding: 10px 0;
+        }
+
+        .blog-comments .comments-count {
+            font-weight: bold;
+        }
+
+        .blog-comments .comment {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .blog-comments .comment .comment-img {
+            margin-right: 14px;
+        }
+
+        .blog-comments .comment .comment-img img {
+            width: 60px;
+        }
+
+        .blog-comments .comment h5 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .blog-comments .comment h5 a {
+            font-weight: bold;
+            color: var(--default-color);
+            transition: 0.3s;
+        }
+
+        .blog-comments .comment h5 a:hover {
+            color: var(--accent-color);
+        }
+
+        .blog-comments .comment h5 .reply {
+            padding-left: 10px;
+            color: color-mix(in srgb, var(--default-color), transparent 20%);
+        }
+
+        .blog-comments .comment h5 .reply i {
+            font-size: 20px;
+        }
+
+        .blog-comments .comment time {
+            display: block;
+            font-size: 14px;
+            color: color-mix(in srgb, var(--default-color), transparent 40%);
+            margin-bottom: 5px;
+        }
+
+        .blog-comments .comment.comment-reply {
+            padding-left: 40px;
+        }
+
+        /*--------------------------------------------------------------
+# Comment Form Section
+--------------------------------------------------------------*/
+        .comment-form {
+            padding-top: 10px;
+        }
+
+        .comment-form form {
+            background-color: var(--surface-color);
+            margin-top: 30px;
+            padding: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form form h4 {
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .comment-form form p {
+            font-size: 14px;
+        }
+
+        .comment-form form input {
+            background-color: var(--surface-color);
+            color: var(--default-color);
+            border: 1px solid color-mix(in srgb, var(--default-color), transparent 70%);
+            font-size: 14px;
+            border-radius: 4px;
+            padding: 10px 10px;
+        }
+
+        .comment-form form input:focus {
+            color: var(--default-color);
+            background-color: var(--surface-color);
+            box-shadow: none;
+            border-color: var(--accent-color);
+        }
+
+        .comment-form form input::placeholder {
+            color: color-mix(in srgb, var(--default-color), transparent 50%);
+        }
+
+        .comment-form form textarea {
+            background-color: var(--surface-color);
+            color: var(--default-color);
+            border: 1px solid color-mix(in srgb, var(--default-color), transparent 70%);
+            border-radius: 4px;
+            padding: 10px 10px;
+            font-size: 14px;
+            height: 120px;
+        }
+
+        .comment-form form textarea:focus {
+            color: var(--default-color);
+            box-shadow: none;
+            border-color: var(--accent-color);
+            background-color: var(--surface-color);
+        }
+
+        .comment-form form textarea::placeholder {
+            color: color-mix(in srgb, var(--default-color), transparent 50%);
+        }
+
+        .comment-form form .form-group {
+            margin-bottom: 25px;
+        }
+
+        .comment-form form .btn-primary {
+            border-radius: 4px;
+            padding: 10px 20px;
+            border: 0;
+            background-color: var(--accent-color);
+            color: var(--contrast-color);
+        }
+
+        .comment-form form .btn-primary:hover {
+            color: var(--contrast-color);
+            background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+        }
+
+
+
+        .widgets-container {
+            background-color: var(--surface-color);
+            padding: 30px;
+            margin: 60px 0 30px 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .widget-title {
+            color: var(--heading-color);
+            font-size: 20px;
+            font-weight: 700;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .widget-item {
+            margin-bottom: 40px;
+        }
+
+        .widget-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .search-widget {
+            margin-bottom: 70px;
+            height: 34px;
+            padding-bottom: 8px;
+        }
+
+        .search-widget form {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-widget input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-widget button {
+            position: absolute;
+            right: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #0d6efd;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            width: 4px;
+        }
+
+        .search-widget button i {
+            font-family: 'Font Awesome 5 Free';
+            /* Assuming you're using Font Awesome for the icon */
+            font-weight: 900;
+            content: '\f002';
+            /* FontAwesome search icon */
+        }
+
+        .search-widget input[type="text"]:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+
+
+
+        .category-widget ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-widget ul li {
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .category-widget ul li:last-child {
+            padding-bottom: 0;
+        }
+
+        .category-widget ul a {
+            color: #333;
+            color: color-mix(in srgb, var(--default-color), transparent 20%);
+            transition: color 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .category-widget ul a:hover {
+            color: var(--accent-color);
+        }
+
+        .category-widget ul a span {
+            padding-left: 5px;
+            color: color-mix(in srgb, var(--default-color), transparent 50%);
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .recent-posts-widget .post-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .recent-posts-widget .post-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .recent-posts-widget .post-item img {
+            width: 80px;
+            margin-right: 15px;
+        }
+
+        .recent-posts-widget .post-item h4 {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .recent-posts-widget .post-item h4 a {
+            color: var(--default-color);
+            transition: 0.3s;
+        }
+
+        .recent-posts-widget .post-item h4 a:hover {
+            color: var(--accent-color);
+        }
+
+        .recent-posts-widget .post-item time {
+            display: block;
+            font-style: italic;
+            font-size: 14px;
+            color: color-mix(in srgb, var(--default-color), transparent 50%);
+        }
+
+        .tags-widget {
+            margin-bottom: -10px;
+        }
+
+        .tags-widget ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tags-widget ul li {
+            display: inline-block;
+        }
+
+        .tags-widget ul a {
+            color: color-mix(in srgb, var(--default-color), transparent 30%);
+            font-size: 14px;
+            padding: 6px 14px;
+            margin: 0 6px 8px 0;
+            border: 1px solid color-mix(in srgb, var(--default-color), transparent 60%);
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .tags-widget ul a:hover {
+            background: var(--accent-color);
+            color: var(--contrast-color);
+            border: 1px solid var(--accent-color);
+        }
+
+        .tags-widget ul a span {
+            padding-left: 5px;
+            color: color-mix(in srgb, var(--default-color), transparent 60%);
+            font-size: 14px;
+        }
+
+
+        .tags-section {
+            width: 100%;
+            margin: 20px;
+
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .tag:hover {
+            background-color: #f0f0f0;
+        }
+
+        .page-title {
+            background-color: #f8f9fa;
+            /* Light background similar to the screenshot */
+            padding: 20px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .page-title .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-title h2 {
+            margin: 0;
+            font-size: 24px;
+            /* Adjust the size as needed */
+            color: #333;
+        }
+
+        .breadcrumbs ol {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .breadcrumbs ol li {
+            margin-right: 10px;
+        }
+
+        .breadcrumbs ol li a {
+            text-decoration: none;
+            color: #007bff;
+            /* Link color */
+        }
+
+        .breadcrumbs ol li::after {
+            content: "/";
+            margin-left: 10px;
+            color: #6c757d;
+            /* Divider color */
+        }
+
+        .breadcrumbs ol li:last-child::after {
+            content: "";
+            margin: 0;
+        }
+
+        .breadcrumbs ol li.current {
+            color: #6c757d;
+            /* Current page text color */
+        }
+
+        .search-widget input[type="text"] {
+            height: 45px;
+            
+        }
+
+        .search-widget button {
+            height: 44px;
+            margin-right: -1px;
+            border-radius: 2px;
+        
+        }
+
+       
+        
+    </style>
+</head>
+
+<body>
+
+
+
+    <!-- Page Title -->
+    <div class="page-title" style="margin-top: 180px;">
+        <div class="container">
+            <h2>Blog Details</h2>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="current">Blog Details</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-8 mt-5 pt-5">
+
+                <!-- Blog Details Section -->
+                <section id="blog-details" class="blog-details section">
+                    <div class="container">
+
+                        <article class="article">
+
+                            <div class="post-img">
+                                <img src="{% static 'frontend/img/blog/blog-1.jpg' %}" alt="" class="img-fluid">
+                            </div>
+
+                            <h2 class="title">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam
+                                quia</h2>
+
+                            <div class="meta-top">
+                                <ul>
+                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                            href="blog-details.html">John Doe</a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                            href="blog-details.html"><time datetime="2020-01-01">Jan 1,
+                                                2022</time></a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
+                                            href="blog-details.html">12 Comments</a></li>
+                                </ul>
+                            </div><!-- End meta top -->
+
+                            <div class="flex-item">
+                                <p>
+                                    Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi
+                                    praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
+                                    Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde
+                                    soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur
+                                    assumenda perferendis dolore.
+                                </p>
+
+                                <p>
+                                    Sit repellat hic cupiditate hic ut nemo. Quis nihil sunt non reiciendis. Sequi
+                                    in accusamus harum vel aspernatur. Excepturi numquam nihil cumque odio. Et
+                                    voluptate cupiditate.
+                                </p>
+
+                                <blockquote>
+                                    <p style="margin-top: 50px; margin-bottom: 50px;"><i>
+                                            Et vero doloremque tempore voluptatem ratione vel aut. Deleniti sunt animi
+                                            aut. Aut eos aliquam doloribus minus autem quos.</i>
+                                    </p>
+                                </blockquote>
+
+                                <p>
+                                    Sed quo laboriosam qui architecto. Occaecati repellendus omnis dicta inventore
+                                    tempore provident voluptas mollitia aliquid. Id repellendus quia. Asperiores
+                                    nihil magni dicta est suscipit perspiciatis. Voluptate ex rerum assumenda
+                                    dolores nihil quaerat.
+                                    Dolor porro tempora et quibusdam voluptas. Beatae aut at ad qui tempore corrupti
+                                    velit quisquam rerum. Omnis dolorum exercitationem harum qui qui blanditiis
+                                    neque.
+                                    Iusto autem itaque. Repudiandae hic quae aspernatur ea neque qui. Architecto
+                                    voluptatem magni. Vel magnam quod et tempora deleniti error rerum nihil tempora.
+                                </p>
+
+                                <h3 style="font-weight: bold; margin-top: 50px;">Et quae iure vel ut odit alias. </h3>
+                                <p>
+                                    Officiis animi maxime nulla quo et harum eum quis a. Sit hic in qui quos fugit
+                                    ut rerum atque. Optio provident dolores atque voluptatem rem excepturi molestiae
+                                    qui. Voluptatem laborum omnis ullam quibusdam perspiciatis nulla nostrum.
+                                    Voluptatum est libero eum nesciunt aliquid qui.
+                                    Quia et suscipit non sequi. Maxime sed odit. Beatae nesciunt nesciunt accusamus
+                                    quia aut ratione aspernatur dolor. Sint harum eveniet dicta exercitationem
+                                    minima. Exercitationem omnis asperiores natus aperiam dolor consequatur id ex
+                                    sed. Quibusdam rerum dolores sint consequatur quidem ea.
+                                    Beatae minima sunt libero soluta sapiente in rem assumenda. Et qui odit
+                                    voluptatem. Cum quibusdam voluptatem voluptatem accusamus mollitia aut atque
+                                    aut.
+                                </p>
+                                <img src="{% static 'frontend/img/blog/blog-inside-post.jpg" class="img-fluid' %}"
+                                    alt="">
+
+                                <h3 style="font-weight: bold; margin-top: 20px;">Ut repellat blanditiis est dolore sunt
+                                    dolorum quae.</h3>
+                                <p>
+                                    Rerum ea est assumenda pariatur quasi et quam. Facilis nam porro amet nostrum.
+                                    In assumenda quia quae a id praesentium. Quos deleniti libero sed occaecati aut
+                                    porro autem. Consectetur sed excepturi sint non placeat quia repellat incidunt
+                                    labore. Autem facilis hic dolorum dolores vel.
+                                    Consectetur quasi id et optio praesentium aut asperiores eaque aut. Explicabo
+                                    omnis quibusdam esse. Ex libero illum iusto totam et ut aut blanditiis.
+                                    Veritatis numquam ut illum ut a quam vitae.
+                                </p>
+                                <p style="margin-top: 50px; margin-bottom: 50px;"><i>
+                                        Alias quia non aliquid. Eos et ea velit. Voluptatem maxime enim omnis ipsa
+                                        voluptas incidunt. Nulla sit eaque mollitia nisi asperiores est veniam.</i>
+                                </p>
+
+                            </div><!-- End post content -->
+
+                            <div class="meta-bottom">
+                                <i class="bi bi-folder"></i>
+                                <ul class="cats">
+                                    <li><a href="#">Business</a></li>
+                                </ul>
+
+                                <i class="bi bi-tags"></i>
+                                <ul class="tags">
+                                    <li><a href="#">Creative</a></li>
+                                    <li><a href="#">Tips</a></li>
+                                    <li><a href="#">Marketing</a></li>
+                                </ul>
+                            </div><!-- End meta bottom -->
+
+                        </article>
+
+                    </div>
+                </section><!-- /Blog Details Section -->
+
+                <!-- Blog Author Section -->
+                <section id="blog-author" class="blog-author section">
+
+                    <div class="container">
+                        <div class="author-container d-flex align-items-center">
+                            <img src="{% static 'frontend/img/blog/blog-author.jpg"
+                                class="rounded-circle flex-shrink-0' %}" alt="">
+                            <div>
+                                <h4>Jane Smith</h4>
+                                <div class="social-links">
+                                    <a href="https://x.com/#"><i class="bi bi-twitter-x"></i></a>
+                                    <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                                    <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+                                </div>
+                                <p>
+                                    Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus
+                                    accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas.
+                                    Esse et accusantium ut unde voluptas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </section><!-- /Blog Author Section -->
+
+                <!-- Blog Comments Section -->
+                <section id="blog-comments" class="blog-comments section">
+
+                    <div class="container">
+
+                        <h4 class="comments-count">8 Comments</h4>
+
+                        <div id="comment-1" class="comment">
+                            <div class="d-flex">
+                                <div class="comment-img"><img src="{% static 'frontend/img/blog/comments-1.jpg' %}"
+                                        alt=""></div>
+                                <div>
+                                    <h5><a href="">Georgia Reader</a> <a href="#" class="reply"><i
+                                                class="bi bi-reply-fill"></i> Reply</a></h5>
+                                    <time datetime="2020-01-01">01 Jan,2022</time>
+                                    <p>
+                                        Et rerum totam nisi. Molestiae vel quam dolorum vel voluptatem et et. Est ad
+                                        aut sapiente quis molestiae est qui cum soluta.
+                                        Vero aut rerum vel. Rerum quos laboriosam placeat ex qui. Sint qui facilis
+                                        et.
+                                    </p>
+                                </div>
+                            </div>
+                        </div><!-- End comment #1 -->
+
+                        <div id="comment-2" class="comment">
+                            <div class="d-flex">
+                                <div class="comment-img"><img src="{% static 'frontend/img/blog/comments-2.jpg' %}"
+                                        alt=""></div>
+                                <div>
+                                    <h5><a href="">Aron Alvarado</a> <a href="#" class="reply"><i
+                                                class="bi bi-reply-fill"></i> Reply</a></h5>
+                                    <time datetime="2020-01-01">01 Jan,2022</time>
+                                    <p>
+                                        Ipsam tempora sequi voluptatem quis sapiente non. Autem itaque eveniet
+                                        saepe. Officiis illo ut beatae.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div id="comment-reply-1" class="comment comment-reply">
+                                <div class="d-flex">
+                                    <div class="comment-img"><img src="{% static 'frontend/img/blog/comments-3.jpg' %}"
+                                            alt=""></div>
+                                    <div>
+                                        <h5><a href="">Lynda Small</a> <a href="#" class="reply"><i
+                                                    class="bi bi-reply-fill"></i> Reply</a></h5>
+                                        <time datetime="2020-01-01">01 Jan,2022</time>
+                                        <p>
+                                            Enim ipsa eum fugiat fuga repellat. Commodi quo quo dicta. Est ullam
+                                            aspernatur ut vitae quia mollitia id non. Qui ad quas nostrum rerum sed
+                                            necessitatibus aut est. Eum officiis sed repellat maxime vero nisi
+                                            natus. Amet nesciunt nesciunt qui illum omnis est et dolor recusandae.
+
+                                            Recusandae sit ad aut impedit et. Ipsa labore dolor impedit et natus in
+                                            porro aut. Magnam qui cum. Illo similique occaecati nihil modi eligendi.
+                                            Pariatur distinctio labore omnis incidunt et illum. Expedita et
+                                            dignissimos distinctio laborum minima fugiat.
+
+                                            Libero corporis qui. Nam illo odio beatae enim ducimus. Harum reiciendis
+                                            error dolorum non autem quisquam vero rerum neque.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div id="comment-reply-2" class="comment comment-reply">
+                                    <div class="d-flex">
+                                        <div class="comment-img"><img
+                                                src="{% static 'frontend/img/blog/comments-4.jpg' %}" alt="">
+                                        </div>
+                                        <div>
+                                            <h5><a href="">Sianna Ramsay</a> <a href="#" class="reply"><i
+                                                        class="bi bi-reply-fill"></i> Reply</a></h5>
+                                            <time datetime="2020-01-01">01 Jan,2022</time>
+                                            <p>
+                                                Et dignissimos impedit nulla et quo distinctio ex nemo. Omnis quia
+                                                dolores cupiditate et. Ut unde qui eligendi sapiente omnis ullam.
+                                                Placeat porro est commodi est officiis voluptas repellat quisquam
+                                                possimus. Perferendis id consectetur necessitatibus.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div><!-- End comment reply #2-->
+
+                            </div><!-- End comment reply #1-->
+
+                        </div><!-- End comment #2-->
+
+                        <div id="comment-3" class="comment">
+                            <div class="d-flex">
+                                <div class="comment-img"><img src="{% static 'frontend/img/blog/comments-5.jpg' %}"
+                                        alt=""></div>
+                                <div>
+                                    <h5><a href="">Nolan Davidson</a> <a href="#" class="reply"><i
+                                                class="bi bi-reply-fill"></i> Reply</a></h5>
+                                    <time datetime="2020-01-01">01 Jan,2022</time>
+                                    <p>
+                                        Distinctio nesciunt rerum reprehenderit sed. Iste omnis eius repellendus
+                                        quia nihil ut accusantium tempore. Nesciunt expedita id dolor exercitationem
+                                        aspernatur aut quam ut. Voluptatem est accusamus iste at.
+                                        Non aut et et esse qui sit modi neque. Exercitationem et eos aspernatur. Ea
+                                        est consequuntur officia beatae ea aut eos soluta. Non qui dolorum
+                                        voluptatibus et optio veniam. Quam officia sit nostrum dolorem.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div><!-- End comment #3 -->
+
+                        <div id="comment-4" class="comment">
+                            <div class="d-flex">
+                                <div class="comment-img"><img src="{% static 'frontend/img/blog/comments-6.jpg' %}"
+                                        alt=""></div>
+                                <div>
+                                    <h5><a href="">Kay Duggan</a> <a href="#" class="reply"><i
+                                                class="bi bi-reply-fill"></i> Reply</a></h5>
+                                    <time datetime="2020-01-01">01 Jan,2022</time>
+                                    <p>
+                                        Dolorem atque aut. Omnis doloremque blanditiis quia eum porro quis ut velit
+                                        tempore. Cumque sed quia ut maxime. Est ad aut cum. Ut exercitationem non in
+                                        fugiat.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div><!-- End comment #4 -->
+
+                    </div>
+
+                </section><!-- /Blog Comments Section -->
+
+                <!-- Comment Form Section -->
+                <section id="comment-form" class="comment-form section">
+                    <div class="container">
+
+                        <form action="">
+
+                            <h4>Post Comment</h4>
+                            <p>Your email address will not be published. Required fields are marked * </p>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input name="name" type="text" class="form-control" placeholder="Your Name*">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input name="email" type="text" class="form-control" placeholder="Your Email*">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <input name="website" type="text" class="form-control" placeholder="Your Website">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <textarea name="comment" class="form-control"
+                                        placeholder="Your Comment*"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Post Comment</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </section><!-- /Comment Form Section -->
+
+            </div>
+
+            <div class="col-lg-4 sidebar">
+
+                <div class="widgets-container">
+
+                    <!-- Search Widget -->
+                    <div class="search-widget widget-item">
+                        <h3 class="widget-title mb-4">Search</h3>
+                        <form action="#" method="get">
+                            <input type="text" name="search" placeholder="Search...">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    
+
+                    <!-- Category Widget -->
+                    <div class="category-widget widget-item">
+                        <h3 class="widget-title">Category</h3>
+                        <ul class="mt-3 d-flex flex-column">
+                            <li><a href="#">General <span>(25)</span></a></li>
+                            <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                            <li><a href="#">Travel <span>(5)</span></a></li>
+                            <li><a href="#">Design <span>(22)</span></a></li>
+                            <li><a href="#">Creative <span>(8)</span></a></li>
+                            <li><a href="#">Education <span>(14)</span></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Recent Posts Widget -->
+                    <div class="recent-posts-widget widget-item">
+
+                        <h3 class="widget-title">Recent Posts</h3>
+
+                        <div class="post-item">
+                            <img src="{% static 'frontend/img/blog/blog-recent-1.jpg' %}" alt="" class="flex-shrink-0">
+                            <div>
+                                <h4><a href="blog-details.html">Nihil blanditiis at in nihil autem</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+                        </div><!-- End recent post item-->
+
+                        <div class="post-item">
+                            <img src="{% static 'frontend/img/blog/blog-recent-2.jpg' %}" alt="" class="flex-shrink-0">
+                            <div>
+                                <h4><a href="blog-details.html">Quidem autem et impedit</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+                        </div><!-- End recent post item-->
+
+                        <div class="post-item">
+                            <img src="{% static 'frontend/img/blog/blog-recent-3.jpg' %}" alt="" class="flex-shrink-0">
+                            <div>
+                                <h4><a href="blog-details.html">Id quia et et ut maxime similique occaecati ut</a>
+                                </h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+                        </div><!-- End recent post item-->
+
+                        <div class="post-item">
+                            <img src="{% static 'frontend/img/blog/blog-recent-4.jpg' %}" alt="" class="flex-shrink-0">
+                            <div>
+                                <h4><a href="blog-details.html">Laborum corporis quo dara net para</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+                        </div><!-- End recent post item-->
+
+                        <div class="post-item">
+                            <img src="{% static 'frontend/img/blog/blog-recent-5.jpg' %}" alt="" class="flex-shrink-0">
+                            <div>
+                                <h4><a href="blog-details.html">Et dolores corrupti quae illo quod dolor</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+                        </div><!-- End recent post item-->
+
+                   
+
+                    <div class="tags-section p-4 pr-0 ">
+                        <h2>Tags</h2>
+                        <div class="tags pe-4 pr-0">
+                            <div class="tag">App</div>
+                            <div class="tag">IT</div>
+                            <div class="tag">Business</div>
+                            <div class="tag">Mac</div>
+                            <div class="tag">Design</div>
+                            <div class="tag">Office</div>
+                            <div class="tag">Creative</div>
+                            <div class="tag">Studio</div>
+                            <div class="tag">Smart</div>
+                            <div class="tag">Tips</div>
+                            <div class="tag">Marketing</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+
+        (function () {
+            "use strict";
+
+            /**
+             * Apply .scrolled class to the body as the page is scrolled down
+             */
+            function toggleScrolled() {
+                const selectBody = document.querySelector('body');
+                const selectHeader = document.querySelector('#header');
+                if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
+                window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
+            }
+
+            document.addEventListener('scroll', toggleScrolled);
+            window.addEventListener('load', toggleScrolled);
+
+            /**
+             * Mobile nav toggle
+             */
+            const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+
+            function mobileNavToogle() {
+                document.querySelector('body').classList.toggle('mobile-nav-active');
+                mobileNavToggleBtn.classList.toggle('bi-list');
+                mobileNavToggleBtn.classList.toggle('bi-x');
+            }
+            mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+
+            /**
+             * Hide mobile nav on same-page/hash links
+             */
+            document.querySelectorAll('#navmenu a').forEach(navmenu => {
+                navmenu.addEventListener('click', () => {
+                    if (document.querySelector('.mobile-nav-active')) {
+                        mobileNavToogle();
+                    }
+                });
+
+            });
+
+            /**
+             * Toggle mobile nav dropdowns
+             */
+            document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+                navmenu.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    this.parentNode.classList.toggle('active');
+                    this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+                    e.stopImmediatePropagation();
+                });
+            });
+
+            /**
+             * Preloader
+             */
+            const preloader = document.querySelector('#preloader');
+            if (preloader) {
+                window.addEventListener('load', () => {
+                    preloader.remove();
+                });
+            }
+
+            /**
+             * Scroll top button
+             */
+            let scrollTop = document.querySelector('.scroll-top');
+
+            function toggleScrollTop() {
+                if (scrollTop) {
+                    window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+                }
+            }
+            scrollTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            window.addEventListener('load', toggleScrollTop);
+            document.addEventListener('scroll', toggleScrollTop);
+
+            /**
+             * Animation on scroll function and init
+             */
+            function aosInit() {
+                AOS.init({
+                    duration: 600,
+                    easing: 'ease-in-out',
+                    once: true,
+                    mirror: false
+                });
+            }
+            window.addEventListener('load', aosInit);
+
+            /**
+             * Initiate glightbox
+             */
+            const glightbox = GLightbox({
+                selector: '.glightbox'
+            });
+
+            /**
+             * Init swiper sliders
+             */
+            function initSwiper() {
+                document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
+                    let config = JSON.parse(
+                        swiperElement.querySelector(".swiper-config").innerHTML.trim()
+                    );
+
+                    if (swiperElement.classList.contains("swiper-tab")) {
+                        initSwiperWithCustomPagination(swiperElement, config);
+                    } else {
+                        new Swiper(swiperElement, config);
+                    }
+                });
+            }
+
+            window.addEventListener("load", initSwiper);
+
+            /**
+             * Frequently Asked Questions Toggle
+             */
+            document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
+                faqItem.addEventListener('click', () => {
+                    faqItem.parentNode.classList.toggle('faq-active');
+                });
+            });
+
+            /**
+             * Init isotope layout and filters
+             */
+            document.querySelectorAll('.isotope-layout').forEach(function (isotopeItem) {
+                let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
+                let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
+                let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
+
+                let initIsotope;
+                imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
+                    initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
+                        itemSelector: '.isotope-item',
+                        layoutMode: layout,
+                        filter: filter,
+                        sortBy: sort
+                    });
+                });
+
+                isotopeItem.querySelectorAll('.isotope-filters li').forEach(function (filters) {
+                    filters.addEventListener('click', function () {
+                        isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
+                        this.classList.add('filter-active');
+                        initIsotope.arrange({
+                            filter: this.getAttribute('data-filter')
+                        });
+                        if (typeof aosInit === 'function') {
+                            aosInit();
+                        }
+                    }, false);
+                });
+
+            });
+
+            /**
+             * Correct scrolling position upon page load for URLs containing hash links.
+             */
+            window.addEventListener('load', function (e) {
+                if (window.location.hash) {
+                    if (document.querySelector(window.location.hash)) {
+                        setTimeout(() => {
+                            let section = document.querySelector(window.location.hash);
+                            let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
+                            window.scrollTo({
+                                top: section.offsetTop - parseInt(scrollMarginTop),
+                                behavior: 'smooth'
+                            });
+                        }, 100);
+                    }
+                }
+            });
+
+            /**
+             * Navmenu Scrollspy
+             */
+            let navmenulinks = document.querySelectorAll('.navmenu a');
+
+            function navmenuScrollspy() {
+                navmenulinks.forEach(navmenulink => {
+                    if (!navmenulink.hash) return;
+                    let section = document.querySelector(navmenulink.hash);
+                    if (!section) return;
+                    let position = window.scrollY + 200;
+                    if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+                        document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
+                        navmenulink.classList.add('active');
+                    } else {
+                        navmenulink.classList.remove('active');
+                    }
+                })
+            }
+            window.addEventListener('load', navmenuScrollspy);
+            document.addEventListener('scroll', navmenuScrollspy);
+
+        })();
+    </script>
+</body>
+
+</html>
+{% endblock body %}

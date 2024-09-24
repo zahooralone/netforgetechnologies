@@ -1,0 +1,65 @@
+.container1{
+  background: rgb(237, 239, 240);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-card{
+  min-height: 400px;
+  border-radius: 10px;
+  flex-flow: column;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #fff;
+
+ 
+}
+.testimon-text{
+  padding: 2.2em;
+  line-height: 1.7em;
+  position: relative;
+  font-size: 18px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: #666666;
+}
+.testimonimg{
+  position: absolute;
+  top: -50%;
+  left: 35%;
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  
+}
+
+.testimonialimg{
+  background: linear-gradient(90deg, #1c437f 0%, #153461 100%);
+  height: 140px;
+  border-radius: 0 0 175px 175px;
+  position:relative;
+  
+}
+
+.quote{
+  font-size: 400%;
+  float: right;
+  opacity: .1;
+  transform: rotate(10deg) translate(-10px, -40px);
+ color:#4D3FA3;
+}
+
+.person{
+  color:white;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-size:1.5rem;
+  font-weight: 600;
+}

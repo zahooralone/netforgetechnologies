@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Author: {{ author.user.username }}</title>
+</head>
+<body>
+    <h1>{{ author.user.username }}</h1>
+    <img src="{{ author.profile_image.url }}" alt="{{ author.user.username }}">
+    <p>{{ author.bio }}</p>
+</body>
+</html>
+{% endblock body %}

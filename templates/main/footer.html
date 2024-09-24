@@ -1,0 +1,226 @@
+{% load static %}
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="logo wow fadeInUp" data-wow-delay="0.3s"> <img src="{% static 'frontend/img/logo1.png' %}" alt="Image"> </div>
+                <!-- end logo -->
+                <div class="footer-info wow fadeInUp" data-wow-delay="0.4s">
+                    <p><i class="flaticon-road"></i>New Jersey, America</p>
+                    <p><i class="flaticon-call iconpfooter"></i>&nbsp;&nbsp;&nbsp;+123 456 789</p><br>
+                    <div class="bosluk04"></div>
+                    <p><i class="flaticon-email iconpfooter"></i>&nbsp;&nbsp;&nbsp;example@example.com</p><br>
+                </div>
+                <!-- end footer-info -->
+                <ul class="footer-social wow fadeInUp" data-wow-delay="0.5s">
+                    <li><a href="#"><img width="25" height="25" src="{% static 'frontend/img/facebook.png' %}" alt="Facebook"></a></li>
+                    <li><a href="#"><img width="25" height="25" src="{% static 'frontend/img/instagram2.png' %}" alt="Instagram"></a></li>
+                    <li><a href="#"><img width="25" height="25" src="{% static 'frontend/img/twitter.png' %}" alt="Twitter"></a></li>
+                </ul>
+            </div>
+            <!-- end col-3 -->
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
+                <h6 class="widget-title">Join Our Newsletter</h6>
+                <p class="footerp">
+                    Subscribe to be informed about our services and products.
+                </p>
+                <div class="row">
+                    <form action="subscribe.php" class="form__grup" method="post">
+                        <div class="col-sm">
+                            <div class="form__grup wow fadeInLeft" data-wow-delay="0.7s">
+                                <input type="email" class="form-popup__input" placeholder="Your Email Address" id="email8" name="email8" required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form__grup wow fadeInUp" data-wow-delay="0.9s">
+                                <button class="custom-buttonw11">Subscribe →</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- end col-4 -->
+            <div class="col-lg-2 offset-xl-1 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                <h6 class="widget-title">Services</h6>
+                <ul class="footer-menu">
+                    <li><a href="data-strategy.html">Data Strategy</a></li>
+                    <li><a href="machine-learning.html">Machine Learning</a></li>
+                    <li><a href="software-solutions.html">Software Solutions</a></li>
+                    <li><a href="business-mind.html">Business Mind</a></li>
+                    <li><a href="financial-services.html">Financial Services</a></li>
+                    <li><a href="data-security.html">Data Security</a></li>
+                </ul>
+            </div>
+            <!-- end col-2 -->
+            <div class="col-lg-2 col-sm-6 wow fadeInUp" data-wow-delay="0.8s">
+                <h6 class="widget-title">Quick Links</h6>
+                <ul class="footer-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="packages.html">Packages</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact-us.html">Contact</a></li>
+                </ul>
+            </div>
+            <!-- end col-2 -->
+            <div class="col-12 wow fadeInUp" data-wow-delay="0.9s">
+                <p class="copyright">© 2022 Datax - All Rights Reserved.</p>
+            </div>
+            <!-- end col-12 -->
+        </div>
+        <!-- end row -->
+    </div>
+    <div id="top" style="cursor: pointer;">
+        <img width="50" height="50" src="{% static 'frontend/img/go-top.png' %}" alt="" />
+    </div>
+    <script src="{% static 'frontend/js/team.js' %}"></script>
+    <script src="{% static 'frontend/js/jquery.min.js' %}"></script>
+    <script src="{% static 'frontend/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'frontend/js/fancybox.min.js' %}"></script>
+    <script src="{% static 'frontend/js/swiper.min.js' %}"></script>
+    <script src="{% static 'frontend/js/odometer.min.js' %}"></script>
+    <script src="{% static 'frontend/js/wow.min.js' %}"></script>
+    <script src="{% static 'frontend/js/scripts.js' %}"></script>
+    <script src="{% static 'frontend/js/3d.jquery.js' %}"></script>
+    <script src="{% static 'frontend/js/pointer.js' %}"></script>
+    <script src="{% static 'frontend/js/jquery-1.11.3.min.js' %}"></script>
+
+
+    <!--phone no. sticky-->
+    <script>
+        window.onscroll = function() {myFunction()};
+        
+        var navbar = document.getElementById("navbar1");
+        var sticky = navbar.offsetTop;
+        
+        function myFunction() {
+          if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+          } else {
+            navbar.classList.remove("sticky");
+          }
+        }
+    </script>
+
+
+    <!--Cursor Script-->
+    <script>
+        init_pointer({
+
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#btn_Gonder').click(function() {
+
+                //alert("test");
+
+                var isim = $('#txt_isim').val();
+                var eposta = $('#txt_eposta').val();
+                var telefon = $('#txt_telefon').val();
+                var json_data = {};
+                json_data.isim = isim;
+                json_data.eposta = eposta;
+                json_data.telefon = telefon;
+                $.ajax({
+                    url: "form/Price-Form-Send.php",
+                    method: "post",
+                    data: json_data,
+                    success: function(response) {
+                        if (response == "Success") {
+                            alert("Mesajınız Gönderildi.");
+                        } else if (response == "Failed") {
+                            alert("Mesajınız Gönderilemedi. Lütfen Tekrar Deneyiniz.");
+                        }
+                        console.log(response);
+                        if (response.trim() == "Success") console.log("Success");
+                        else
+                            console.log("Failed :  " + response);
+                    }
+                });
+            });
+        });
+    </script>
+    <!--Açılır Popup 1-->
+    <div class="popup" id="popup-it-support">
+        <div class="popup__content"><br>
+            <a href="#paketler-alani" class="popup__kapat">&times;</a>
+            <h2 class="h2-baslik-popup h-yazi-margin-kucuk"> IT Support Pack </h2>
+            <p class="paragraf-popup">
+                Application Form
+            </p>
+            <form action="it-support.php" class="form-popup" method="post">
+                <div class="form-popup__grup">
+                    <input type="text" class="form-popup__input" placeholder="Full Name" id="txt_isim" name="ad1" required>
+                    <label for="ad1" class="form-popup__label">Full Name</label>
+                </div>
+                <div class="form-popup__grup">
+                    <input type="email" class="form-popup__input" placeholder="Email Address" id="txt_eposta" name="email1" required>
+                    <label for="email1" class="form-popup__label">Email Address</label>
+                </div>
+                <div class="form-popup__grup">
+                    <input type="text" class="form-popup__input" placeholder="Phone Number" id="txt_telefon" name="telefon1" required>
+                    <label for="telefon1" class="form-popup__label">Phone Number</label>
+                </div>
+                <div class="form-popup__grup">
+                    <button class="custom-button" id="btn_Gonder">Submit Form</button>
+                </div><br>
+            </form>
+        </div>
+    </div>
+    <!--Açılır Popup 2-->
+    <div class="popup" id="popup-cloud-service">
+        <div class="popup__content"><br>
+            <a href="#paketler-alani" class="popup__kapat">&times;</a>
+            <h2 class="h2-baslik-popup h-yazi-margin-kucuk"> Cloud Service Pack </h2>
+            <p class="paragraf-popup">
+                Application Form
+            </p>
+            <form action="cloud-service.php" class="form-popup" method="post">
+                <div class="form-popup__grup">
+                    <input type="text" class="form-popup__input" placeholder="Full Name" id="txt_isim" name="ad2" required>
+                    <label for="ad2" class="form-popup__label">Full Name</label>
+                </div>
+                <div class="form-popup__grup">
+                    <input type="email" class="form-popup__input" placeholder="Email Address" id="txt_eposta" name="email2" required>
+                    <label for="email2" class="form-popup__label">Email Address</label>
+                </div>
+                <div class="form-popup__grup">
+                    <input type="text" class="form-popup__input" placeholder="Phone Number" id="txt_telefon" name="telefon2" required>
+                    <label for="telefon2" class="form-popup__label">Phone Number</label>
+                </div>
+                <div class="form-popup__grup">
+                    <button class="custom-button" id="btn_Gonder">Submit Form</button>
+                </div><br>
+            </form>
+        </div>
+    </div>
+    <!--Açılır Popup 3-->
+    <div class="popup" id="popup-server-virtual">
+        <div class="popup__content"><br>
+            <a href="#paketler-alani" class="popup__kapat">&times;</a>
+            <h2 class="h2-baslik-popup h-yazi-margin-kucuk"> Server Virtualization Pack </h2>
+            <p class="paragraf-popup">
+                Application Form
+            </p>
+            <form action="server-virtual.php" class="form-popup" method="post">
+                <div class="form-popup__grup">
+                    <input type="text" class="form-popup__input" placeholder="Full Name" id="txt_isim" name="ad3" required>
+                    <label for="ad3" class="form-popup__label">Full Name</label>
+                </div>
+                <div class="form-popup__grup">
+                    <input type="email" class="form-popup__input" placeholder="Email Address" id="txt_eposta" name="email3" required>
+                    <label for="email3" class="form-popup__label">Email Address</label>
+                </div>
+                <div class="form-popup__grup">
+                    <input type="text" class="form-popup__input" placeholder="Phone Number" id="txt_telefon" name="telefon3" required>
+                    <label for="telefon3" class="form-popup__label">Phone Number</label>
+                </div>
+                <div class="form-popup__grup">
+                    <button class="custom-button" id="btn_Gonder">Submit Form</button>
+                </div><br>
+            </form>
+        </div>
+    </div>
+</footer>

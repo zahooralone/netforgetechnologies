@@ -1,0 +1,352 @@
+    .navbar.navbar-expand-lg {
+        background-color: #0A152F !important;
+        box-shadow: none;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar.navbar-expand-lg.bg-light {
+        background-color: #0A152F !important;
+        position: fixed;
+        width: 100%;
+        z-index: 10;
+        padding-top: 50px;
+        justify-content: space-between;
+    }
+
+    .carousel.slide {
+        padding-top: 100px;
+    }
+
+
+    .form-control,
+    .form-select,
+    .col-12.mb-3.name,
+    .col-12.mb-3.number {
+        border: 1px solid rgb(43, 29, 200);
+    }
+
+
+    h4,
+    .txt,
+    .text-success {
+        font-family: Lobster Two, Arial, Helvetica, sans-serif;
+        font-weight: 600;
+
+    }
+
+
+    .form-control.y.search-input {
+        border-radius: 50px;
+        border-color: seagreen;
+
+    }
+
+    .btn.btn-outline-success {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    .d-block {
+        width: 100%;
+        object-fit: cover;
+        height: 490px;
+        flex-shrink: inherit;
+    }
+
+    .card-img {
+        height: 250px;
+    }
+
+    @media (max-width:768px) {
+        .col-md-11 {
+            padding-left: 11px !important;
+            padding-right: 11px !important;
+
+        }
+    }
+
+
+    .swiper-navBtn::before,
+    .swiper-navBtn::after {
+        color: rgb(16, 97, 24);
+    }
+
+
+    .swiper-button-next:hover {
+        color: #16510b !important;
+    }
+
+    .swiper-button-prev:hover {
+        color: #16510b !important;
+    }
+
+    .swiper-button-prev {
+        left: 0 !important;
+    }
+
+    .swiper-button-next {
+        right: 0 !important;
+    }
+
+    .col-md-11 {
+        width: 100%;
+        padding-left: 21px !important;
+        padding-right: 21px !important;
+    }
+
+    .carousel-control-next-icon,
+    .carousel-control-prev-icon {
+        background-color: rgb(37, 115, 30);
+        border-radius: 30px;
+
+    }
+
+    .carousel-control-prev-icon {
+        margin-left: 34px;
+    }
+
+    .carousel-control-next-icon {
+        margin-right: 34px;
+    }
+
+
+    .image1 {
+        width: 100%;
+        height: 365px;
+        object-fit: fill;
+    }
+
+    .col-md-6.pt-5.justify-content-center {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+
+    /* Container Styles */
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Row Styles */
+    .row {
+        margin: 0;
+    }
+
+    /* Column Styles */
+    .col {
+        padding: 0 15px;
+    }
+
+    /* Header Styles */
+    .head h5 {
+        padding-top: 1rem;
+        color: green;
+
+    }
+
+    /* See All Button Styles */
+    .see-all-btn {
+        text-align: right;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .see-all-btn a {
+        color: green;
+        text-decoration: none;
+    }
+
+    .see-all-btn h6 {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .card-body.ab {
+
+        background-color: #8ec06c;
+        padding: 15px;
+
+    }
+
+    .card-body h6 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    /* Price and Order Button Styles */
+    .text-start p {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .btn-outline-secondary {
+
+        border-color: #7f8992;
+        color: #070e14;
+        border-radius: 13px;
+        /* padding: 3px 8px; */
+
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6d747a;
+        color: #fff;
+    }
+
+    .name {
+        padding: 3px 7px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 576px) {
+        .container {
+            padding: 0 10px;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .col {
+            padding: 0 10px;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card-body h6 {
+            font-size: 0.875rem;
+        }
+
+        .text-start p {
+            font-size: 0.875rem;
+        }
+
+        .btn-outline-secondary {
+            padding: 5px 10px;
+            font-size: 0.875rem;
+
+        }
+    }
+
+
+
+    .index {
+        font-family: 'Times New Roman', Times, serif;
+        color: coral;
+        padding-left: 20px;
+    }
+
+    .index1 {
+        background-color: #0A152F;
+        padding-top: 10px;
+    }
+
+
+
+    .email {
+        padding-left: 62px;
+
+    }
+
+    .email2 {
+        border-radius: 13px;
+        border-color: sienna;
+        margin-left: 64px;
+    }
+
+    .contact {
+        /* border-radius: 13px; */
+        border-color: sienna;
+    }
+
+    .cnd {
+        padding-left: 20px;
+    }
+
+    .bi-facebook {
+        font-size: 30px;
+        margin-right: 10px;
+        cursor: pointer;
+        color: #3b5998;
+
+    }
+
+    .bi-instagram {
+        font-size: 30px;
+        margin-right: 20px;
+        cursor: pointer;
+        color: #D44638;
+    }
+
+    .bi-envelope-fill {
+        font-size: 30px;
+        margin-right: 20px;
+        cursor: pointer;
+        color: #df0e0e;
+    }
+
+    .bi-twitter-x {
+        font-size: 30px;
+        margin-right: 20px;
+        cursor: pointer;
+        color: #1DA1F2;
+    }
+
+    .p1 {
+        font-weight: bold;
+        font-size: 13px;
+        padding-left: 20px;
+    }
+
+    /* order now modal  */
+    .form-label,
+    .text.bold {
+        font-family: "Trispace", sans-serif;
+        font-weight: 700;
+        color: rgb(81, 2, 36);
+
+    }
+
+    .dropdown-item {
+        font-family: "Oleo Script Swash Caps", system-ui;
+
+        font-weight: 800;
+    }
+
+
+    .modal-content {
+        color: transparent;
+
+    }
+
+    .form-control.bg-light,
+    .form-select.bg-light {
+        border: 0.5mm solid rgb(2, 60, 81);
+
+    }
+
+    .modal-content:hover {
+        transition: 0.5s ease-in-out;
+    }
+
+    .btn.btn-primary {
+        background-color: #3f880b;
+        border: none;
+    }
+
+    .btn.btn-dark {
+        border: none;
+    }
+
+    .btn.btn-primary:hover,
+    .btn.btn-dark:hover {
+        background-color: #1e4425;
+        transition: 0.5s ease-in-out;
+    }

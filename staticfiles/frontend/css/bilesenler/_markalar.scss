@@ -1,0 +1,32 @@
+.marka {
+    height: 12.5rem;
+    margin-left: 4rem;
+    filter: alpha(opacity=40);
+    opacity: 0.9;
+    transition: all .2s ease-out;
+    border: 3px solid #f9f9f9;
+    border-radius: 0.3rem;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+
+
+
+    @include responsive(tablet-kucuk) {
+        height: 23.5rem;
+        margin-left: 0rem;
+    }
+
+    &:hover {
+        height: 12.5rem;
+        margin-left: 4rem;
+        opacity: 1;
+
+        transform: translateY(-.3rem);
+
+        @include responsive(tablet-kucuk) {
+            height: 23.5rem;
+        }
+
+    }
+}
