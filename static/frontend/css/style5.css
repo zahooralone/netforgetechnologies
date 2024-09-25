@@ -21812,3 +21812,51 @@ a.sb:checked {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.karosal,
+.imagge  {
+    min-width: 90%;
+    height: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.active-bullet.bullettt {
+    background-color: #333;
+}
+
+.pagination-bullet {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+/* Center the pagination */
+#paginationnn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.portfolio-detailsss {
+    margin-left: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.tabloozellik {
+    max-width: 145rem;
+}
+
+.projeler-sayfa-alani {
+    top: 100px;
+    position: relative;
+    margin-bottom: 100px;
+}

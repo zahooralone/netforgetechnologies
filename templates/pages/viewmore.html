@@ -54,27 +54,27 @@
 
     <div class="container mt-4">
         <div class="row">
-            {% for project in projects %}
+     
             <div class="col-8">
-                <h2 class="text-center">Our Projects</h2>
+                <h2 class="text-center">Projects</h2>
                 <p class="text-center">Explore our recent projects and see how we can help you achieve your digital
-         </p>
-         <p>{{ project.description }}</p>
+             </p>
+               <p></p>
 
                 <!-- Start of Django Loop -->
              
-                <div id="projectCarousel{{ forloop.counter }}" class="carousel slide" data-bs-ride="carousel">
+                <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner" style="height: 340px;">
                         <!-- Loop through each project's images -->
-                        {% for img in project.image.all %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <img src="{{ img.image.url }}" alt="Image for {{ project.name }}">
+                    
+                        <div class="carousel-item ">
+                            <img src="" alt="Image for ">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ project.name }}</h5>
                               
                             </div>
                         </div>
-                        {% endfor %}
+                     
                     </div>
                     <button class="carousel-control-prev" type="button"
                         data-bs-target="#projectCarousel{{ forloop.counter }}" data-bs-slide="prev">
@@ -92,11 +92,11 @@
                 <div class="text-center mt-3 mb-3">
                     <div id="pagination{{ forloop.counter }}" class="pagination">
                         <!-- Pagination based on the number of images -->
-                        {% for img in project.image.all %}
+                  
                         <span class="pagination-bullet {% if forloop.first %}active-bullet{% endif %}"
                             data-bs-target="#projectCarousel{{ forloop.parentloop.counter }}"
                             data-bs-slide-to="{{ forloop.counter0 }}"></span>
-                        {% endfor %}
+            
                     </div>
                 </div>
             </div>
@@ -105,23 +105,22 @@
                 <div class="portfolio-details text-start mt-4">
                     <h2 class="pro" style="color: orangered;">Project Details</h2>
                     <hr>
-                    <p><b>Category:</b> {{ project.category }}</p>
-                    <p><b>Client:</b> {{ project.client }}</p>
-                    <p><b>Project Date:</b> {{ project.project_date }}</p>
-                    <p><b>Project URL:</b> <a href="{{ project.project_url }}" target="_blank">{{ project.project_url}}</a></p>
+                    <p><b>Category:</b> </p>
+                    <p><b>Client:</b> </p>
+                    <p><b>Project Date:</b></p>
+                    <!-- <p><b>Project URL:</b> <a href="{{ project.project_url }}" target="_blank">{{ project.project_url}}</a></p> -->
                 </div>
                 <hr>
-                {% for portfolio in portfolio %}
+        
                 <div class="proje m-2">
                     <h3 class="proj mt-4">{{ portfolio.title }}</h3>
                     <p>{{ portfolio.description }}</p>
                 </div>
-                {% endfor %}
+        
               
                 <!-- End of Django Loop -->
             </div>
-            {% endfor %}
-     
+          
         </div>
     </div>
 

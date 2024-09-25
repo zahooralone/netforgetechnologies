@@ -25,23 +25,24 @@
                 <div class="carousel-classes">
                     <div class="swiper-wrapper">
                         {% for post in posts %}
-                            <div class="swiper-slide wow fadeInLeft" data-wow-delay="0.5s" data-tilt>
-                                <div class="post-kutu" style="cursor:pointer;">
-                                    <img src="{% static 'frontend/img/news1.png' %}" alt="{{ post.title }}" class="haber-gorsel">
-                                    <div class="datesection">
-                                        <span class="date">{{ post.created_at|date:"Y.m.d" }}</span>&nbsp;<span class="tt">-</span>&nbsp;<span class="category">{{ post.category.first.name }}</span>
-                                    </div>
-                                    <h3 class="baslik-3 h-yazi-margin-kucuk">{{ post.title }}</h3>
-                                    <p class="post-kutu--yazi">
-                                        {{ post.content|truncatewords:20 }}
-                                    </p>
-                                    <div class="h-yazi-ortalama h-yazi-margin-4">
-                                        <a href="{% url 'blog_post' post.slug %}" class="custom-button">More</a>
-                                    </div>
+                        <div class="swiper-slide wow fadeInLeft" data-wow-delay="0.5s" data-tilt>
+                            <div class="post-kutu" style="cursor:pointer;">
+                                <img src="{% static 'frontend/img/news1.png' %}" alt="{{ post.title }}" class="haber-gorsel">
+                                <div class="datesection">
+                                    <span class="date">{{ post.created_at|date:"Y.m.d" }}</span>&nbsp;<span class="tt">-</span>&nbsp;<span class="category">{{ post.category.first.name }}</span>
+                                </div>
+                                <h3 class="baslik-3 h-yazi-margin-kucuk">{{ post.title }}</h3>
+                                <p class="post-kutu--yazi">
+                                    {{ post.content|truncatewords:20 }}  <!-- Display a truncated version of the post content -->
+                                </p>
+                                <div class="h-yazi-ortalama h-yazi-margin-4">
+                                    <a href="{% url 'blog_post' post.id %}" class="custom-button">More</a>
                                 </div>
                             </div>
+                        </div>
                         {% endfor %}
                     </div>
+                    
                     <!-- end swiper-wrapper -->
                     <div class="swiper-pagination"></div>
                     <!-- end swiper-pagination -->
