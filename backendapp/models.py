@@ -24,6 +24,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)  # Will be filled automatically
     content = models.TextField()
+    image = models.ImageField(upload_to='blog_images/')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
@@ -36,7 +37,7 @@ class Blog(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-
+# Automatic slug generation
 def generate_slug(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = slugify(instance.title)
@@ -47,8 +48,8 @@ class PostDetail(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
     image = models.ImageField(upload_to='post_images/')
-    category = models.ManyToManyField(Category, related_name='posts')
-    tags = models.ManyToManyField(Tag, related_name='posts')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='post_details')
+    tags = models.ManyToManyField(Tag, related_name='post_details', blank=True)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -56,15 +57,13 @@ class PostDetail(models.Model):
     def __str__(self):
         return self.title
 
+# Automatic slug generation for PostDetail
+def generate_post_slug(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(instance.title)
 
-class Comment(models.Model):
-    post = models.ForeignKey(PostDetail, related_name='comments', on_delete=models.CASCADE)
-    author_name = models.CharField(max_length=100)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+pre_save.connect(generate_post_slug, sender=PostDetail)
 
-    def __str__(self):
-        return f'Comment by {self.author_name} on {self.post.title}'
 
 
 # Blog Category Model
