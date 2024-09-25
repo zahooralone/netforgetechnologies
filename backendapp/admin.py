@@ -1,26 +1,22 @@
 from django.contrib import admin
-from .models import Project, Image, Portfolio, Card, PostDetail, Category, Tag, Comment
+from .models import Project, Image, Portfolio, Card, PostDetail, Category, Tag, Blog 
+
+
+
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'created_at')
+    prepopulated_fields = {'slug': ('title',)}  # Slug auto-population
 
 class PostDetailAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'created_at')
-    list_filter = ('category', 'tags')
-    search_fields = ('title', 'content', 'author__username')
-    prepopulated_fields = {'slug': ('title',)}  # Keeping this if slug is added
+    prepopulated_fields = {'slug': ('title',)}
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-
-class TagAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ('post', 'author_name', 'created_at')
-    search_fields = ('author_name', 'content')
-
+admin.site.register(Blog, BlogAdmin)
 admin.site.register(PostDetail, PostDetailAdmin)
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Tag, TagAdmin)
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Category)
+admin.site.register(Tag)
+
+
 
 admin.site.register(Portfolio)
 admin.site.register(Card)

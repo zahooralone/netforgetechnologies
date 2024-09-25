@@ -10,7 +10,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('blogs/', views.blogs, name='blogs'),
     # path('blog/post/<slug:slug>/', views.blog_post, name='blog_post'),
-    path('blog/<int:post_id>/', views.blog_post, name='blog_post'),
+    path('blog/<int:id>/', views.blog_post, name='blog_post'),  # Ensure this matches
 
 
     path('contact/', views.contact, name='contact'),
