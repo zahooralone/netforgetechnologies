@@ -16,7 +16,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, "You have been logged in!")
-            return redirect('backendapp:dashboard')  # Redirect to the dashboard or desired page
+            return redirect('dashboard')  # Redirect to the dashboard or desired page
         else:
             messages.error(request, "Invalid username or password. Please try again.")
             # Return the login page with an error message

@@ -1,17 +1,7 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block body %}
-<style>
-    .tabloozellik {
-        max-width: 145rem;
-    }
 
-    .projeler-sayfa-alani {
-        top: 100px;
-        position: relative;
-        margin-bottom: 100px;
-    }
-</style>
 <section class="projeler-sayfa-alani" style="overflow:hidden">
     <div class="h-yazi-ortalama h-yazi-margin-orta-4 wow fadeInUp" data-wow-delay="0.3s">
         <h2 class="h2-baslik-hizmetler-2"> Our Latest <strong>Projects</strong> </h2>
@@ -26,7 +16,7 @@
                 <div class="cards">
                     <div class="tabloozellik">
                         {% for card in cards %}
-                        <a href="{% url 'viewmore' %}">
+                        <a href="{% url 'project_detail' card.project.id %}">
                             <div class="tablo--1-ve-3">
                                 <div class="card wow zoomIn" data-wow-delay="0.5{{ forloop.counter }}s"
                                     onclick="window.location.href='project-detail.html'">
@@ -47,60 +37,11 @@
         </div>
     </div>
 
-    <div class="component-systemTabs">
-        <div class="tabs-container">
-            <!--Projects Tab1-->
-            <div id="tab-1" data-tab-title="Datax Project" class="tab-content current">
-                <div class="cards">
-                    <div class="tabloozellik">
-                        <div class="tablo--1-ve-3">
-                                <a href="{% url 'viewmore' %}">
-                                <div class="card wow zoomIn" data-wow-delay="0.5s"
-                                    onclick="window.location.href='project-detail.html'">
-                                    <img src="{% static 'frontend/img/project4.png' %}" alt="Project">
-                                    <div class="cardContent">
-                                        <h2>Data Science</h2>
-                                        <button onclick="window.location.href='studies-detail.html'">View</button>
-                                    </div>
-                                </div>
-                            </a>
-                            </div>
-                        <!--Projects Tab2-->
-                        <div class="tablo--1-ve-3">
-                                <a href="{% url 'viewmore' %}">
-                                <div class="card wow zoomIn" data-wow-delay="0.6s"
-                                    onclick="window.location.href='project-detail.html'">
-                                    <img src="{% static 'frontend/img/project5.png' %}" alt="Project">
-                                    <div class="cardContent">
-                                        <h2>Software Solutions</h2>
-                                        <button onclick="window.location.href='studies-detail.html'">View</button>
-                                    </div>
-                                </div>
-                            </a>
-                            </div>
-                        <!--Projects Tab3-->
-
-                        <div class="tablo--1-ve-3">
-                            <a href="{% url 'viewmore' %}">
-                            <div class="card wow zoomIn" data-wow-delay="0.7s"
-                                onclick="window.location.href='project-detail.html'">
-                                <img src="{% static 'frontend/img/project6.png' %}" alt="Project">
-                                <div class="cardContent">
-                                    <h2>Data Security</h2>
-                                    <button onclick="window.location.href='project-detail.html'">View</button>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
 
     <div class="h-yazi-ortalama h-yazi-margin">
-        <a href="{% url 'viewmore' %}" class="custom-button">Send Quote</a>
+        <a href="{% url 'viewmore'  %}" class="custom-button">Send Quote</a>
     </div>
 </section>
 {% endblock body %}

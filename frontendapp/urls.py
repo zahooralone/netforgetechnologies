@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from netforge import settings
 from django.conf.urls.static import static
-from backendapp.models import BlogPost
+# from backendapp.models import BlogPost
 
 
 urlpatterns = [
@@ -10,7 +10,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('blogs/', views.blogs, name='blogs'),
     # path('blog/post/<slug:slug>/', views.blog_post, name='blog_post'),
-    path('post/<slug:slug>/', views.blog_post, name='blog_post'),
+    path('blog/<int:post_id>/', views.blog_post, name='blog_post'),
 
 
     path('contact/', views.contact, name='contact'),
@@ -18,6 +18,7 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('viewmore/', views.viewmore, name='viewmore'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('project/<int:project_id>/', views.project_detail, name='project_detail'),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

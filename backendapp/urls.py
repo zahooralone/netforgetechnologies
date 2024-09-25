@@ -9,9 +9,10 @@ app_name = 'backendapp'
 urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
 
-   
-    path('author/<int:author_id>/', views.author_bio, name='author_bio'),
-    path('', views.recent_posts, name='recent_posts'),
+    # path('', views.recent_posts, name='recent_posts'),
+    # path('author/<int:author_id>/', views.author_bio, name='author_bio'),
+    
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

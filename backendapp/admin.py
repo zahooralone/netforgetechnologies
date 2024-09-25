@@ -1,26 +1,44 @@
 from django.contrib import admin
-from .models import BlogPost, Comment, Category, Tag, AuthorBio, Project, Image, Portfolio, Card
+from .models import Project, Image, Portfolio, Card, PostDetail, Category, Tag, Comment
 
-admin.site.register(BlogPost)
-admin.site.register(Comment)
-admin.site.register(Category)
-admin.site.register(Tag)
-admin.site.register(AuthorBio)
+class PostDetailAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'created_at')
+    list_filter = ('category', 'tags')
+    search_fields = ('title', 'content', 'author__username')
+    prepopulated_fields = {'slug': ('title',)}  # Keeping this if slug is added
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('post', 'author_name', 'created_at')
+    search_fields = ('author_name', 'content')
+
+admin.site.register(PostDetail, PostDetailAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(Comment, CommentAdmin)
+
 admin.site.register(Portfolio)
 admin.site.register(Card)
 
-
-
-
 class ImageInline(admin.TabularInline):
-    model = Project.image.through  # Allows many-to-many images to be managed within the Project admin
-    extra = 1  # Number of empty image fields shown in the admin
+    model = Project.image.through
+    extra = 1
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'client', 'project_date')
     search_fields = ('name', 'category', 'client')
     list_filter = ('category', 'project_date')
-   
+    inlines = [ImageInline]
+
+    def delete_model(self, request, obj):
+        for image in obj.image.all():
+            image.delete()
+        super().delete_model(request, obj)
 
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('image',)
@@ -29,9 +47,3 @@ class ImageAdmin(admin.ModelAdmin):
 # Registering the models
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Image, ImageAdmin)
-# admin.site.register(PortfolioDetail)
-
-
-
-
-
