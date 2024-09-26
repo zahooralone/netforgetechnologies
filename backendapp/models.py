@@ -3,9 +3,9 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
-# Optionally, if you want to generate slugs automatically
-from django.utils.text import slugify
-from django.db.models.signals import pre_save
+
+
+from django.core.validators import EmailValidator
 
 
 class Category(models.Model):
@@ -48,7 +48,7 @@ class PostDetail(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
     image = models.ImageField(upload_to='post_images/')
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='post_details')
+    categories = models.ManyToManyField(Category, related_name='post_details', blank=True)  # Changed to ManyToManyField
     tags = models.ManyToManyField(Tag, related_name='post_details', blank=True)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -107,19 +107,20 @@ pre_save.connect(generate_post_slug, sender=PostDetail)
 # pre_save.connect(generate_slug, sender=BlogPost)
 
 # Comment Model
-# class Comment(models.Model):
-#     post = models.ForeignKey(BlogPost, related_name='comments', on_delete=models.CASCADE)
-#     author = models.CharField(max_length=100)
-#     email = models.EmailField()
-#     content = models.TextField()
-#     created_at = models.DateTimeField(default=timezone.now)
-#     parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
 
-#     def __str__(self):
-#         return f'Comment by {self.author}'
 
-#     class Meta:
-#         ordering = ['-created_at']
+class Comment(models.Model):
+    name = models.CharField(max_length=100)  # Commenter's name
+    email = models.EmailField()  # Using default email validation
+    website = models.URLField(blank=True, null=True)  # New website field
+    content = models.TextField()  # Comment content
+    created_at = models.DateTimeField(default=timezone.now)  # Timestamp
+
+    def __str__(self):
+        return f'Comment by {self.name}'
+
+    class Meta:
+        ordering = ['-created_at']
 
 # Blog Author Bio Model
 # class AuthorBio(models.Model):

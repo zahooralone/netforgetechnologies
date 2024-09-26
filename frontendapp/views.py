@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from backendapp.models import Project, Portfolio, Card,Blog
+from backendapp.models import Project, Portfolio, Card,Blog, Tag, Comment
 from django.views import View
 from backendapp.models import PostDetail
+from django.db.models import Count
+# import hashlib  
+from django.contrib import messages  
 # Create your views here.
 def Home(request):
     return render(request, 'pages/home.html')
@@ -18,15 +21,39 @@ def blogs(request):
 
 def blog_post(request, id):
     post = get_object_or_404(PostDetail, id=id) # or whatever filtering is necessary
-    return render(request, 'pages/blog_post.html', {'post': post})
+    tags = post.tags.all() # or whatever filtering is necessary
+    categories = post.categories.annotate(post_count=Count('post_details'))
+    comments = Comment.objects.all()  # Fetch all comments
+    context = {
+        'post': post, 
+        'tags':tags, 
+        'categories': categories,
+        'comments': comments,
+    }
+    return render(request, 'pages/blog_post.html', context)
 
 
 
-# class BlogPostView(View):
-#     def get(self, request, slug):
-#         post = get_object_or_404(BlogPost, slug=slug)
-#         comments = post.comments.all()
-#         return render(request, 'pages/blog_post.html', {'post': post, 'comments': comments})
+def comment_detail(request, id):
+    comments = Comment.objects.all()  # Fetch all comments
+    comment_count = comments.count()  # Count the comments
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        website = request.POST.get('website')
+        content = request.POST.get('content')
+
+        if name and email and content:  # Validate required fields
+            comment = Comment(name=name, email=email, website=website, content=content)
+            comment.save()  # Save comment to the database
+            messages.success(request, 'Your comment has been posted successfully!')
+            return redirect('blog_post', id=id)  # Adjust redirect as needed
+
+        messages.error(request, 'Please fill out all required fields.')
+
+    return render(request, 'pages/blog_post.html', {
+        'comments': comments,'comment_count': comment_count, 
+    })
 
 
 
