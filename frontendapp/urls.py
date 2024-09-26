@@ -9,9 +9,8 @@ urlpatterns = [
     path('', views.Home, name='home'),
     path('about/', views.about, name='about'),
     path('blogs/', views.blogs, name='blogs'),
-    # path('blog/post/<slug:slug>/', views.blog_post, name='blog_post'),
     path('blog/<int:id>/', views.blog_post, name='blog_post'),  # Ensure this matches
-
+    path('comment_detail/<int:id>/', views.comment_detail, name='comment_detail'),  # Ensure this matches
 
     path('contact/', views.contact, name='contact'),
     path('projects/', views.projects, name='projects'),
