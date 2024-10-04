@@ -5,9 +5,6 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 
 
-from django.core.validators import EmailValidator
-
-
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -23,19 +20,17 @@ class Tag(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)  # Will be filled automatically
-    content = models.TextField()
     image = models.ImageField(upload_to='blog_images/')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()  # Merged content field from PostDetail
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # Added author field
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='blogs')
+    categories = models.ManyToManyField(Category, related_name='blogs', blank=True)  # Changed to ManyToManyField
     tags = models.ManyToManyField(Tag, related_name='blogs', blank=True)
+    is_deleted = models.BooleanField(default=False)  # New field for soft deletion
 
     def __str__(self):
         return self.title
-
-    class Meta:
-        ordering = ['-created_at']
 
 # Automatic slug generation
 def generate_slug(sender, instance, *args, **kwargs):
@@ -44,69 +39,6 @@ def generate_slug(sender, instance, *args, **kwargs):
 
 pre_save.connect(generate_slug, sender=Blog)
 
-class PostDetail(models.Model):
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True)
-    image = models.ImageField(upload_to='post_images/')
-    categories = models.ManyToManyField(Category, related_name='post_details', blank=True)  # Changed to ManyToManyField
-    tags = models.ManyToManyField(Tag, related_name='post_details', blank=True)
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title
-
-# Automatic slug generation for PostDetail
-def generate_post_slug(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.title)
-
-pre_save.connect(generate_post_slug, sender=PostDetail)
-
-
-
-# Blog Category Model
-# class Category(models.Model):
-#     name = models.CharField(max_length=100)
-    
-#     def __str__(self):
-#         return self.name
-
-# Blog Tag Model
-# class Tag(models.Model):
-#     name = models.CharField(max_length=100)
-
-#     def __str__(self):
-#         return self.name
-
-# # Blog Post Model
-# class BlogPost(models.Model):
-#     author = models.ForeignKey(User, on_delete=models.CASCADE)
-#     title = models.CharField(max_length=255)
-#     slug = models.SlugField(unique=True, blank=True)  # Allow blank, will be filled automatically before save
-#     image = models.ImageField(upload_to='blog_images/', null=True, blank=True)
-#     content = models.TextField()
-#     created_at = models.DateTimeField(default=timezone.now)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     category = models.ManyToManyField(Category, related_name='posts')
-#     tags = models.ManyToManyField(Tag, related_name='posts')
-    
-#     def __str__(self):
-#         return self.title
-
-#     class Meta:
-#         ordering = ['-created_at']
-
-# # Automatically generate slug from title if not provided
-# def generate_slug(sender, instance, *args, **kwargs):
-#     if not instance.slug:
-#         instance.slug = slugify(instance.title)
-
-# Connect signal to pre_save for BlogPost model
-# pre_save.connect(generate_slug, sender=BlogPost)
-
-# Comment Model
 
 
 class Comment(models.Model):
@@ -115,6 +47,7 @@ class Comment(models.Model):
     website = models.URLField(blank=True, null=True)  # New website field
     content = models.TextField()  # Comment content
     created_at = models.DateTimeField(default=timezone.now)  # Timestamp
+    # post = models.ForeignKey(PostDetail, related_name='comments', on_delete=models.CASCADE)  # Link to PostDetail
 
     def __str__(self):
         return f'Comment by {self.name}'
@@ -122,51 +55,44 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-# Blog Author Bio Model
-# class AuthorBio(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     bio = models.TextField()
-#     profile_image = models.ImageField(upload_to='author_images/', null=True, blank=True)
 
-#     def __str__(self):
-#         return self.user.username
 
 class Project(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
+    slug = models.SlugField(unique=True, blank=True)
     category = models.CharField(max_length=100)
-    image = models.ManyToManyField('Image', related_name='projects', blank=True) 
+    images = models.ManyToManyField('Image', related_name='projects', blank=True)  # Keep the ManyToMany relationship
     client = models.CharField(max_length=100)
     project_date = models.DateField()
-    # project_url = models.URLField(max_length=200)
+    title = models.CharField(max_length=255, blank=True)  # Field from Portfolio
+    is_deleted = models.BooleanField(default=False)  # Field from Card
+    
+    def save(self, *args, **kwargs):
+        # Automatically generate a slug if it's not set
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
-    
 
 class Image(models.Model):
     image = models.ImageField(upload_to='author_images/')
-    
+
     def __str__(self):
         return self.image.name
-    
 
-class Portfolio(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    # projects = models.ManyToManyField(Project, related_name='portfolios', blank=True)
 
-    def __str__(self):
-        return self.title
-    
 
-class Card(models.Model):
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='card_images/')
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='cards', blank=True, null=True)
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name='cards', blank=True, null=True)
-    # project_url = models.URLField(max_length=200, blank=True, null=True)
+
+class QuoteRequest(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.IntegerField()
+    company = models.CharField(max_length=200)
+    message = models.TextField()
+    is_deleted = models.BooleanField(default=False)  # Field for soft delete
 
     def __str__(self):
-        return self.title
-
+        return f"QuoteRequest from {self.name}"

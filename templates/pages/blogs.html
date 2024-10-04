@@ -7,58 +7,59 @@
     margin-bottom: 100px;
   }
 </style>
-<section class="yorumlar-alani-sayfa wow fadeInUp" data-wow-delay="0.3s">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div
-          class="h-yazi-ortalama h-yazi-margin-orta-3 wow fadeInUp"
-          data-wow-delay="0.4s"
-        >
-          <h2 class="h2-baslik-hizmetler-yorum">Recent Blog Posts</h2>
-        </div>
-        <p
-          class="h2-baslik-hizmetler-yorum__yorum wow fadeInUp"
-          data-wow-delay="0.5s"
-        >
-          Be aware of developments in the digital world.
-        </p>
-        <div class="bosluk3a"></div>
+
+<section class="services1 wow fadeInUp mt-5 mb-0" data-wow-delay="0.4s">
+  <div class="bosluk3"></div>
+  <div class="tabloozellik">
+      <div class="tablo--1-ve-2 mt-5 pt-5">
+          <div class="h-yazi-ortalama h-yazi-margin-orta-3 mt-5">
+              <h2 class="h2-baslik-hizmetler-2-s wow fadeInUp mt-5" data-wow-delay="0.5s">Recent Blog Posts</h2>
+          </div>
+          <p class="paragraf-slider text-white wow fadeInUp mt-5" data-wow-delay="0.6s">Be aware of developments in the digital world...</p>
+         
       </div>
+      <!--Services 1-->
+      <div class="tablo--1-ve-4" >
+  
+      </div>
+      <!--Services 2-->
+      <div class="tablo--1-ve-4">
+          
+      </div>
+  </div>
+  
+</section>
+<!-- <section class="yorumlar-alani-sayfa wow fadeInUp mb-5 pt-0 " data-wow-delay="0.3s"> -->
+  <div class="container mb-5 mt-5">
+    
       <div class="row d-flex">
         {% for blog in blogs %}
         <div class="col-4">
           <div class="cardddd">
-            <!-- <div class=""> -->
-
             <div class="swiasp wow fadeInLeft" data-wow-delay="0.5s" data-tilt>
               <div class="post-kutu" style="cursor: pointer">
                 <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="haber-gorsel"  />
                 <div class="datesection">
-                  <span class="date">{{ blog.created_at|date:"Y.m.d" }}</span
-                  >&nbsp;<span class="tt">-</span>&nbsp;<span class="category"
+                  <!-- <span class="date fs-4">{{ blog.created_at|date:"Y.m.d" }}</span>&nbsp; -->
+                  <span class="tt"></span>&nbsp;<span class="category"
                     >{{ blog.category.first.name }}</span
                   >
                 </div>
                 <h3 class="baslik-3 h-yazi-margin-kucuk me-5">{{ blog.title }}</h3>
                 <p class="post-kutu--yazi">
-                  {{ blog.content|truncatechars:47 }}
+                  {{ blog.content|safe|truncatechars:50 }}
                   <!-- Display a truncated version of the post content -->
                 </p>
                 <div class="h-yazi-ortalama h-yazi-margin-4">
-                    <a href="{% url 'blog_post' blog.id %}" class="custom-button">More</a> <!-- Include the blog ID -->
+                    <a href="{% url 'blog_post' blog.slug %}" class="custom-button">More</a> <!-- Include the blog ID -->
                 </div>
               </div>
             </div>
-        </div>
+           </div>
         </div>
         {% endfor %}
       </div>
-      
-      <!-- end col-12 -->
-    </div>
-  </div>
   </div>
  
-</section>
+<!-- </section> -->
 {% endblock body %}

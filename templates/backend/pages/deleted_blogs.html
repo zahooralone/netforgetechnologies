@@ -1,0 +1,66 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+<!-- templates/comments/comment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <link rel="stylesheet" href="{% static 'backend/css/styles.css' %}"> <!-- Adjust path as necessary -->
+    <style>
+    
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Deleted Blog Posts</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Author</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for blog in blogs %}
+                <tr>
+                    <td>{{ blog.title }}</td>
+                    <td><img style="height: 70px; width: 80px;" src="{{ blog.image.url }}" alt="{{ blog.title }}" width="100"></td>
+                    <td>{{ blog.author.username }}</td>
+                    <td>
+                        <a href="{% url 'backendapp:restore_blog' blog.id %}" class="btn btn-success" title="Restore" onclick="return confirm('Are you sure you want to restore this blog?');">
+                            Restore
+                        </a>
+                        <a href="{% url 'backendapp:permanently_delete_blog' slug=blog.slug %}" class="btn btn-danger" title="Permanently Delete" onclick="return confirm('Are you sure you want to permanently delete this blog?');">
+                            Permanently Delete
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No deleted blog posts available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+    
+</body>
+</html>
+
+
+{% endblock %}

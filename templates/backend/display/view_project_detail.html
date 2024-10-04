@@ -1,0 +1,49 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- add_blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+ 
+
+    </style>
+</head>
+<body>
+    
+    <div class="container my-5">
+        <h2>{{ project.name }}</h2><hr>
+        <p><strong>Category:</strong> {{ project.category }}</p><hr>
+        <p><strong>Client:</strong> {{ project.client }}</p><hr>
+        <p><strong>Project Date:</strong> {{ project.project_date|date:'F j, Y' }}</p><hr>
+        <p><strong>Description:</strong></p>
+        <p>{{ project.description }}</p><hr>
+    
+        <h4>Images</h4>
+        <div class="row">
+            {% for image in project.images.all %}
+            <div class="col-md-2">
+                <img style="height: 120px; width: 130px;" src="{{ image.image.url }}" alt="Project Image" class="img-thumbnail">
+            </div>
+            {% empty %}
+            <p>No images available for this project.</p>
+            {% endfor %}
+        </div>
+    
+        <a href="{% url 'backendapp:dashboard' %}" class="btn btn-primary mt-3">Back to Dashboard</a>
+    </div>
+    
+    
+</body>
+</html>
+
+{% endblock %}

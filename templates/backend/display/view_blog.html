@@ -1,0 +1,84 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- add_blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+ 
+
+    </style>
+</head>
+<body>
+    
+    <div class="container mt-5">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Blog Posts</h2>
+        <table class="table table-bordered shadow border-none">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Image</th>
+                    <th>Author</th>
+                    <th>Categories</th>
+                    <th>Tags</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for blog in blogs %}
+                <tr>
+                    <td>{{ blog.title }}</td>
+                    <td>{{ blog.content|truncatechars:30 }}</td>
+                    <td><img style="height: 70px; width: 80px;" src="{{ blog.image.url }}" alt="{{ blog.title }}" width="100"></td>
+                    <td>{{ blog.author.username }}</td>
+                    <td>
+                        {% for category in blog.categories.all %}
+                            {{ category.name }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for tag in blog.tags.all %}
+                            {{ tag.name }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                       
+                        <a href="{% url 'backendapp:edit_blog' blog.id %}" class="me-2 text-decoration-none" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{% url 'backendapp:delete_blog' blog.id %}" class="text-danger" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No posts available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>
+
+{% endblock %}

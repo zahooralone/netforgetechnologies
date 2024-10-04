@@ -1,0 +1,49 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+<!-- templates/comments/comment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <link rel="stylesheet" href="{% static 'backend/css/styles.css' %}"> <!-- Adjust path as necessary -->
+    <style>
+    
+    </style>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <div class="container mt-5 shadow p-4">
+        <h2>Deleted Quote Requests</h2>
+        {% if quote_request %}
+            <ul class="list-group">
+                {% for request in quote_request %}
+                    <li class="list-group-item">
+                        <strong>{{ request.name }}</strong> - {{ request.email }}
+                        <div class="float-right my-3">
+                            <a href="{% url 'backendapp:restore_request' request.id %}" class="btn btn-primary btn-sm">Restore</a>
+                            <a href="{% url 'backendapp:permanently_delete_request' request.id %}" class="btn btn-danger btn-sm">Permanently Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No deleted quote requests found.</p>
+        {% endif %}
+        <a href="{% url 'backendapp:dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+    
+</body>
+</html>
+
+
+{% endblock %}

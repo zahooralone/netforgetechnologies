@@ -1,0 +1,119 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- add_blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .tab-content {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        /* .nav-item {
+            border: 1px solid black;
+            font-weight: 700;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: medium;
+        } */
+        .nav-tabs {
+        border-bottom: 2px solid #ddd; /* Default border for the tab container */
+    }
+
+    .nav-tabs .nav-link {
+        border: none; /* Remove default border */
+        padding: 10px 15px; /* Padding for the tabs */
+        color: #007bff; /* Tab text color */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    }
+
+    .nav-tabs .nav-link.active {
+        /* border-bottom: 2px solid #007bff; Bottom border for active tab */
+        background-color: white; /* Background for active tab */
+        font-weight: bold; /* Highlight active tab text */
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color: #f8f9fa; /* Light background on hover */
+        color: #0056b3; /* Darker text color on hover */
+    }
+
+    .tab-content {
+        border: 1px solid #ddd; /* Content area border */
+        padding: 20px; /* Padding for content */
+        border-radius: 5px; /* Rounded corners */
+        margin-top: -1px; /* Aligns content with tabs */
+    }
+
+    .tab-pane {
+        display: none; /* Hide all tab content by default */
+    }
+
+    .tab-pane.active {
+        display: block; /* Show active tab content */
+    }
+
+    </style>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <div class="container mt-5">
+        <h2>Edit Project: {{ project.name }}</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Project Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ project.name }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="category" name="category" value="{{ project.category }}" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" required>{{ project.description }}</textarea>
+                </div>
+                <div class="col-md-6">
+                    <label for="client" class="form-label">Client</label>
+                    <input type="text" class="form-control" id="client" name="client" value="{{ project.client }}" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="project_date" class="form-label">Project Date</label>
+                    <input type="date" class="form-control" id="project_date" name="project_date" value="{{ project.project_date|date:'Y-m-d' }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="images" class="form-label">Upload New Images (Leave blank to keep existing)</label>
+                    <input type="file" class="form-control" id="images" name="images" multiple>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Project</button>
+            <a href="{% url 'backendapp:dashboard' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+        
+    </div>
+    
+</body>
+</html>
+
+{% endblock %}

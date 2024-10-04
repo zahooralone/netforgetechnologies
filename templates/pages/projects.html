@@ -1,47 +1,208 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block body %}
+<style>
+    .btn-md.btn-secondaryyy {
+        padding-left: 70px !important;
+        padding-right: 80px !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        /* background-color: #222; */
+        color: azure !important;
+        border-radius: 50px !important;
+        font-size: 18px !important;
+        margin-top: 15px !important;
 
-<section class="projeler-sayfa-alani" style="overflow:hidden">
-    <div class="h-yazi-ortalama h-yazi-margin-orta-4 wow fadeInUp" data-wow-delay="0.3s">
-        <h2 class="h2-baslik-hizmetler-2"> Our Latest <strong>Projects</strong> </h2>
+    }
+    .inputtt{
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(30, 0, 255);
+    }
+    .inputtt.phones{
+       padding-top: 39px !important;
+       width: 210px !important;
+    }
+    @media (max-width:500px) {
+        .inputtt.phones{
+            width: 90% !important;
+        }
+       
+    }
+    .text-message{
+        color: rgb(13, 14, 14) !important;
+        font-size: large !important;
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-radius: 0 !important;
+        padding-bottom: 3px !important;
+        background-color: rgb(255, 255, 255) !important;
+        border-bottom: 1px solid rgb(0, 0, 255) !important;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<section class="services1 wow fadeInUp mt-5 mb-0" data-wow-delay="0.4s">
+    <div class="bosluk3"></div>
+    <div class="tabloozellik">
+        <div class="tablo--1-ve-2 mt-5 pt-5">
+            <div class="h-yazi-ortalama h-yazi-margin-orta-3 mt-5">
+                <h2 class="h2-baslik-hizmetler-2-s wow fadeInUp mt-5" data-wow-delay="0.5s"> Our Latest <strong>Projects</strong></h2>
+            </div>
+            <p class="paragraf-slider text-white wow fadeInUp mt-5" data-wow-delay="0.6s">   We always try to implement our creative ideas at the highest level...</p>
+           
+        </div>
+        <!--Services 1-->
+        <div class="tablo--1-ve-4" >
+    
+        </div>
+        <!--Services 2-->
+        <div class="tablo--1-ve-4">
+            
+        </div>
     </div>
-    <p class="h2-baslik-hizmetler-3__paragraf wow fadeInUp" data-wow-delay="0.4s">
-        We always try to implement our creative ideas at the highest level.
-    </p>
-    <div class="component-systemTabs">
+    
+  </section>
+
+  {% if messages %}
+  <div class="alert alert-info">
+      {% for message in messages %}
+          <p>{{ message }}</p>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+<!-- <section class="projeler-sayfa-alani" style="overflow:hidden"> -->
+    <div class="component-systemTabs mt-5 mb-2">
         <div class="tabs-container">
             <!--Projects Tab1-->
             <div id="tab-1" data-tab-title="Datax Project" class="tab-content current">
                 <div class="cards">
                     <div class="tabloozellik">
-                        {% for card in cards %}
-                        <a href="{% url 'project_detail' card.project.id %}">
+                        {% for project in projects %}
+                        <a href="{% url 'project_detail' slug=project.slug %}">
                             <div class="tablo--1-ve-3">
-                                <div class="card wow zoomIn" data-wow-delay="0.5{{ forloop.counter }}s"
-                                    onclick="window.location.href='project-detail.html'">
-                                    <img src="{{ card.image.url }}" alt="{{ card.title }}">
-
-
+                                <div class="card wow zoomIn"  style="width: 380px; height: 450px;" data-wow-delay="0.5{{ forloop.counter }}s" onclick="window.location.href='{% url 'project_detail' project.id %}'">
+                                    {% if project.images.exists %}
+                                        <img src="{{ project.images.first.image.url }}" alt="{{ project.name }}">
+                                    {% else %}
+                                        <img src="{% static 'path/to/default-image.jpg' %}" alt="Default Image">
+                                    {% endif %}
                                     <div class="cardContent">
-                                        <h2>{{ card.title }}</h2>
-                                        <button onclick="window.location.href='{{ card.project_url }}'">View</button>
+                                        <h2>{{ project.name }}</h2>
+                                        <button onclick="window.location.href='{{ project.project_url }}'">View</button>
                                     </div>
                                 </div>
                             </div>
                         </a>
-                    {% endfor %}
+                        {% endfor %}  
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- onclick="window.location.href='project-detail.html'" -->
    
 
 
-    <div class="h-yazi-ortalama h-yazi-margin">
-        <a href="{% url 'viewmore'  %}" class="custom-button">Send Quote</a>
+<div class="h-yazi-ortalama h-yazi-margin my-5">
+    <a href="#" class="custom-button" data-toggle="modal" data-target="#quoteModal">Request Quote</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="quoteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h3 class="modal-title fw-bold" id="quoteModalLabel">Request a Quote</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'request_quote' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input class="inputtt py-2" name="name" type="text" class="form-control" id="name" required>
+                            </div>
+                        </div>
+                    
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="inputtt py-2" name="email" type="email" class="form-control" id="email" required>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input class="inputtt phones" name="phone" type="tel" class="form-control" id="phone" required>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input class="inputtt py-5" name="company" type="text" class="form-control" id="company">
+                    </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 ms-5">
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea class="text-message form-control py-3" name="message" id="message" rows="2" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                    <button type="submit" class="btn btn-md btn-secondaryyy"  >Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
-</section>
+</div>
+<script>
+    $(document).ready(function() {
+    $('#quoteForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Gather form data
+        const formData = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            phone: $('#phone').val(),
+            company: $('#company').val(),
+            message: $('#message').val(),
+        };
+
+        // Send form data via AJAX (example endpoint)
+        $.ajax({
+            type: 'POST',
+            url: '/your-endpoint/',  // Replace with your actual endpoint
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            success: function(response) {
+                // Handle success (e.g., show a success message)
+                $('#quoteModal').modal('hide');
+                alert('Quote request submitted successfully!');
+            },
+            error: function(xhr) {
+                // Handle error
+                alert('An error occurred. Please try again.');
+            }
+        });
+    });
+});
+
+</script>
+
+
+<!-- </section> -->
 {% endblock body %}

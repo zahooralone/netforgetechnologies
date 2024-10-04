@@ -1,0 +1,83 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- add_blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add New Project</h2>
+        <form class="p-4 shadow" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <div class="form-group">
+                        <label for="name">Project Name:</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" class="form-control" required></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <input type="text" name="category" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="form-group">
+                        <label for="client">Client:</label>
+                        <input type="text" name="client" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="form-group">
+                        <label for="project_date">Project Date:</label>
+                        <input type="date" name="project_date" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" class="form-control" placeholder="Optional">
+                    </div>
+                </div>
+                <div class="col-md-6 my-2">
+                    <div class="mb-3">
+                        <label for="images" class="form-label">Upload Multiple Images</label>
+                        <input type="file" class="form-control" id="images" name="images" multiple required>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-5">
+                    <div class="form-group">
+                        <label for="is_deleted">Is Deleted:</label>
+                        <input type="checkbox" name="is_deleted" class="form-check-input">
+                        <label class="form-check-label" for="is_deleted">Check if the project is deleted</label>
+                    </div>
+                </div>
+               
+            </div>
+            <button type="submit" class="btn btn-success">Add Project</button>
+        </form>
+    </div>
+    
+    
+</body>
+</html>
+
+{% endblock %}

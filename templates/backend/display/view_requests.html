@@ -1,0 +1,41 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- addblog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+  
+    <style>
+ 
+
+    </style>
+</head>
+<body>
+    
+    <div class="container mt-5">
+      
+            <h2>Quote Request Details</h2>
+            <div class="card p-4">
+                {% for quoterequest in quote_requests %}
+                <p><strong>Name:</strong> {{ quoterequest.name }}</p>
+                <p><strong>Email:</strong> {{ quoterequest.email }}</p>
+                <p><strong>Phone:</strong> {{ quoterequest.phone }}</p>
+                <p><strong>Company:</strong> {{ quoterequest.company }}</p>
+                <p><strong>Message:</strong> {{ quoterequest.message }}</p>
+                <hr class="p-1">
+                {% endfor %}
+            </div>
+           
+            <a href="{% url 'backendapp:dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+       
+    </div>
+    
+</body>
+</html>
+
+{% endblock %}

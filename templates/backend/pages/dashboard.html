@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NetForge Technologies Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    
     <style>
         /* styles.css */
 
@@ -64,14 +64,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #3498db;
+    background-color: #1C437F;
     color: #fff;
     padding: 10px 20px;
     margin-bottom: 20px;
 }
 
 .header-actions .btn {
-    background-color: #2980b9;
+    background-color: #1C437F;
     border: none;
     color: #fff;
     padding: 10px 20px;
@@ -86,16 +86,15 @@ body {
 
 .dashboard-cards {
     display: flex;
-    /* flex-wrap: wrap; */
-    gap: 45px;
+    gap: 40px;
 }
 
 .card {
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 29px;
-    width: 260px;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.1);
+    padding: 14px;
+    /* width: 220px; */
 }
 
 .card h3 {
@@ -105,43 +104,300 @@ body {
 .card p {
     margin: 5px 0 0;
 }
+.cardsss {
+    background-color: #367284;
+    color: white;
+}
+.cardx{
+    background-color: #F55C6E;
+    color: white;
+}
+.cardz{
+    background-color: #FFB20F;
+    color: white;
+}
+.cardss{
+    background-color: #6D8935;
+    color: white;
+}
 
+.bi{
+  size: 70px !important;
+  height: 80px;
+  font-weight: 800;
+  /* color: rgb(0, 99, 121); */
+  font-size: 50px !important;
+  /* background-color: #1c6383; */
+  text-align: center;
+  padding-left: 0px;
+  border-radius: 12px;
+
+}
+.table {
+    border: none;
+    border-bottom: 2px solid #dee2e6; /* Adjust the color and thickness as needed */
+}
+
+.table th,
+.table td {
+    border: none; /* Remove all borders */
+}
+
+.table tr {
+    border-bottom: 1px solid #dee2e6; /* Bottom border for rows */
+}
+.bg-secon{
+    background-color: #D4ECFF;
+}
+
+.tabbb {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-size: 19px;
+}
+.nav-tabs {
+        border: 1px solid transparent; /* Use transparent to avoid border collapsing */
+    }
+
+    .nav-tabs .nav-link {
+        border: 1px solid transparent; /* Transparent border */
+        border-radius: 0; /* Remove border-radius for a sharper look */
+        transition: border-color 0.3s; /* Smooth transition for border color */
+        color: #050b11;
+    }
+
+    .nav-tabs .nav-link.active {
+        border-color: #050b11; /* Change color for the active tab */
+        background-color: #fff; /* Background color for the active tab */
+        color: #0e69b9;
+    }
+
+    .nav-tabs .nav-link:hover {
+        border-color: #08121d; /* Change border color on hover */
+        background-color: rgba(0, 123, 255, 0.1); /* Light background on hover */
+    }
     </style>
 </head>
 <body>
     <div class="container">
-       <div class="row">
+    <div class="row">
         <div class="col-12">
             <main class="main-content">
                 <header class="header">
-                    <h1>Welcome, Admin</h1>
+                    <h2>Welcome, Admin</h2>
                     <div class="header-actions">
                         <button class="btn">Profile</button>
-                        <button class="btn">Logout</button>
+                        <!-- <button class="btn">Logout</button> -->
                     </div>
                 </header>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
     
                 <section class="dashboard-cards">
-                    <div class="card">
-                        <h3>Clients</h3>
-                        <p>Number of Clients: 50</p>
-                    </div>
-                    <div class="card">
-                        <h3>Projects</h3>
-                        <p>Ongoing Projects: 20</p>
-                    </div>
-                    <div class="card">
-                        <h3>Reports</h3>
-                        <p>Reports Generated: 10</p>
-                    </div>
-                    <div class="card">
-                        <h3>Settings</h3>
-                        <p>System Health: Good</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-12 mb-2">
+                                <div class="card cardsss">
+                                    <h3 class="text-center">Clients</h3>
+                                    <i class="bi bi-person-rolodex"></i>
+                                    <p class="text-center"><strong>Number of Clients</strong></p>
+                                    <p class="text-center fw-bold fs-5">{{ total_clients|default:0 }}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12 mb-2">
+                                <div class="card cardx">
+                                    <h3 class="text-center">Projects</h3>
+                                    <i class="bi bi-gear-wide-connected"></i>
+                                    <p class="text-center"><strong>Ongoing Projects</strong></p>
+                                    <p class="text-center  fw-bold fs-5">{{ total_projects|default:0 }}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12 mb-2">
+                                <div class="card cardz">
+                                    <h3 class="text-center">Blogs</h3>
+                                    <i class="bi bi-layout-text-window"></i>
+                                    <p class="text-center"><strong>Number of Blogs</strong></p>
+                                    <p class="text-center fw-bold fs-5">{{ blog_count|default:0 }} </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12 mb-2">
+                                <div class="card cardss">
+                                    <h3 class="text-center">Comments</h3>
+                                    <i class="bi bi-chat-right-dots"></i>
+                                    <p class="text-center"><strong>Total Comments</strong></p>
+                                    <p class="text-center"><strong class="fs-5">{{ total_comments|default:0 }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </main>
         </div>
-       </div>
+    </div>
+     
+
+
+    <div class="container mt-5">
+        <h2>Overview</h2>
+    
+        <!-- Nav Tabs -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link tabbb active" id="blogs-tab" data-toggle="tab" href="#blogs" role="tab" aria-controls="blogs" aria-selected="true">Blogs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link tabbb" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="false">Requests</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link tabbb" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Projects</a>
+            </li>
+        </ul>
+    
+        <!-- Tab Content -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Blogs Tab -->
+            <div class="tab-pane fade show active" id="blogs" role="tabpanel" aria-labelledby="blogs-tab">
+                <h3 class="my-2">Blog Posts</h3>
+                <table class="table">
+                    <thead>
+                        <tr class="bg-secon">
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Author</th>
+                            <th>Image</th>
+                            <th>Date</th>
+                            <th>Actions</th> <!-- Added Actions Column -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for blog in blogs %}
+                        <tr>
+                            <td>{{ blog.id }}</td>
+                            <td>{{ blog.title }}</td>
+                            <td>{{ blog.content|truncatechars:30 }}</td>
+                            <td>{{ blog.author.username }}</td>
+                            <td>
+                                {% if blog.image %}
+                                    <img style="height: 60px; width: 80px;" src="{{ blog.image.url }}" alt="{{ blog.title }}" style="max-width: 100px;">
+                                {% else %}
+                                    No Image
+                                {% endif %}
+                            </td>
+                            <td>{{ blog.created_at|date:'F j, Y' }}</td>
+                            <td>
+                                <a href="{% url 'backendapp:view_blog_detail' slug=blog.slug %}" class="btn btn-success btn-sm px-3">View</a> <!-- View Button -->
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7">No blog posts available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+    
+            <!-- Requests Tab -->
+            <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="requests-tab">
+                    <h3 class="my-2">Quote Requests</h3>
+                <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Company</th>
+                                <th>Message</th>
+                                <th>Action</th>
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for quoterequest in requests %}
+                            <tr>
+                                <td>{{ quoterequest.name }}</td>
+                                <td>{{ quoterequest.email }}</td>
+                                <td>{{ quoterequest.phone }}</td>
+                                <td>{{ quoterequest.company }}</td>
+                                <td>{{ quoterequest.message|truncatechars:30 }}</td>
+                                <td>
+                                    <a href="{% url 'backendapp:delete_request' quoterequest.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                            
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No quote requests available.</td>
+                            </tr>
+                            {% endfor %}
+                           
+                        </tbody>
+                       
+                </table>
+                <a href="{% url 'backendapp:view_quote_requests' %}" class="text-decoration-none align-items-center" title="View">
+                    <button class="btn btn-lg px-4 shadow py-1 shadow mb-3 btn-info" style="font-size: 17px; font-weight: 600; border-radius: 0;">See All</button>
+                </a>
+            </div>
+    
+            <!-- Projects Tab -->
+            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+                <h3 class="my-2">Projects</h3>
+                <table class="table">
+                    <thead>
+                        <tr class="bg-secon">
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Image</th>
+                            <th>Project Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in projects %}
+                        <tr>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.description|truncatechars:30 }}</td>
+                            <td>{{ project.category }}</td>
+                            <td>
+                                {% if project.images.all %}
+                                {% for img in project.images.all|slice:"2" %}
+                                    <img style="height: 60px; width: 80px;" src="{{ img.image.url }}" alt="Project Image" style="max-width: 100px; margin-right: 5px;">
+                                {% endfor %}
+                                {% else %}
+                                No Image
+                                {% endif %}
+                            </td>
+                            <td>{{ project.project_date }}</td>
+                            <td>
+                                <a href="{% url 'backendapp:view_project_detail' project.id %}" class="btn btn-success px-3 btn-sm">View</a> <!-- View Button -->
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No projects available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+
+<!-- Include Bootstrap and jQuery if not already included -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
        
     </div>
 </body>

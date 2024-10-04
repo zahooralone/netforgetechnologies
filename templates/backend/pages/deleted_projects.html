@@ -1,0 +1,67 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+<!-- templates/comments/comment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <link rel="stylesheet" href="{% static 'backend/css/styles.css' %}"> <!-- Adjust path as necessary -->
+    <style>
+    
+    </style>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <div class="container mt-5 p-4 shadow">
+        <h2>Deleted Projects</h2>
+        {% if projects %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Client</th>
+                        <th>Project Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                        <tr>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.client }}</td>
+                            <td>{{ project.project_date }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'backendapp:restore_project' project.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success btn-sm">Restore</button>
+                                </form>
+                                <form method="POST" action="{% url 'backendapp:permanently_delete_project' slug=project.slug %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Permanently Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No deleted projects found.</p>
+        {% endif %}
+        <a href="{% url 'backendapp:dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+    
+</body>
+</html>
+
+
+{% endblock %}

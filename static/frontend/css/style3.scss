@@ -1295,13 +1295,15 @@ a.menucolor:hover {
     top: 0%;
     left: 10%;
     margin:-38px 0 0 -60px;
+	z-index: 2 !important;
 
-
+	
 	@include responsive(tablet-kucuk) {
 		width: 352px;
 		left: 0%;
 		display: flex;
-		flex-wrap: wrap;
+
+		flex-wrap: wrap ;
 		justify-content: center;
 		align-items: center;
 		text-align: center;

@@ -466,9 +466,11 @@
         }
 
         .blog-author p {
-            font-style: italic;
+            /* font-style: italic; */
             color: color-mix(in srgb, var(--default-color), transparent 30%);
-            margin-bottom: 0;
+            /* margin-bottom: 0; */
+      
+
         }
 
         /*--------------------------------------------------------------
@@ -558,9 +560,11 @@
             color: var(--default-color);
             border: 1px solid color-mix(in srgb, var(--default-color), transparent 70%);
             font-size: 14px;
-            border-radius: 4px;
-            padding: 10px 10px;
+            border-radius: 0;
+            border-bottom: 1px solid #0d6efd;
+            padding: 5px 5px 0px;
         }
+   
 
         .comment-form form input:focus {
             color: var(--default-color);
@@ -577,10 +581,12 @@
             background-color: var(--surface-color);
             color: var(--default-color);
             border: 1px solid color-mix(in srgb, var(--default-color), transparent 70%);
-            border-radius: 4px;
-            padding: 10px 10px;
+            border-radius: 0;
+            border-bottom: 1px solid #0d6efd;
+            /* border-radius: 4px; */
+            padding: 5px 5px 0;
             font-size: 14px;
-            height: 120px;
+            height: 90px;
         }
 
         .comment-form form textarea:focus {
@@ -600,10 +606,12 @@
 
         .comment-form form .btn-primary {
             border-radius: 4px;
-            padding: 10px 20px;
+            padding: 1px 30px;
             border: 0;
-            background-color: var(--accent-color);
-            color: var(--contrast-color);
+            /* background-color: var(--accent-color) !important; */
+            /* color: var(--contrast-color) !important; */
+            color: rgb(254, 254, 254);
+            background-color: rgb(22, 87, 156);
         }
 
         .comment-form form .btn-primary:hover {
@@ -898,14 +906,14 @@
 <body>
 
 
-
+<div class="container">
     <!-- Page Title -->
-    <div class="page-title" style="margin-top: 180px;">
+    <div class="page-title" style="margin-top: 200px;">
         <div class="container">
-            <h2>Blog Details</h2>
+            <h2 class="ms-3">Blog Details</h2>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
                     <li class="current">Blog Details</li>
                 </ol>
             </nav>
@@ -929,83 +937,50 @@
                 <!-- Blog Details Section -->
                 <section id="blog-details" class="blog-details section">
                     <div class="container">
-                       
+                   
                         <article class="article">
 
                             <div class="post-img">
-                                <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                                <img src="{{ blog.image.url }}" alt="" class="img-fluid">
                             </div>
 
-                            <h2 class="title">{{ postdetail.title }}</h2>
+                            <h3 class="title">{{ blog.title }}</h3>
 
-                            <div class="meta-top">
-                                <ul>
-                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
-                                            href="blog-details.html"><h3 class="fw-bold">{{ post.author }}</h3></a></li>
-                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
-                                            href="blog-details.html"><time datetime="2020-01-01"></time></a>{{ post.created_at|date:'F j, Y' }}</li>
-                                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
-                                            href="blog-details.html"></a></li>
-                                </ul>
-                            </div><!-- End meta top -->
+                         
 
                             <div class="flex-item">
                                 <p class="ms-2">
-                                    {{ post.content }}
+                                    {{ blog.content|safe }}
                                 </p>
-
-
-                                <h3 style="font-weight: bold; margin-top: 50px;">Et quae iure vel ut odit alias. </h3>
-                                <!-- <p>
-                                    Officiis animi maxime nulla quo et harum eum quis a. Sit hic in qui quos fugit
-                                    ut rerum atque. Optio provident dolores atque voluptatem rem excepturi molestiae
-                                    qui. Voluptatem laborum omnis ullam quibusdam perspiciatis nulla nostrum.
-                                    Voluptatum est libero eum nesciunt aliquid qui.
-                                    Quia et suscipit non sequi. Maxime sed odit. Beatae nesciunt nesciunt accusamus
-                                    quia aut ratione aspernatur dolor. Sint harum eveniet dicta exercitationem
-                                    minima. Exercitationem omnis asperiores natus aperiam dolor consequatur id ex
-                                    sed. Quibusdam rerum dolores sint consequatur quidem ea.
-                                    Beatae minima sunt libero soluta sapiente in rem assumenda. Et qui odit
-                                    voluptatem. Cum quibusdam voluptatem voluptatem accusamus mollitia aut atque
-                                    aut.
-                                </p> -->
                                 <img src="{% static 'frontend/img/blog/blog-inside-post.jpg" class="img-fluid' %}"
-                                    alt="">
-
-                                <h3 style="font-weight: bold; margin-top: 20px;">Ut repellat blanditiis est dolore sunt
-                                    dolorum quae.</h3>
-                                <p>
-                                    Rerum ea est assumenda pariatur quasi et quam. Facilis nam porro amet nostrum.
-                                    In assumenda quia quae a id praesentium. Quos deleniti libero sed occaecati aut
-                                    porro autem. Consectetur sed excepturi sint non placeat quia repellat incidunt
-                                    labore. Autem facilis hic dolorum dolores vel.
-                                    Consectetur quasi id et optio praesentium aut asperiores eaque aut. Explicabo
-                                    omnis quibusdam esse. Ex libero illum iusto totam et ut aut blanditiis.
-                                    Veritatis numquam ut illum ut a quam vitae.
-                                </p>
-                                <p style="margin-top: 50px; margin-bottom: 50px;"><i>
-                                        Alias quia non aliquid. Eos et ea velit. Voluptatem maxime enim omnis ipsa
-                                        voluptas incidunt. Nulla sit eaque mollitia nisi asperiores est veniam.</i>
-                                </p>
-
-                            </div><!-- End post content -->
-
-                            <div class="meta-bottom">
-                                <!-- <i class="bi bi-folder"></i> -->
-                                <ul class="cats">
+                                 alt="">
+                                <div class="meta-top">
+                                    <ul>
+                                        <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a
+                                                href="#"><h3 class="fw-bold">{{ blog.author }}</h3></a></li>
+                                        <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                                href="blog-details.html"><time datetime="2020-01-01"></time></a>{{ blog.created_at|date:'F j, Y' }}</li>
+                                        <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
+                                                href="blog-details.html"></a></li>
+                                    </ul>
+                                </div><!-- End meta top -->
+                                <div class="meta-bottom">
+                                    <!-- <i class="bi bi-folder"></i> -->
+                                    <ul class="cats">
                                     <li><a href="#">Business</a></li>
-                                </ul>
+                                    </ul>
 
-                                <!-- <i class="bi bi-tags"></i> -->
-                                <ul class="tags">
+                                    <!-- <i class="bi bi-tags"></i> -->
+                                    <ul class="tags">
                                     <li><a href="#">Creative</a></li>
                                     <li><a href="#">Tips</a></li>
                                     <li><a href="#">Marketing</a></li>
-                                </ul>
+                                    </ul>
+                                </div><!-- End meta bottom -->
                             </div><!-- End meta bottom -->
 
                         </article>
-                        
+                      
                     </div>
                 </section><!-- /Blog Details Section -->
 
@@ -1017,16 +992,14 @@
                             <img src="{% static 'frontend/img/blog/blog-author.jpg"
                                 class="rounded-circle flex-shrink-0' %}" alt="">
                             <div>
-                                <h4>{{ post.author }} </h4>
+                                <h4>{{ blog.author }} </h4>
                                 <div class="social-links">
                                     <a href="https://x.com/#"><i class="bi bi-twitter-x"></i></a>
                                     <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
                                     <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
                                 </div>
                                 <p>
-                                    Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus
-                                    accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas.
-                                    Esse et accusantium ut unde voluptas.
+                                    {{ blog.content|safe }}
                                 </p>
                             </div>
                         </div>
@@ -1044,7 +1017,7 @@
                         <div id="comment-1" class="comment">
                             <div class="d-flex">
                                 <div class="comment-img"><img src="{% static 'frontend/img/blog/comments-2.jpg' %}"
-                                        alt="" height="50" style="width: 200px;"></div>
+                                        alt="" height="60" style="min-width: 80px;"></div>
                                         
                                 <div>
                                     <h5>{{ comment.name }} <a href="#" class="reply"><i
@@ -1067,11 +1040,11 @@
                 </section><!-- /Blog Comments Section -->
 
                 <!-- Comment Form Section -->
-                <section id="comment-form" class="comment-form section">
+                <section id="comment-form" class="comment-form section mb-5">
                     <div class="container">
                        
 
-                        <form action="{% url 'comment_detail' post.id %}" method="post">
+                        <form action="{% url 'comment_detail' slug=blog.slug %}" method="post">
                             {% csrf_token %}
                             <h4>Post Comment</h4>
                             <p>Your email address will not be published. Required fields are marked *</p>
@@ -1085,12 +1058,12 @@
                             </div>
                             <div class="row">
                                 <div class="col form-group">
-                                    <input name="website" type="url" class="form-control" placeholder="Your Website">
+                                    <input name="website" type="url" class="form-control py-5" placeholder="Your Website">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col form-group">
-                                    <textarea name="content" class="form-control" placeholder="Your Comment*" required></textarea>
+                                    <textarea name="content" class="form-control texttt" placeholder="Your Comment*" required></textarea>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -1137,10 +1110,10 @@
                         <h3 class="widget-title">Recent Posts</h3>
 
                         <div class="post-item">
-                            <img src="{{ post.image.url }}" alt="" class="flex-shrink-0">
+                            <img src="{{ blog.image.url }}" alt="" class="flex-shrink-0">
                             <div>
-                                <h4><a href="blog-details.html">{{ post.author }}</a></h4>
-                                <time datetime="2020-01-01">{{ post.created_at }}</time>
+                                <h4><a href="blog-details.html">{{ blog.author }}</a></h4>
+                                <time datetime="2020-01-01">{{ blog.created_at }}</time>
                             </div>
                         </div><!-- End recent post item-->
                     <div class="tags-section p-3 pr-0 ">
@@ -1153,13 +1126,15 @@
                         </div>
                     </div>
 
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
+   
     </div>
-
+</div>
     <script>
 
 

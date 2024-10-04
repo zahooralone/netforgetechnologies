@@ -1,0 +1,47 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+<!-- templates/comments/comment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <link rel="stylesheet" href="{% static 'backend/css/styles.css' %}"> <!-- Adjust path as necessary -->
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Comment Details</h1>
+        <p><strong>Name:</strong> {{ comment.name }}</p>
+        <p><strong>Email:</strong> {{ comment.email }}</p>
+        <p><strong>Website:</strong> {{ comment.website }}</p>
+        <p><strong>Content:</strong> {{ comment.content }}</p>
+        <p><strong>Date:</strong> {{ comment.created_at }}</p>
+        
+        <a href="{% url 'backendapp:comments' %}"> <button class="btn btn-md px-3 btn-success">Back to Comments</button></a>
+        
+    </div>
+   
+</body>
+</html>
+
+
+{% endblock %}

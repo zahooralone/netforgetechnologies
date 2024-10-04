@@ -9,15 +9,16 @@ urlpatterns = [
     path('', views.Home, name='home'),
     path('about/', views.about, name='about'),
     path('blogs/', views.blogs, name='blogs'),
-    path('blog/<int:id>/', views.blog_post, name='blog_post'),  # Ensure this matches
-    path('comment_detail/<int:id>/', views.comment_detail, name='comment_detail'),  # Ensure this matches
+    path('blog_post/<slug:slug>/', views.blog_post, name='blog_post'),  
+    path('comment_detail/<slug:slug>/', views.comment_detail, name='comment_detail'), 
 
     path('contact/', views.contact, name='contact'),
     path('projects/', views.projects, name='projects'),
     path('services/', views.services, name='services'),
-    path('viewmore/', views.viewmore, name='viewmore'),
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('project/<int:project_id>/', views.project_detail, name='project_detail'),
+    # path('viewmore/', views.viewmore, name='viewmore'),
+    # path('dashboard/', views.dashboard, name='dashboard'),
+    path('project/<slug:slug>/', views.project_detail, name='project_detail'),
+    path('request_quote/', views.request_quote, name='request_quote'),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

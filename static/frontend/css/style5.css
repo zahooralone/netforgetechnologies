@@ -14831,6 +14831,9 @@ button[type="submit"] i {
 
 .component-systemTabs .cards .card .cardContent:hover button {
     opacity: 1;
+    background-color: white;
+    color: #020202;
+    font-size: 15px;
 }
 
 /* Count */
@@ -18825,6 +18828,8 @@ a.menucolor:hover {
     top: 0%;
     left: 10%;
     margin: -38px 0 0 -60px;
+    z-index: 2 !important;
+
 }
 
 @media only screen and (max-width: 56.25em) {
@@ -18833,6 +18838,7 @@ a.menucolor:hover {
         left: 0%;
         display: flex;
         flex-wrap: wrap;
+    
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -21814,11 +21820,12 @@ a.sb:checked {
 /*# sourceMappingURL=style.css.map */
 
 .karosal,
-.imagge  {
-    min-width: 90%;
+.imagge {
+    min-width: 10% !important;
     height: auto;
     text-align: center;
     justify-content: center;
+    margin-left: 90px !important;
 }
 
 .active-bullet.bullettt {

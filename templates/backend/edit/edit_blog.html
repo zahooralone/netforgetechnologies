@@ -1,0 +1,239 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- add_blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .tab-content {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        /* .nav-item {
+            border: 1px solid black;
+            font-weight: 700;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: medium;
+        } */
+        .nav-tabs {
+        border-bottom: 2px solid #ddd; /* Default border for the tab container */
+    }
+
+    .nav-tabs .nav-link {
+        border: none; /* Remove default border */
+        padding: 10px 15px; /* Padding for the tabs */
+        color: #007bff; /* Tab text color */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    }
+
+    .nav-tabs .nav-link.active {
+        /* border-bottom: 2px solid #007bff; Bottom border for active tab */
+        background-color: white; /* Background for active tab */
+        font-weight: bold; /* Highlight active tab text */
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color: #f8f9fa; /* Light background on hover */
+        color: #0056b3; /* Darker text color on hover */
+    }
+
+    .tab-content {
+        border: 1px solid #ddd; /* Content area border */
+        padding: 20px; /* Padding for content */
+        border-radius: 5px; /* Rounded corners */
+        margin-top: -1px; /* Aligns content with tabs */
+    }
+
+    .tab-pane {
+        display: none; /* Hide all tab content by default */
+    }
+
+    .tab-pane.active {
+        display: block; /* Show active tab content */
+    }
+
+    </style>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="container mt-5">
+        <h2>Edit Blog</h2>
+        <div class="row">
+            <div class="col-md-3 my-3">
+                <ul class="nav nav-tabs flex-column shadow" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="category-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="true">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tag-tab" data-toggle="tab" href="#tag" role="tab" aria-controls="tag" aria-selected="false">Tags</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Edit Blog</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9 my-3">
+                <div class="tab-content shadow" id="myTabContent">
+                    <!-- Categories Tab -->
+                    <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
+                        <h4>Add Category</h4>
+                        <form method="POST" action="{% url 'backendapp:add_category' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="category_name">Category Name:</label>
+                                <input type="text" name="category_name" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Add Category</button>
+                        </form>
+                        <h4 class="mt-4">Manage Categories</h4>
+                        <ul class="list-group">
+                            {% for category in categories %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ category.name }}
+                                    <form method="POST" action="{% url 'backendapp:delete_category' category.id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+    
+                    <!-- Tags Tab -->
+                    <div class="tab-pane fade" id="tag" role="tabpanel" aria-labelledby="tag-tab">
+                        <h4>Add Tag</h4>
+                        <form method="POST" action="{% url 'backendapp:add_tag' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="tag_name">Tag Name:</label>
+                                <input type="text" name="tag_name" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Add Tag</button>
+                        </form>
+                        <h4 class="mt-4">Manage Tags</h4>
+                        <ul class="list-group">
+                            {% for tag in tags %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ tag.name }}
+                                    <form method="POST" action="{% url 'backendapp:delete_tag' tag.id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+    
+                    <!-- Blog Tab -->
+                    <div class="tab-pane fade show active" id="blog" role="tabpanel" aria-labelledby="blog-tab">
+                        <h4>Edit Blog</h4>
+                        <form method="POST" enctype="multipart/form-data" action="{% url 'backendapp:edit_blog' blog.id %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="title">Blog Title:</label>
+                                        <input type="text" name="title" class="form-control" value="{{ blog.title }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="image">Blog Image:</label>
+                                        <input type="file" name="image" class="form-control">
+                                        <small>Leave blank to keep the current image.</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="content">Content:</label>
+                                        <textarea name="content" id="content" class="form-control" required>{{ blog.content }}</textarea>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Categories:</label><br>
+                                        {% for category in categories %}
+                                            <div class="form-check">
+                                                <input type="checkbox" name="post_categories" value="{{ category.id }}" class="form-check-input" id="category-{{ category.id }}"
+                                                {% if category in blog.categories.all %} checked {% endif %}>
+                                                <label class="form-check-label" for="category-{{ category.id }}">{{ category.name }}</label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tags:</label><br>
+                                        {% for tag in tags %}
+                                            <div class="form-check">
+                                                <input type="checkbox" name="post_tags" value="{{ tag.id }}" class="form-check-input" id="tag-{{ tag.id }}"
+                                                {% if tag in blog.tags.all %} checked {% endif %}>
+                                                <label class="form-check-label" for="tag-{{ tag.id }}">{{ tag.name }}</label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success mt-3">Update Blog</button>
+                        </form>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+        
+    <!-- Include CKEditor -->
+<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+
+
+
+<!-- Initialize CKEditor -->
+<script>
+    CKEDITOR.replace('content');
+</script>
+    
+    
+    <script>
+        $(document).ready(function () {
+            $('.next-btn').on('click', function () {
+                var $activeTab = $('.tab-pane.active');
+                var $nextTab = $activeTab.next('.tab-pane');
+    
+                if ($nextTab.length) {
+                    // Switch to the next tab
+                    $activeTab.removeClass('show active');
+                    $nextTab.addClass('show active');
+    
+                    // Switch to the next tab in the nav
+                    var nextTabId = $nextTab.attr('id');
+                    $('a[href="#' + nextTabId + '"]').tab('show');
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
+
+{% endblock %}

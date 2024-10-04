@@ -3573,7 +3573,7 @@ input[type=submit].btn-block {
 .dropdown-menu[x-placement^=right],
 .dropdown-menu[x-placement^=top] {
     right: auto;
-    bottom: auto
+    bottom: auto;
 }
 
 .dropdown-divider {
@@ -3619,7 +3619,7 @@ input[type=submit].btn-block {
 }
 
 .dropdown-menu.show {
-    display: block
+    display: block;
 }
 
 .dropdown-header {
@@ -4595,7 +4595,8 @@ input[type=submit].btn-block {
 
 .navbar-nav .dropdown-menu {
     position: static;
-    float: none
+    float: none !important;
+    z-index: 1000;
 }
 
 .navbar-text {
@@ -4811,7 +4812,8 @@ input[type=submit].btn-block {
         flex-direction: row
     }
     .navbar-expand-xl .navbar-nav .dropdown-menu {
-        position: absolute
+        position: absolute;
+
     }
     .navbar-expand-xl .navbar-nav .nav-link {
         padding-right: .5rem;
@@ -4860,7 +4862,7 @@ input[type=submit].btn-block {
 }
 
 .navbar-expand .navbar-nav .dropdown-menu {
-    position: absolute
+    position: absolute;
 }
 
 .navbar-expand .navbar-nav .nav-link {

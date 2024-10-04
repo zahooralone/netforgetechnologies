@@ -22,8 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('frontendapp.urls')),
-    path('peace/', include('authapp.urls')),
-    path('authenticated/', include('backendapp.urls')),
+    path('netforge/', include('authapp.urls')),
+    path('authenticated/', include(('backendapp.urls', 'backendapp'), namespace='backendapp')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
