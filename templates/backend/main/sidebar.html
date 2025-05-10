@@ -1,23 +1,45 @@
+<style>
+ 
+
+.sb-nav-link-icon{
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 2.1rem;
+}
+
+.nav-link.linkk:hover {
+    text-decoration: underline;
+    transition: 0.2s ease-in-out;
+}
+
+</style>
+
+
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="{% url 'backendapp:dashboard' %}">
+                <a class="nav-link linkk" href="{% url 'backendapp:dashboard' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link" href="{% url 'backendapp:comments' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <a class="nav-link linkk" href="{% url 'backendapp:comments' %}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
                     Reviews
+                    <span class="badge rounded-pill bg-danger ms-2">{{ comment_count }}</span>  <!-- Display comment count here -->
                 </a>
+                
                 <div class="sb-sidenav-menu-heading">Interface</div>
 
                 
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                <a class="nav-link linkk collapsed" href="#" data-bs-toggle="collapse"
                     data-bs-target="#collapseAa" aria-expanded="false" aria-controls="collapseAa">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-comment-alt"></i>
+                    </div>
                     Blogs
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -31,9 +53,10 @@
 
 
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                <a class="nav-link linkk collapsed" href="#" data-bs-toggle="collapse"
                 data-bs-target="#collapseAddd" aria-expanded="false" aria-controls="collapseAddd">
-                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                <div class="sb-nav-link-icon"><i class="fas fa-project-diagram"></i>
+                </div>
                 Projects
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -45,13 +68,32 @@
                     <a class="nav-link" href="{% url 'backendapp:view_project' %}">View Projects</a>
                 </nav>
                 </div>
-            
+
+
+
+                <a class="nav-link linkk collapsed" href="#" data-bs-toggle="collapse"
+                data-bs-target="#collapseCategoryy" aria-expanded="false" aria-controls="collapseCategoryy">
+                <div class="sb-nav-link-icon"><i class="fas fa-tools"></i>
+                </div>
+               Services
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseCategoryy" aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" href="{% url 'backendapp:add_service' %}">Add Service</a>
+                    <a class="nav-link" href="{% url 'backendapp:view_service' %}" >View Service</a>
+                </nav>
+                </div>
+
 
                 <!-- Category -->
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                <a class="nav-link linkk collapsed" href="#" data-bs-toggle="collapse"
                     data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Leads
+                    <div class="sb-nav-link-icon"><i class="fas fa-recycle"></i>
+
+                    </div>
+                    Recycle Bin
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseCategory" aria-labelledby="headingOne"
@@ -60,9 +102,11 @@
                         <a class="nav-link" href="{% url 'backendapp:deleted_blogs' %}">View Blogs</a>
                         <a class="nav-link" href="{% url 'backendapp:deleted_projects' %}" >View Projects</a>
                         <a class="nav-link" href="{% url 'backendapp:deleted_requests' %}" >View QuoteRequests</a>
+                        <a class="nav-link" href="{% url 'backendapp:deleted_services' %}" >View Services</a>
                     </nav>
                 </div>
 
+               
                 
                 <!-- Product -->
                 <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"

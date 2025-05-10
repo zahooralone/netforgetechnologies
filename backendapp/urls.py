@@ -11,6 +11,7 @@ urlpatterns = [
     path('comments/', views.comment_list, name='comments'),  # Add this line
     path('comments/<int:comment_id>/', views.comment_detail, name='comment_detail'),
     path('comments/delete/<int:comment_id>/', views.delete_comment, name='delete_comment'),
+    path('delete-selected-comments/', views.delete_selected_comments, name='delete_selected_comments'),
     path('add-blog/', views.add_blog, name='add_blog'),  # Add this line
     path('edit/<int:blog_id>/', views.edit_blog, name='edit_blog'),
     path('edit-project/<int:project_id>/', views.edit_project, name='edit_project'), 
@@ -34,8 +35,17 @@ urlpatterns = [
     path('quote-requests/', views.view_quote_requests, name='view_quote_requests'),
     path('delete_request/<int:quote_request_id>/', views.delete_request, name='delete_request'),
     path('deleted_requests/', views.deleted_requests, name='deleted_requests'),  # New URL
+    path('delete-selected-requests/', views.delete_selected_requests, name='delete_selected_requests'),
     path('restore_request/<int:quote_request_id>/', views.restore_request, name='restore_request'),
     path('permanently-delete-request/<int:quote_request_id>/', views.permanently_delete_request, name='permanently_delete_request'),
+    path('add-service/', views.add_service, name='add_service'),
+    path('view-services/', views.view_service, name='view_service'),  
+    path('service/<slug:slug>/', views.service_detail_view, name='service_detail'),
+    path('edit-service/<int:service_id>/', views.edit_service, name='edit_service'),
+    path('services/deleted/', views.deleted_services, name='deleted_services'),
+    path('service/delete/<slug:slug>/', views.delete_service, name='delete_service'),
+    path('service/restore/<slug:slug>/', views.restore_service, name='restore_service'),
+    path('service/permanently-delete/<slug:slug>/', views.permanently_delete_service, name='permanently_delete_service'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

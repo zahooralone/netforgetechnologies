@@ -29,53 +29,44 @@
         </div>
         {% endfor %}
         {% endif %}
-        <h2>Blog Posts</h2>
+    
+        <h2>Services</h2>
         <table class="table table-bordered shadow border-none">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Title</th>
-                    <th>Content</th>
-                    <th>Image</th>
-                    <th>Author</th>
-                    <th>Categories</th>
-                    <th>Tags</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for blog in blogs %}
+                {% for service in services %}
                 <tr>
-                    <td>{{ blog.title }}</td>
-                    <td>{{ blog.content|safe|truncatechars:30 }}</td>
-                    <td><img style="height: 70px; width: 80px;" src="{{ blog.image.url }}" alt="{{ blog.title }}" width="100"></td>
-                    <td>{{ blog.author.username }}</td>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ service.title }}</td>
+                    <td>{{ service.description|safe|truncatechars:30 }}</td>
                     <td>
-                        {% for category in blog.categories.all %}
-                            {{ category.name }}<br>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for tag in blog.tags.all %}
-                            {{ tag.name }}<br>
-                        {% endfor %}
-                    </td>
-                    <td>
-                       
-                        <a href="{% url 'backendapp:edit_blog' blog.id %}" class="me-2 text-decoration-none" title="Edit">
+                        <!-- Edit Icon -->
+                        <a href="{% url 'backendapp:edit_service' service.id %}" class="btn btn-md text-primary">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="{% url 'backendapp:delete_blog' blog.id %}" class="text-danger" title="Delete">
+                        <!-- Delete Icon -->
+                        <a href="{% url 'backendapp:delete_service' slug=service.slug %}" class="btn btn-md text-danger" onclick="return confirm('Are you sure you want to delete this service?');">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="7">No posts available.</td>
+                    <td colspan="4">No services available</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+
+ 
     </div>
     
 </body>

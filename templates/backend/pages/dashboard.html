@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NetForge Technologies Dashboard</title>
+   
     
     <style>
         /* styles.css */
@@ -18,45 +19,11 @@ body {
     /* display: flex; */
 }
 
-
-
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.sidebar h2 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 15px 0;
-}
-
-.sidebar ul li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-size: 1.1rem;
-}
-
-.sidebar ul li a:hover {
-    text-decoration: underline;
-}
-
 .main-content {
-    flex: 1;
-    padding: 20px;
+    /* flex: 1; */
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 10px;
     background-color: #ecf0f1;
 }
 
@@ -168,17 +135,58 @@ body {
 
     .nav-tabs .nav-link.active {
         border-color: #050b11; /* Change color for the active tab */
-        background-color: #fff; /* Background color for the active tab */
-        color: #0e69b9;
+        background-color: #407bc8; /* Background color for the active tab */
+        color: #f3f4f5;
     }
 
     .nav-tabs .nav-link:hover {
         border-color: #08121d; /* Change border color on hover */
-        background-color: rgba(0, 123, 255, 0.1); /* Light background on hover */
+        background-color: rgb(77, 167, 199); /* Light background on hover */
     }
+
+    .pagination {
+    margin: 20px 0;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.pagination .current {
+    margin: 0 5px;
+    font-weight: bold;
+}
+.nav-item .badge {
+    font-size: 0.75rem; 
+    transform: translateY(-229%);
+    margin-left: 42px;
+    font-size: 14px;   
+    background-color: rgb(197, 53, 53);
+    color: #ebe7e6;
+}
+.nav-item .badge:hover {
+    color: white;
+    /* font-size: medium; */
+    background-color: #3584a9;
+}
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 400px;  /* Adjust the height as needed */
+}
+
+        /* Optional: Reduce margin between the charts */
+        canvas {
+            margin-bottom: 20px;
+        }
     </style>
+   
 </head>
 <body>
+   
+
+
     <div class="container">
     <div class="row">
         <div class="col-12">
@@ -237,6 +245,72 @@ body {
                         </div>
                     </div>
                 </section>
+
+                <!-- Combined Doughnut Chart -->
+                <!-- Combined Chart -->
+                <div class="chart-container d-none d-block">
+                    <canvas id="combinedChart"></canvas>
+                </div>
+            
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+                
+                <!-- <script>
+                    // Combined Chart Data
+                    const combinedChart = new Chart(document.getElementById('combinedChart'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: [
+                                'Active Blogs', 'Deleted Blogs',
+                                'Active Projects', 'Deleted Projects',
+                                'Active Quote Requests', 'Deleted Quote Requests',
+                                'Active Services', 'Deleted Services'
+                            ],
+                            datasets: [{
+                                label: 'Overview Data',
+                                data: [
+                                    {{ blog_count|default:0 }}, {{ deleted_blogs|default:0 }},
+                                    {{ total_projects|default:0 }}, {{ deleted_projects|default:0 }},
+                                    {{ total_requests|default:0 }}, {{ deleted_requests|default:0 }},
+                                    {{ total_services|default:0 }}, {{ deleted_services|default:0 }}
+                                ],
+                                backgroundColor: [
+                                    '#36A2EB', '#FF6384',  // Colors for Blogs
+                                    '#4BC0C0', '#FF9F40',  // Colors for Projects
+                                    '#9966FF', '#FFCD56',  // Colors for Quote Requests
+                                    '#C9CBCF', '#F7464A'   // Colors for Services
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,  // Adjust chart size if necessary
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                },
+                                tooltip: {
+                                    enabled: true  // You can enable/disable tooltips
+                                },
+                                datalabels: {
+                                    color: '#fff',
+                                    anchor: 'end',
+                                    align: 'start',
+                                    formatter: function(value, context) {
+                                        const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const percentage = total ? ((value / total) * 100).toFixed(2) + '%' : '0%';
+                                        return percentage;  // Show the percentage directly on the chart
+                                    },
+                                    font: {
+                                        weight: 'bold',
+                                        size: 14  // Adjust the font size as needed
+                                    }
+                                }
+                            }
+                        },
+                        plugins: [ChartDataLabels]  // Enable the Chart Data Labels plugin
+                    });
+                </script> -->
             </main>
         </div>
     </div>
@@ -249,21 +323,29 @@ body {
         <!-- Nav Tabs -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link tabbb active" id="blogs-tab" data-toggle="tab" href="#blogs" role="tab" aria-controls="blogs" aria-selected="true">Blogs</a>
+                <a class="nav-link tabbb {% if active_tab == 'blogs' %}active{% endif %}" id="blogs-tab" data-bs-toggle="tab" href="#blogs" role="tab" aria-controls="blogs" aria-selected="{% if active_tab == 'blogs' %}true{% else %}false{% endif %}">Blogs</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link tabbb" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="false">Requests</a>
+                <a class="nav-link tabbb {% if active_tab == 'requests' %}active{% endif %}" id="requests-tab" data-bs-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="{% if active_tab == 'requests' %}true{% else %}false{% endif %}">Requests</a>
+                <span class="position-absolute badge rounded-pill">
+                    {{ total_requests }}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
             </li>
             <li class="nav-item">
-                <a class="nav-link tabbb" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="false">Projects</a>
+                <a class="nav-link tabbb {% if active_tab == 'projects' %}active{% endif %}" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab" aria-controls="projects" aria-selected="{% if active_tab == 'projects' %}true{% else %}false{% endif %}">Projects</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link tabbb {% if active_tab == 'services' %}active{% endif %}" id="services-tab" data-bs-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="{% if active_tab == 'services' %}true{% else %}false{% endif %}">Services</a>
+            </li>            
         </ul>
     
         <!-- Tab Content -->
         <div class="tab-content" id="myTabContent">
             <!-- Blogs Tab -->
-            <div class="tab-pane fade show active" id="blogs" role="tabpanel" aria-labelledby="blogs-tab">
+            <div class="tab-pane fade {% if active_tab == 'blogs' %}show active{% endif %}" id="blogs" role="tabpanel" aria-labelledby="blogs-tab">
                 <h3 class="my-2">Blog Posts</h3>
+                <div class="table-responsive">  <!-- Add this div -->
                 <table class="table">
                     <thead>
                         <tr class="bg-secon">
@@ -281,7 +363,7 @@ body {
                         <tr>
                             <td>{{ blog.id }}</td>
                             <td>{{ blog.title }}</td>
-                            <td>{{ blog.content|truncatechars:30 }}</td>
+                            <td>{{ blog.content|safe|truncatechars:30 }}</td>
                             <td>{{ blog.author.username }}</td>
                             <td>
                                 {% if blog.image %}
@@ -302,13 +384,33 @@ body {
                         {% endfor %}
                     </tbody>
                 </table>
+                </div>
+                <!-- Pagination Controls -->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if blogs.has_previous %}
+                            <a href="?blog_page=1" class="btn btn-sm btn-primary text-decoration-none">&laquo; First</a>
+                            <a href="?blog_page={{ blogs.previous_page_number }}" class="btn btn-sm btn-primary text-decoration-none">Previous</a>
+                        {% endif %}
+    
+                        <span class="current">
+                            Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
+                        </span>
+    
+                        {% if blogs.has_next %}
+                            <a href="?blog_page={{ blogs.next_page_number }}" class="btn btn-sm btn-primary text-decoration-none">Next</a>
+                            <a href="?blog_page={{ blogs.paginator.num_pages }}" class="btn btn-sm btn-primary text-decoration-none">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
-            
     
             <!-- Requests Tab -->
-            <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="requests-tab">
-                    <h3 class="my-2">Quote Requests</h3>
-                <table class="table table-bordered">
+            <div class="tab-pane fade {% if active_tab == 'requests' %}show active{% endif %}" id="requests" role="tabpanel" aria-labelledby="requests-tab">
+                <h3 class="my-2">Quote Requests</h3>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
                                 <th>Name</th>
@@ -317,12 +419,15 @@ body {
                                 <th>Company</th>
                                 <th>Message</th>
                                 <th>Action</th>
-                            
                             </tr>
                         </thead>
                         <tbody>
+                            <div class="alert alert-info">
+                                <strong>New Requests:</strong> {{ new_requests }} 
+                            </div>
                             {% for quoterequest in requests %}
-                            <tr>
+                            
+                            <tr class="{% if not quoterequest.is_seen %}table-warning{% endif %}"> <!-- Highlight if new -->
                                 <td>{{ quoterequest.name }}</td>
                                 <td>{{ quoterequest.email }}</td>
                                 <td>{{ quoterequest.phone }}</td>
@@ -332,24 +437,42 @@ body {
                                     <a href="{% url 'backendapp:delete_request' quoterequest.id %}" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
-                            
                             {% empty %}
                             <tr>
                                 <td colspan="6" class="text-center">No quote requests available.</td>
                             </tr>
                             {% endfor %}
-                           
                         </tbody>
-                       
-                </table>
+                    </table>
+                </div>
+            
+                <!-- Pagination Controls -->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if requests.has_previous %}
+                            <a href="?request_page=1&active_tab=requests" class="btn btn-sm btn-primary text-decoration-none">&laquo; First</a>
+                            <a href="?request_page={{ requests.previous_page_number }}&active_tab=requests" class="btn btn-sm btn-primary text-decoration-none">Previous</a>
+                        {% endif %}
+                        <span class="current">Page {{ requests.number }} of {{ requests.paginator.num_pages }}.</span>
+                        {% if requests.has_next %}
+                            <a href="?request_page={{ requests.next_page_number }}&active_tab=requests" class="btn btn-sm btn-primary text-decoration-none">Next</a>
+                            <a href="?request_page={{ requests.paginator.num_pages }}&active_tab=requests" class="btn btn-sm btn-primary text-decoration-none">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            
                 <a href="{% url 'backendapp:view_quote_requests' %}" class="text-decoration-none align-items-center" title="View">
                     <button class="btn btn-lg px-4 shadow py-1 shadow mb-3 btn-info" style="font-size: 17px; font-weight: 600; border-radius: 0;">See All</button>
                 </a>
             </div>
+
+
+
     
             <!-- Projects Tab -->
-            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+            <div class="tab-pane fade {% if active_tab == 'projects' %}show active{% endif %}" id="projects" role="tabpanel" aria-labelledby="projects-tab">
                 <h3 class="my-2">Projects</h3>
+                <div class="table-responsive">  <!-- Add this div -->
                 <table class="table">
                     <thead>
                         <tr class="bg-secon">
@@ -388,9 +511,81 @@ body {
                         {% endfor %}
                     </tbody>
                 </table>
+                </div>
+    
+                <!-- Pagination Controls -->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if projects.has_previous %}
+                            <a href="?project_page=1" class="btn btn-sm btn-primary text-decoration-none">&laquo; First</a>
+                            <a href="?project_page={{ projects.previous_page_number }}" class="btn btn-sm btn-primary text-decoration-none">Previous</a>
+                        {% endif %}
+    
+                        <span class="current">
+                            Page {{ projects.number }} of {{ projects.paginator.num_pages }}.
+                        </span>
+    
+                        {% if projects.has_next %}
+                            <a href="?project_page={{ projects.next_page_number }}" class="btn btn-sm btn-primary text-decoration-none">Next</a>
+                            <a href="?project_page={{ projects.paginator.num_pages }}" class="btn btn-sm btn-primary text-decoration-none">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+              <!-- Services Tab -->
+              <div class="tab-pane fade {% if active_tab == 'services' %}show active{% endif %}" id="services" role="tabpanel" aria-labelledby="services-tab">
+                <h3 class="my-2">Services</h3>
+                <div class="table-responsive">  <!-- Add this div -->
+                <table class="table">
+                    <thead>
+                        <tr class="bg-secon">
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in services %}
+                        <tr>
+                            <td>{{ service.id }}</td>
+                            <td>{{ service.title }}</td>
+                            <td>{{ service.description|safe|truncatechars:30 }}</td>
+                            <td>
+                                <a href="{% url 'backendapp:service_detail' slug=service.slug %}" class="btn btn-success btn-sm px-3">View</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center">No services available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+    
+                <!-- Pagination Controls -->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if services.has_previous %}
+                            <a href="?service_page=1" class="btn btn-sm btn-primary text-decoration-none">&laquo; First</a>
+                            <a href="?service_page={{ services.previous_page_number }}" class="btn btn-sm btn-primary text-decoration-none">Previous</a>
+                        {% endif %}
+    
+                        <span class="current">
+                            Page {{ services.number }} of {{ services.paginator.num_pages }}.
+                        </span>
+    
+                        {% if services.has_next %}
+                            <a href="?service_page={{ services.next_page_number }}" class="btn btn-sm btn-primary text-decoration-none">Next</a>
+                            <a href="?service_page={{ services.paginator.num_pages }}" class="btn btn-sm btn-primary text-decoration-none">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
+    
     
 
 <!-- Include Bootstrap and jQuery if not already included -->

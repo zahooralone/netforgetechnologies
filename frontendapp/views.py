@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from backendapp.models import Project, Blog, Tag, Comment, QuoteRequest, Category, Tag
+from backendapp.models import Project, Blog, Tag, Comment, QuoteRequest, Category, Tag, Service
 from django.views import View
 # from backendapp.models import PostDetail
 from django.db.models import Count
 # import hashlib  
+
 from django.contrib import messages  
 # Create your views here.
 # from django.http import JsonResponse
 # import json
+from .utils import send_quote_notification  # Import the notification function
+from .utils import send_comment_notification  # Import the notification function
+from django.core.mail import send_mail
+from django.conf import settings
+
+
 def Home(request):
     projects = Project.objects.all()  
     context = {
@@ -42,26 +49,44 @@ def blog_post(request, slug):
 
 
 
-def comment_detail(request, slug):
+def COMMENT(request, slug):
     comments = Comment.objects.all()  # Fetch all comments
     comment_count = comments.count()  # Count the comments
+
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         website = request.POST.get('website')
         content = request.POST.get('content')
 
-        if name and email and content:  # Validate required fields
-            comment = Comment(name=name, email=email, website=website, content=content)
-            comment.save()  # Save comment to the database
+        # Validate required fields
+        if name and email and content:  # Add more validation as needed
+            # Create and save the comment
+            comment = Comment(
+                name=name,
+                email=email,
+                website=website,
+                content=content,
+            )
+            comment.save()  # Ensure save() is called as a method
+
+            # Prepare comment details for notification
+            comment_details = f"Name: {name}\nEmail: {email}\nWebsite: {website}\nContent: {content}"
+
+            # Send the email notification
+            send_comment_notification(name, email, website, comment_details, settings.TEAM_EMAIL)
+
             messages.success(request, 'Your comment has been posted successfully!')
             return redirect('blog_post', slug=slug)  # Adjust redirect as needed
 
-        messages.error(request, 'Please fill out all required fields.')
+        else:
+            messages.error(request, 'Please fill out all required fields.')
 
     return render(request, 'pages/blog_post.html', {
-        'comments': comments,'comment_count': comment_count, 
+        'comments': comments,
+        'comment_count': comment_count,
     })
+
 
 
 
@@ -80,8 +105,14 @@ def project_detail(request, slug):
     project = get_object_or_404(Project, slug=slug)
     return render(request, 'pages/project_detail.html', {'project': project})
     
-def services(request):    
-    return render(request, 'pages/services.html') 
+def services(request):  
+    services = Service.objects.all() 
+    return render(request, 'pages/services.html', {'services':services}) 
+
+
+def data_strategy(request):  
+    return render(request, 'pages/data_strategy.html') 
+
 
 
 
@@ -90,22 +121,32 @@ def request_quote(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
-        company = request.POST.get('company')  # Ensure this matches the field name
+        company = request.POST.get('company')
         message = request.POST.get('message')
 
-        # Create the QuoteRequest
-        QuoteRequest.objects.create(
+
+
+        quote_details = f"Name :{name}\nEmail :{email}\nPhone Number :{phone}\nCompany Name :{company}\nMessage :{message}"
+
+        # Save the QuoteRequest
+        quote = QuoteRequest(
             name=name,
             email=email,
             phone=phone,
-            company=company,  # Ensure this matches the field name
+            company=company,
             message=message,
         )
+        quote.save
 
-        messages.success(request, "Quote request submitted successfully!")
-        return redirect('projects')  # Change to your desired redirect URL
+        # Send the email notification to both user and team
+        send_quote_notification(name, email, company, settings.TEAM_EMAIL, quote_details)
 
-    return render(request, 'pages/home.html')  # Ensure you have the correct template
+        # Display success message and redirect
+        messages.success(request, "Quote request submitted successfully! You will be contacted shortly.")
+        return redirect('projects')  # Adjust this as needed
+
+    return render(request, 'pages/home.html')
+
 
 
 

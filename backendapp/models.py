@@ -93,6 +93,22 @@ class QuoteRequest(models.Model):
     company = models.CharField(max_length=200)
     message = models.TextField()
     is_deleted = models.BooleanField(default=False)  # Field for soft delete
+    is_seen = models.BooleanField(default=False) 
 
     def __str__(self):
         return f"QuoteRequest from {self.name}"
+
+
+class Service(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    slug = models.SlugField(unique=True, blank=True)
+    deleted = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Service, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title

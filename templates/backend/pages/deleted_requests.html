@@ -25,22 +25,72 @@
     <div class="container mt-5 shadow p-4">
         <h2>Deleted Quote Requests</h2>
         {% if quote_request %}
-            <ul class="list-group">
-                {% for request in quote_request %}
-                    <li class="list-group-item">
-                        <strong>{{ request.name }}</strong> - {{ request.email }}
-                        <div class="float-right my-3">
-                            <a href="{% url 'backendapp:restore_request' request.id %}" class="btn btn-primary btn-sm">Restore</a>
-                            <a href="{% url 'backendapp:permanently_delete_request' request.id %}" class="btn btn-danger btn-sm">Permanently Delete</a>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+            <form method="POST" action="{% url 'backendapp:delete_selected_requests' %}"  id="deleteForm">
+                {% csrf_token %}
+                
+    
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th class="pe-0">
+                                <div class="form-check">
+                                <input type="checkbox" id="selectAll" class="form-check-input">
+                                <label class="form-check-label" for="selectAll">Select All</label>
+                            </div></th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in quote_request %}
+                            <tr>
+                                <td><label>{{ forloop.counter }}.</label><input type="checkbox" name="request_ids" class="form-check-input request-checkbox ms-2" value="{{ request.id }}"></td>
+                                <td>{{ request.name }}</td>
+                                <td>{{ request.email }}</td>
+                                <td>
+                                    <a href="{% url 'backendapp:restore_request' request.id %}" class="btn btn-primary btn-sm">Restore</a>
+                                    <a href="{% url 'backendapp:permanently_delete_request' request.id %}" class="btn btn-danger btn-sm">Permanently Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+    
+                <button type="submit" class="btn btn-danger mt-3">Delete Selected Requests</button>
+            </form>
         {% else %}
             <p>No deleted quote requests found.</p>
         {% endif %}
+        
         <a href="{% url 'backendapp:dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
     </div>
+    
+    
+    
+    <script>
+        // Select all functionality
+        document.getElementById('selectAll').addEventListener('change', function() {
+            let checkboxes = document.querySelectorAll('.request-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    
+        // Form submission validation
+        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+            let selected = document.querySelectorAll('.request-checkbox:checked');
+    
+            if (selected.length === 0) {
+                event.preventDefault();  // Prevent form submission
+                alert('Please select at least one request to delete.');
+            }
+        });
+    </script>
+    
+    
+    
+    
     
 </body>
 </html>

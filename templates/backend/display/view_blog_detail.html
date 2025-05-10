@@ -20,25 +20,28 @@
     
    <!-- backend/pages/view_blog_detail.html -->
 
-<div class="container mt-5 shadow p-3">
-    <h2>{{ blog.title }}</h2><hr>
-    <p><strong>Author:</strong> {{ blog.author }}</p><hr>
-    <p><strong>Date:</strong> {{ blog.created_at|date:"F d, Y" }}</p><hr>
-    <p><strong>Category:</strong>  
-    {% for category in blog.categories.all %}
-        {{ category.name }},
-    {% endfor %}</p><hr>
-    <p><strong>Tags:</strong>
-        {% for tag in blog.tags.all %}
-            {{ tag.name }}{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-    </p><hr>
-    <p><strong>Content:</strong></p>
-    <div>
-        {{ blog.content|safe }}
+<div class="container mt-2">
+    <h2>{{ blog.title }}</h2>
+    <div class="responsive shadow p-3 my-4 me-1">
+        <p><strong>Author:</strong> {{ blog.author }}</p><hr>
+        <p><strong>Date:</strong> {{ blog.created_at|date:"F d, Y" }}</p><hr>
+        <p><strong>Category:</strong>  
+        {% for category in blog.categories.all %}
+            {{ category.name }},
+        {% endfor %}</p><hr>
+        <p><strong>Tags:</strong>
+            {% for tag in blog.tags.all %}
+                {{ tag.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p><hr>
+        <p><strong>Content:</strong></p>
+        <div>
+            {{ blog.content|safe }}
+        </div>
+    
+        <a href="{% url 'backendapp:dashboard' %}" class="btn btn-primary mt-3">Back to Dashboard</a>
     </div>
-
-    <a href="{% url 'backendapp:dashboard' %}" class="btn btn-primary mt-3">Back to Dashboard</a>
+    
 </div>
 
 </body>

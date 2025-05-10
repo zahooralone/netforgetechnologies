@@ -25,6 +25,11 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        .checkboxx {
+            width: 17px;
+            height: 16px;
+    
+        }
     </style>
 </head>
 <body>
@@ -38,41 +43,83 @@
         {% endif %}
 
         <h1>Comments</h1>
-        {% if comments %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Content</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for comment in comments %}
+        <form method="POST" action="{% url 'backendapp:delete_selected_comments' %}">
+            {% csrf_token %}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ comment.name }}</td>
-                        <td>{{ comment.email }}</td>
-                        <td>{{ comment.content|truncatechars:40 }}</td>
-                        <td>
-                        <a class="me-3 text-decoration-none" href="{% url 'backendapp:comment_detail' comment.id %}">
-                           <button class="btn btn-sm btn-primary px-3">View</button>
-                        </a> 
-                        
-                        <a href="{% url 'backendapp:delete_comment' comment.id %}" 
-                            onclick="return confirm('Are you sure you want to delete this comment?');" 
-                            class="text-danger">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                        </td>
+                        <th>
+                            <label for="checkbox">All</label>
+                            <input type="checkbox" class="checkboxx" id="select-all"> <!-- Select All Checkbox -->
+                        </th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Content</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                        <tr>
+                            <td>
+                                <label >{{ forloop.counter }}.</label>
+                                <input type="checkbox" name="comment_ids" value="{{ comment.id }}" class="comment-checkbox">
+                            </td>
+                            <td>{{ comment.name }}</td>
+                            <td>{{ comment.email }}</td>
+                            <td>{{ comment.content|truncatechars:40 }}</td>
+                            <td>
+                                <a class="me-3 text-decoration-none" href="{% url 'backendapp:comment_detail' comment.id %}">
+                                   <button class="btn btn-sm btn-primary px-3" type="button">View</button>
+                                </a>
+                                <a href="{% url 'backendapp:delete_comment' comment.id %}" 
+                                   onclick="return confirm('Are you sure you want to delete this comment?');" 
+                                   class="text-danger">
+                                   <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <button type="submit" class="btn btn-danger mt-3">Delete Selected</button>
+        </form>
         
-        {% else %}
-            <p>No comments available.</p>
-        {% endif %}
+        
+    
+        <script>
+            document.getElementById('select-all').addEventListener('change', function() {
+                let checkboxes = document.querySelectorAll('.comment-checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+        </script>
+        
+    
+    
+    <!-- Add this JavaScript for the Select All functionality -->
+    <script>
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.comment-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
+    
+    
+    <!-- Add this JavaScript for the Select All functionality -->
+    <script>
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.comment-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
+    
     </div>
    
 </body>

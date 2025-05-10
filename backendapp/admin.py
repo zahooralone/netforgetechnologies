@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Image, Category, Tag, Blog , Comment, QuoteRequest
+from .models import Project, Image, Category, Tag, Blog , Comment, QuoteRequest, Service
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'created_at', 'is_deleted')
@@ -60,3 +60,12 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Image, ImageAdmin)
 
+
+
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug')  # Fields to display in the list view
+    search_fields = ['title']  # Fields to search on
+    prepopulated_fields = {'slug': ('title',)}  # Automatically generate slug from title
+    list_filter = ('title',)  # Add filtering options
+
+admin.site.register(Service, ServiceAdmin)

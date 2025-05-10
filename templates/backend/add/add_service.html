@@ -1,0 +1,70 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- add_blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+   
+
+    </style>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="container mt-5 mb-4">
+        <h3>Add Services</h3>
+        <form class="p-4 shadow" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="form-group">
+                        <label for="title">Service Title</label>
+                        <input type="text" name="title" id="title" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <div class="form-group">
+                        <label for="description">Service Description</label>
+                        <textarea name="description" id="description" class="form-control" rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Service</button>
+        </form>
+    </div>
+    
+    
+    <!-- Include CKEditor -->
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+
+
+<!-- Initialize CKEditor -->
+<script>
+    CKEDITOR.replace('description');
+</script>
+
+    
+    
+    
+</body>
+</html>
+
+{% endblock %}

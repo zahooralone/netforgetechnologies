@@ -148,22 +148,22 @@
                         <form method="POST" enctype="multipart/form-data" action="{% url 'backendapp:add_blog' %}">
                             {% csrf_token %}
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="title">Blog Title:</label>
                                         <input type="text" name="title" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
  
                                     <div class="form-group">
-                                        <label for="content">Content:</label>
+                                        <label for="content">Content Editor:</label>
                                         <textarea name="content" id="content" class="form-control" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="image">Blog Image:</label>
+                                        <label for="image">Featured Image:</label>
                                         <input type="file" name="image" class="form-control" required>
                                     </div>
                                 </div>
@@ -198,7 +198,7 @@
     
     
     <!-- Include CKEditor -->
-<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 
 

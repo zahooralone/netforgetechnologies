@@ -1,0 +1,70 @@
+{% extends 'backend.html' %}
+{% load static %}
+{% block content %}
+<!-- templates/comments/comment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <link rel="stylesheet" href="{% static 'backend/css/styles.css' %}"> <!-- Adjust path as necessary -->
+    <style>
+    
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Deleted Services</h2>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for service in deleted_services %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ service.title }}</td>
+            <td>{{ service.description|truncatechars:30 }}</td>
+            <td>
+                <!-- Restore Action -->
+                <a href="{% url 'backendapp:restore_service' service.slug %}" class="btn btn-success">
+                    <i class="fas fa-recycle"></i> Restore
+                </a>
+
+                <!-- Permanent Delete Action -->
+                <a href="{% url 'backendapp:permanently_delete_service' service.slug %}" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Permanently Delete
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No deleted services available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+      
+    </div>
+
+    
+</body>
+</html>
+
+
+{% endblock %}

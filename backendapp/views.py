@@ -2,30 +2,96 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.contrib import messages
-from .models import Blog, Category, Tag, Comment,  Project, Image, QuoteRequest
+from .models import Blog, Category, Tag, Comment,  Project, Image, QuoteRequest, Service
 from django.http import JsonResponse
 from django.utils.text import slugify
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.dateparse import parse_date
+from django.core.paginator import Paginator
 
 @login_required
 def dashboard(request):
     comments = Comment.objects.all()  # Fetch all comments
-    blogs = Blog.objects.all()  # Fetch all comments
-    projects = Project.objects.all()
+   
+    comment_count = comments.count()  # Get the total number of comments
+    active_tab = request.GET.get('active_tab', 'blogs')  # Default to 'blogs' tab if not set
+    # Your existing code to fetch data for each tab here...
+
+      
+
+    # Pagination for blogs
+    blogs = Blog.objects.all()
+    blog_paginator = Paginator(blogs, 5)  # Show 5 blogs per page
+    blog_page_number = request.GET.get('blog_page')
+    blog_page_obj = blog_paginator.get_page(blog_page_number)
+
+    # Pagination for requests
     requests = QuoteRequest.objects.all()
-    blog_count = Blog.objects.count()
+    request_paginator = Paginator(requests, 5)  # Show 5 requests per page
+    request_page_number = request.GET.get('request_page')
+    request_page_obj = request_paginator.get_page(request_page_number)
+
+    # Count requests and new requests
+    total_requests = requests.count()
+    new_requests = requests.filter(is_seen=False).count()  # Assuming `is_seen` indicates if the request is new
+
+    # Pagination for projects
+    projects = Project.objects.all()
+    project_paginator = Paginator(projects, 5)  # Show 5 projects per page
+    project_page_number = request.GET.get('project_page')
+    project_page_obj = project_paginator.get_page(project_page_number)
+
+    # Pagination for services
+    services = Service.objects.all()  # Fetch all services
+    service_paginator = Paginator(services, 5)  # Show 5 services per page
+    service_page_number = request.GET.get('service_page')
+    service_page_obj = service_paginator.get_page(service_page_number)
+
+    blog_count = blogs.count()
     total_comments = comments.count()
     total_projects = projects.count()
+
     context = {
         'comments': comments,
-        'requests': requests,
-        'projects': projects,
-        'blogs': blogs,
+        'comment_count': comment_count,  # Pass comment count to the context   
+        'requests': request_page_obj,  # Use paginated requests
+        'projects': project_page_obj,  # Use paginated projects
+        'blogs': blog_page_obj,  # Use paginated blogs
+        'services': service_page_obj,  # Use paginated services
         'blog_count': blog_count,
-        'total_comments': total_comments, 
-        'total_projects': total_projects, 
+        'total_comments': total_comments,
+        'total_projects': total_projects,
+        'total_requests': total_requests,  # Pass total requests to context
+        'new_requests': new_requests,  # Pass new requests count to context
+        'active_tab': active_tab,
+    }
+    return render(request, 'backend/pages/dashboard.html', context)
+
+
+def dashboard_view(request):
+    # Fetch data from each model
+    total_blogs = Blog.objects.count()
+    deleted_blogs = Blog.objects.filter(is_deleted=True).count()
+    
+    total_projects = Project.objects.count()
+    deleted_projects = Project.objects.filter(is_deleted=True).count()
+
+    total_quote_requests = QuoteRequest.objects.count()
+    deleted_quote_requests = QuoteRequest.objects.filter(is_deleted=True).count()
+
+    total_services = Service.objects.count()
+    deleted_services = Service.objects.filter(deleted=True).count()
+
+    context = {
+        'total_blogs': total_blogs,
+        'deleted_blogs': deleted_blogs,
+        'total_projects': total_projects,
+        'deleted_projects': deleted_projects,
+        'total_quote_requests': total_quote_requests,
+        'deleted_quote_requests': deleted_quote_requests,
+        'total_services': total_services,
+        'deleted_services': deleted_services,
     }
     return render(request, 'backend/pages/dashboard.html', context)
 
@@ -35,12 +101,17 @@ def dashboard(request):
 
 def comment_list(request):
     comments = Comment.objects.all()  # Fetch all comments
+    comment_count = comments.count()
     context = {
         'comments': comments,
+        'comment_count': comment_count,  # Pass comment count to the context   
+
     }
     return render(request, 'backend/pages/comments.html', context)  # Ensure the template path is correct
 
+
 def comment_detail(request, comment_id):
+    print(f"Fetching comment details for ID: {comment_id}")  # Debugging
     comment = get_object_or_404(Comment, id=comment_id) 
     context = {
         'comment': comment,
@@ -52,6 +123,17 @@ def delete_comment(request, comment_id):
     comment.delete()  # Delete the comment
     messages.success(request, "Comment deleted successfully.")
     return redirect('backendapp:comments')  # Redirect to the comments list
+
+
+def delete_selected_comments(request):
+    if request.method == "POST":
+        print("Delete selected comments triggered.")  # Debugging
+        comment_ids = request.POST.getlist('comment_ids')
+        Comment.objects.filter(id__in=comment_ids).delete()
+        messages.success(request, "Selected comments have been deleted successfully.")
+        return redirect('backendapp:comments')
+
+    return redirect('backendapp:comments')
 
 
 
@@ -88,12 +170,91 @@ def add_blog(request):
     })
 
 
+def edit_blog(request, blog_id):
+    blog = get_object_or_404(Blog, id=blog_id)
+    
+    if request.method == 'POST':
+        # Handle blog update
+        title = request.POST.get('title')
+        image = request.FILES.get('image') or blog.image  # Keep existing image if not updated
+        content = request.POST.get('content')
+        post_categories = request.POST.getlist('post_categories')
+        post_tags = request.POST.getlist('post_tags')
+
+        # Update Blog instance
+        blog.title = title
+        blog.image = image
+        blog.content = content
+        blog.save()
+
+        # Assign selected categories and tags
+        blog.categories.set(post_categories)
+        blog.tags.set(post_tags)
+
+        messages.success(request, 'Blog updated successfully!')
+        return redirect('backendapp:dashboard')  # Adjust this to your success URL
+
+    return render(request, 'backend/edit/edit_blog.html', {
+        'blog': blog,
+        'categories': Category.objects.all(),
+        'tags': Tag.objects.all(),
+    })
+
+
 def view_blog_detail(request, slug):
     # Fetch the blog post by id
     blog = get_object_or_404(Blog, slug=slug)
 
     # Render the blog details page
     return render(request, 'backend/display/view_blog_detail.html', {'blog': blog})
+
+def view_blog(request):
+    # Fetch all blogs that are not marked as deleted
+    blogs = Blog.objects.filter(is_deleted=False) 
+    return render(request, 'backend/display/view_blog.html', {'blogs': blogs})
+
+def delete_blog(request, blog_id):
+    blog = get_object_or_404(Blog, id=blog_id)
+    
+    # Mark as deleted
+    blog.is_deleted = True
+    blog.save()  # Save the change to the database
+    messages.success(request, "Blog post marked as deleted.")
+    
+    return redirect('backendapp:view_blog')
+
+
+def deleted_blogs(request):
+    # Retrieve blogs marked as deleted
+    blogs = Blog.objects.filter(is_deleted=True)
+    
+    return render(request, 'backend/pages/deleted_blogs.html', {'blogs': blogs})
+
+def restore_blog(request, blog_id):
+    blog_to_restore = get_object_or_404(Blog, id=blog_id)
+    
+    if blog_to_restore.is_deleted:
+        blog_to_restore.is_deleted = False  # Restore the blog
+        blog_to_restore.save()
+        messages.success(request, "Blog post restored.")
+    else:
+        messages.error(request, "Blog post not found in deleted blogs.")
+    
+    return redirect('backendapp:deleted_blogs')
+
+def permanently_delete_blog(request, slug):
+    blog_to_delete = get_object_or_404(Blog, slug=slug)
+    
+    if blog_to_delete.is_deleted:
+        blog_to_delete.delete()  # Permanently delete from the database
+        messages.success(request, "Blog post permanently deleted.")
+    else:
+        messages.error(request, "Blog post not found in deleted blogs.")
+    
+    return redirect('backendapp:deleted_blogs')
+
+
+
 
 def add_category(request):
     if request.method == 'POST':
@@ -269,40 +430,15 @@ def permanently_delete_project(request, slug):
 
 
 
-def edit_blog(request, blog_id):
-    blog = get_object_or_404(Blog, id=blog_id)
-    
-    if request.method == 'POST':
-        # Handle blog update
-        title = request.POST.get('title')
-        image = request.FILES.get('image') or blog.image  # Keep existing image if not updated
-        content = request.POST.get('content')
-        post_categories = request.POST.getlist('post_categories')
-        post_tags = request.POST.getlist('post_tags')
 
-        # Update Blog instance
-        blog.title = title
-        blog.image = image
-        blog.content = content
-        blog.save()
-
-        # Assign selected categories and tags
-        blog.categories.set(post_categories)
-        blog.tags.set(post_tags)
-
-        messages.success(request, 'Blog updated successfully!')
-        return redirect('backendapp:dashboard')  # Adjust this to your success URL
-
-    return render(request, 'backend/edit/edit_blog.html', {
-        'blog': blog,
-        'categories': Category.objects.all(),
-        'tags': Tag.objects.all(),
-    })
 
 
 def view_quote_requests(request):
     # Retrieve all quote requests
     quote_requests = QuoteRequest.objects.all()
+
+    # Mark all unseen requests as seen when they are accessed
+    QuoteRequest.objects.filter(is_seen=False).update(is_seen=True)
 
     return render(request, 'backend/display/view_requests.html', {'quote_requests': quote_requests})
 
@@ -322,6 +458,18 @@ def deleted_requests(request):
     quote_request = QuoteRequest.objects.filter(is_deleted=True)
 
     return render(request, 'backend/pages/deleted_requests.html',{'quote_request':quote_request})
+
+
+def delete_selected_requests(request):
+    if request.method == "POST":
+        print("Delete selected requests triggered.")  # Debugging
+        request_ids = request.POST.getlist('request_ids')
+        QuoteRequest.objects.filter(id__in=request_ids).delete()
+        messages.success(request, "Selected quote requests have been deleted successfully.")
+        return redirect('backendapp:deleted_requests')  # Redirect to deleted requests page or list
+
+    return redirect('backendapp:deleted_requests')
+
 
 def restore_request(request, quote_request_id):
     quote_request = get_object_or_404(QuoteRequest, id=quote_request_id)
@@ -351,47 +499,78 @@ def permanently_delete_request(request, quote_request_id):
 
 
 
-def view_blog(request):
-    # Fetch all blogs that are not marked as deleted
-    blogs = Blog.objects.filter(is_deleted=False) 
-    return render(request, 'backend/display/view_blog.html', {'blogs': blogs})
-
-def delete_blog(request, blog_id):
-    blog = get_object_or_404(Blog, id=blog_id)
-    
-    # Mark as deleted
-    blog.is_deleted = True
-    blog.save()  # Save the change to the database
-    messages.success(request, "Blog post marked as deleted.")
-    
-    return redirect('backendapp:view_blog')
 
 
-def deleted_blogs(request):
-    # Retrieve blogs marked as deleted
-    blogs = Blog.objects.filter(is_deleted=True)
-    
-    return render(request, 'backend/pages/deleted_blogs.html', {'blogs': blogs})
 
-def restore_blog(request, blog_id):
-    blog_to_restore = get_object_or_404(Blog, id=blog_id)
-    
-    if blog_to_restore.is_deleted:
-        blog_to_restore.is_deleted = False  # Restore the blog
-        blog_to_restore.save()
-        messages.success(request, "Blog post restored.")
-    else:
-        messages.error(request, "Blog post not found in deleted blogs.")
-    
-    return redirect('backendapp:deleted_blogs')
+def add_service(request):
+    if request.method == 'POST':
+        # Get the submitted form data
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        
+        # Create a new service instance
+        service = Service(
+            title=title,
+            description=description,
+            slug=slugify(title)  # Slugify the title
+        )
+        
+        # Save the new service to the database
+        service.save()
+        
+        # Show a success message and redirect to the service list or home page
+        messages.success(request, 'Service added successfully!')
+        return redirect('backendapp:add_service')  # Change this to the appropriate URL
 
-def permanently_delete_blog(request, slug):
-    blog_to_delete = get_object_or_404(Blog, slug=slug)
+    # Render the template with an empty form
+    return render(request, 'backend/add/add_service.html')
+
+
+def view_service(request):
+    services = Service.objects.all()  # Fetch all services from the database
+    return render(request, 'backend/display/view_service.html', {'services': services})   
+ 
+def service_detail_view(request, slug):
+    service = get_object_or_404(Service, slug=slug)
+    return render(request, 'backend/display/service_detail.html', {'service': service})
+
+def edit_service(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
     
-    if blog_to_delete.is_deleted:
-        blog_to_delete.delete()  # Permanently delete from the database
-        messages.success(request, "Blog post permanently deleted.")
-    else:
-        messages.error(request, "Blog post not found in deleted blogs.")
-    
-    return redirect('backendapp:deleted_blogs')
+    if request.method == 'POST':
+        # Update the service with the submitted data
+        service.title = request.POST.get('title')
+        service.description = request.POST.get('description')
+        service.save()
+        
+        # Show success message and redirect to the service list page
+        messages.success(request, 'Service updated successfully!')
+        return redirect('backendapp:view_service')
+
+    return render(request, 'backend/edit/edit_service.html', {'service': service})
+
+
+def delete_service(request, slug):
+    service = get_object_or_404(Service, slug=slug)
+    service.deleted = True  # Mark service as deleted
+    service.save()
+    messages.success(request, f"Service '{service.title}' has been marked as deleted.")
+    return redirect('backendapp:view_service')
+
+def deleted_services(request):
+    deleted_services = Service.objects.filter(deleted=True)  # Fetch only soft-deleted services
+    return render(request, 'backend/pages/deleted_services.html', {'deleted_services': deleted_services})
+
+
+def restore_service(request, slug):
+    service = get_object_or_404(Service, slug=slug, deleted=True)
+    service.deleted = False  # Restore service
+    service.save()
+    messages.success(request, f"Service '{service.title}' has been restored.")
+    return redirect('backendapp:deleted_services')
+
+def permanently_delete_service(request, slug):
+    service = get_object_or_404(Service, slug=slug, deleted=True)
+    service.delete()  # Permanently remove service from database
+    messages.success(request, f"Service '{service.title}' has been permanently deleted.")
+    return redirect('backendapp:deleted_services')

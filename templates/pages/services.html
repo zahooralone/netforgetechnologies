@@ -18,7 +18,7 @@
                 <div class="bosluk333"></div>
                 <div class="row">
                     <div class="col-sm-6 wow fadeInLeft" data-wow-delay="0.8s">
-                        <a href="#" class="custom-button bgimg"><i class="flaticon-bitcoin iconbutton"></i> Request Quote</a>
+                        <a href="{% url 'projects' %}" class="custom-button bgimg"><i class="flaticon-bitcoin iconbutton"></i> Request Quote</a>
                     </div>
 
                 </div>
@@ -26,33 +26,33 @@
             <!--Slider Image Alanı-->
             <div class="tablo--1-ve-2">
                 <div class="hero1 wow fadeInRight" data-wow-delay="0.2s">
-                    <img class="imagerotate1" src="{% static 'img/lap144.png' %}" alt="">
+                    <img class="imagerotate1" src="{% static 'frontend/img/lap144.png' %}" alt="">
                 </div>
                 <div class="hero2 wow slideInUp" data-wow-delay="1s">
-                    <img class="imagerotate2" src="{% static 'img/hero-2.png' %}" alt="">
+                    <img class="imagerotate2" src="{% static 'frontend/img/hero-2.png' %}" alt="">
                 </div>
                 <div class="hero3 wow fadeInRight" data-wow-delay="1.1s">
-                    <img class="imagerotate1" src="{% static 'img/hero-3.png' %}" alt="">
+                    <img class="imagerotate1" src="{% static 'frontend/img/hero-3.png' %}" alt="">
                 </div>
                 <div class="hero4 wow fadeInUp" data-wow-delay="1.2s">
-                    <img class="imagerotate4" src="{% static 'img/hero-4.png' %}" alt="">
+                    <img class="imagerotate4" src="{% static 'frontend/img/hero-4.png' %}" alt="">
                 </div>
                 <div class="hero5 wow fadeInRight" data-wow-delay="1.3s">
-                    <img class="imagerotate5" src="{% static 'img/hero-5.png' %}" alt="">
+                    <img class="imagerotate5" src="{% static 'frontend/img/hero-5.png' %}" alt="">
                 </div>
                 <div class="hero6 wow fadeInRight" data-wow-delay="1.4s">
-                    <img class="imagerotate6" src="{% static 'img/hero-6.png' %}" alt="">
+                    <img class="imagerotate6" src="{% static 'frontend/img/hero-6.png' %}" alt="">
                 </div>
                 <div class="hero7 wow fadeInRight" data-wow-delay="1.5s">
-                    <img class="imagerotate7" src="{% static 'img/hero-7.png' %}" alt="">
+                    <img class="imagerotate7" src="{% static 'frontend/img/hero-7.png' %}" alt="">
                 </div>
                 <div class="hero8 wow fadeInRight" data-wow-delay="1.6s">
-                    <img class="imagerotate8" src="{% static 'img/hero-8.png' %}" alt="">
+                    <img class="imagerotate8" src="{% static 'frontend/img/hero-8.png' %}" alt="">
                 </div>
                 <div class="infobg1 wow fadeInUp" data-wow-delay="1.7s">
-                    <img class="infobgrotate1" src="{% static 'img/hero-9.png' %}" alt="">
+                    <img class="infobgrotate1" src="{% static 'frontend/img/hero-9.png' %}" alt="">
                 </div>
-                <img src="{% static 'img/slider-bg.png' %}" class="absoluteimg" alt="">
+                <img src="{% static 'frontend/img/slider-bg.png' %}" class="absoluteimg" alt="">
                 <div class="boslukhm"></div>
             </div>
         </div>
@@ -146,13 +146,15 @@
             </p>
             <a href="services.html" class="buton buton--beyaz wow fadeInUp" data-wow-delay="0.7s">All Services +</a>
             <div class="galeri1">
-                <img class="imagerotate" src="{% static 'img/technology.png' %}" alt="">
+                <img class="imagerotate" src="{% static 'frontend/img/technology.png' %}" alt="">
             </div>
         </div>
         <!--Services 1-->
         <div class="tablo--1-ve-4" >
+          
             <div class="paketler wow fadeInRight" data-wow-delay="0.8s" onclick="location.href='data-strategy.html';" style="cursor:pointer;">
-                <div class="services-special" >
+                <div class="services-special">
+                 
                     <div class="inner-box serv-card">
                         <div class="icon-box">
                             <div class="anim-icon">
@@ -165,10 +167,13 @@
                         </div>
                         <h3 class="h3-baslik-hizmet">Web Designing</h3>
                         <p>Designing services make the website exquisite and appealing.Through programming, animation, and artistic styling, we provide professional web design services.</p>
-                        <a href="data-strategy.html" class="custom-button">Learn More</a>
-                    </div>
+                      
+                        <a href="{% url 'data_strategy' %}" class="custom-button">Learn More</a>
+                    </div>  
+                       
                 </div>
             </div>
+         
         </div>
         <!--Services 2-->
         <div class="tablo--1-ve-4">
@@ -269,7 +274,7 @@
                             <i class="fa fa-bar-chart" aria-hidden="true"></i>
                         </div>
                         <h3 class="h3-baslik-hizmet">CMS Development</h3>
-                        <!--<div class="bosluk333"></div>   for spacing-->
+                       
                         <p>We develop user-friendly content management system (CMS)  that allows you to add, modify & publish website content without any programming skill.</p>
                         <a href="data-security.html" class="custom-button">Learn More</a>
                     </div>
